@@ -55,7 +55,7 @@ docker exec -it namenode /bin/bash
 
 ---
 
-## **Running Hadoop Code**
+## **Running Hadoop Code** To View NameNode UI Visit:  http://localhost:9870/
 
 ### Step 1: Copy the `code` folder into the container
 Use the following command to copy the `code` folder to the container:
