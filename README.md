@@ -1,7 +1,8 @@
-# BigData
+#Hadoop-on-Docker Setup Guide
+This repository demonstrates how to install and run Hadoop on Docker.
 # Hadoop-on-Docker
- This repo will help you how to install hadoop on docker container
-
+This repo will help you how to install hadoop on docker container
+This guide outlines the steps for setting up Hadoop on Docker containers and running a sample WordCount program. Here’s the instructions:
 # Pre-requisite:
                                                                           
 -> Git        Link:  https://git-scm.com/downloads/win                                                                        
@@ -10,19 +11,23 @@
 # Steps to follow:
 By Following these steps you will able to setup the hadoop setup on docker container                                    
                                                                                                                       
-Step 1: Clone the "BigData" repository from GitHub using the following command:                                   
-git clone https://github.com/lovnishverma/BigData.git                                          
+Steps to Set Up Hadoop on Docker
 
-Step 2: cd BigData
+Step 1: Clone the repository:
+git clone https://github.com/lovnishverma/BigData.git
 
-Step 3: 
+Step 2: Navigate into the repository:
+cd BigData
+
+Step 3: Start the Docker containers:
 docker-compose up -d
 
-Step 4: 
+Step 4: Verify running containers:
 docker container ls
 
-Step 5:
+Step 5: Access the NameNode container:
 docker exec -it namenode /bin/bash
+
 
 
 ![image](https://github.com/user-attachments/assets/7b010ecc-f37e-4006-857d-839315304c93)
