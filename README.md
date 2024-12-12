@@ -44,7 +44,10 @@ Step 2: Then go into Hadoop_Code directory and further into input directory from
 Step 3: Create some directories in hadoop file system by following command:                                                 
       -> hdfs dfs -mkdir /user                                                                       
       -> hdfs dfs -mkdir /user/root                                                                                                 
-      -> hdfs dfs -mkdir /user/root/input                                                                                        
+      -> hdfs dfs -mkdir /user/root/input   
+
+![image](https://github.com/user-attachments/assets/ec2d4bbf-29a6-404d-af4b-304668b4fde3)
+
                                                                                                                                                       
 Step 4: Copy the data.txt to the input directory (user/root/input) created in hadoop file system by following command:                   
       -> hdfs dfs -put data.txt /user/root/input                                                                            
