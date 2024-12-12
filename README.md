@@ -58,10 +58,13 @@ docker exec -it namenode /bin/bash
 ## **Running Hadoop Code** To View NameNode UI Visit:  http://localhost:9870/
 
 ### Step 1: Copy the `code` folder into the container
-Use the following command to copy the `code` folder to the container:
+Use the following command in your windows cmd to copy the `code` folder to the container:
 ```bash
 docker cp code namenode:/
 ```
+
+![image](https://github.com/user-attachments/assets/7acdebdc-2b20-41bf-b92d-8555091d570c)
+
 
 ### Step 2: Locate the `data.txt` file
 Inside the container, navigate to the `Hadoop_Code/input` directory where the `data.txt` file is located.
