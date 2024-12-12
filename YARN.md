@@ -32,6 +32,9 @@ Before running a YARN job, we need some input data in HDFS. We will create a sim
    echo "It is a resource manager and job scheduler" >> sample.txt
    ```
 
+   ![image](https://github.com/user-attachments/assets/92edc8cc-86de-40b7-9bba-d298a6579cf4)
+
+
 2. **Upload the text file to HDFS**:
    Use the `hadoop fs -put` command to upload the file to HDFS.
 
