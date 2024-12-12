@@ -56,7 +56,9 @@ Step 4: Copy the data.txt to the input directory (user/root/input) created in ha
                                                                                                                                           
 Step 5: Return back to directory where wordCount.jar file is located:                                                    
       -> cd ../
-                                                                                                                                                  
+      
+ ![image](https://github.com/user-attachments/assets/9ce4fff2-1419-441e-8914-61d066884154)
+                                                                                                                                
 Step 6: Then execute the jar file by following command:                                                                        
       -> hadoop jar wordCount.jar org.apache.hadoop.examples.WordCount input output                                               
                                                                                                                                                                    
