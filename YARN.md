@@ -1,5 +1,6 @@
 Here’s a step-by-step guide for running a WordCount job on YARN, written clearly and in a simplified manner for easy understanding:
-![image](https://github.com/user-attachments/assets/04d38509-38b8-4cef-b544-4a8c566fd863)
+![image](https://github.com/user-attachments/assets/04d38509-38b8-4cef-b544-4a8c566fd863) ![image](https://github.com/user-attachments/assets/4e70e157-5bc5-4cd3-9f0f-de6ce97437f2)
+
 
 ```markdown
 # Practical: Running a WordCount Job on YARN
