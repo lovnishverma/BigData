@@ -67,6 +67,7 @@ Step 6: Then execute the jar file by following command:
 Step 7: Display the output usind this command:                                                                              
       -> hdfs dfs -cat /user/root/output/*
       
-  ![image](https://github.com/user-attachments/assets/448ea1b7-9e4a-4906-9437-4b2f6ecb46e4)
+  ![image](https://github.com/user-attachments/assets/6743b63e-d518-4c4c-a5a7-65118ee8d582)
+
 
       
