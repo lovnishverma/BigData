@@ -1,5 +1,5 @@
 # BigData
-# Docker-on-Hadoop
+# Hadoop-on-Docker
  This repo will help you how to install hadoop on docker container
 
 # Pre-requisite:
@@ -13,7 +13,7 @@ By Following these steps you will able to setup the hadoop setup on docker conta
 Step 1: Clone the "BigData" repository from GitHub using the following command:                                   
 git clone https://github.com/lovnishverma/BigData.git                                          
 
-Step 2: cd Hadoop-on-Docker
+Step 2: cd BigData
 
 Step 3: 
 docker-compose up -d
