@@ -123,8 +123,7 @@ hdfs dfs -cat /user/root/output/*
 
 This guide simplifies setting up and running Hadoop on Docker. Each step ensures a smooth experience, even for beginners without a technical background. Follow the instructions carefully, and you’ll have a working Hadoop setup in no time!
 
-Certainly! Here’s the explanation of your **MapReduce process** using the input example `DOG CAT RAT`, `CAR CAR RAT`, and `DOG CAR CAT`. I’ve added emojis and simplified the explanation for better understanding, along with basic HDFS commands.
-
+Certainly! Here’s the explanation of your **MapReduce process** using the input example `DOG CAT RAT`, `CAR CAR RAT`, and `DOG CAR CAT`.
 ---
 
 ## 🐾 **Input Data**
