@@ -86,7 +86,7 @@ Return to the directory where the `wordCount.jar` file is located:
 cd ../
 ```
 
-### Step 6: Execute the WordCount program
+### Step 6: Execute the WordCount program To View NameNode UI Visit:  http://localhost:8080/
 Run the WordCount program to process the input data:
 ```bash
 hadoop jar wordCount.jar org.apache.hadoop.examples.WordCount input output
