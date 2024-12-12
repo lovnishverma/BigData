@@ -1,7 +1,7 @@
-# Practical: Running a WordCount Job on YARN
+# Practical: Running a WordCount Job on YARN ![image](https://github.com/user-attachments/assets/04d38509-38b8-4cef-b544-4a8c566fd863)
 
 In this practical, you will run a simple WordCount job using Hadoop YARN. This exercise walks you through preparing a basic Hadoop job and running it on a YARN cluster.
-![image](https://github.com/user-attachments/assets/04d38509-38b8-4cef-b544-4a8c566fd863) ![image](https://github.com/user-attachments/assets/4e70e157-5bc5-4cd3-9f0f-de6ce97437f2)
+ ![image](https://github.com/user-attachments/assets/4e70e157-5bc5-4cd3-9f0f-de6ce97437f2)
 
 ![image](https://github.com/user-attachments/assets/2d961b6d-f046-42cc-b18b-08d0a313137e)
 
