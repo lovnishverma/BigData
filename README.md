@@ -55,7 +55,9 @@ docker exec -it namenode /bin/bash
 
 ---
 
-## **Running Hadoop Code** To View NameNode UI Visit:  http://localhost:9870/
+## **Running Hadoop Code** 
+
+To View NameNode UI Visit:  http://localhost:9870/
 
 ### Step 1: Copy the `code` folder into the container
 Use the following command in your windows cmd to copy the `code` folder to the container:
@@ -89,7 +91,10 @@ Return to the directory where the `wordCount.jar` file is located:
 cd ../
 ```
 
-### Step 6: Execute the WordCount program To View NameNode UI Visit:  http://localhost:8080/
+### Step 6: Execute the WordCount program 
+
+To View NameNode UI Visit:  http://localhost:8080/
+
 Run the WordCount program to process the input data:
 ```bash
 hadoop jar wordCount.jar org.apache.hadoop.examples.WordCount input output
