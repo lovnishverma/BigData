@@ -321,9 +321,14 @@ RAT 2
 
 ---
 
+![image](https://github.com/user-attachments/assets/a037fc47-7639-48b8-b3f7-5d9f2d5c51ac)
+
 ### 🔑 **Key Takeaways**
 - **MapReduce** splits the task into small, manageable pieces and processes them in parallel.
 - It’s ideal for large datasets but works the same for smaller ones (like your example).
 - Hadoop is designed for distributed systems, making it powerful for big data processing.
 
-😊
+😊 References
+https://data-flair.training/blogs/top-hadoop-hdfs-commands-tutorial/
+https://hadoop.apache.org/docs/stable/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html
+https://medium.com/@traininghub.io/hadoop-mapreduce-architecture-7e167e264595
