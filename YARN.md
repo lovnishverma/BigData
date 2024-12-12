@@ -1,22 +1,25 @@
-Great! Since you've successfully mapped the port and verified internal access, let's create a practical exercise for using YARN (Yet Another Resource Negotiator) in a Hadoop environment. We'll walk through a basic YARN job that will utilize the ResourceManager for job submission.
+Here’s a step-by-step guide for running a WordCount job on YARN, written clearly and in a simplified manner for easy understanding:
 
-### Practical: Running a WordCount Job on YARN
+```markdown
+# Practical: Running a WordCount Job on YARN
 
-In this practical, we will run a simple word count job using Hadoop YARN. This exercise will guide you through preparing a basic Hadoop job and running it on a YARN cluster.
+In this practical, you will run a simple WordCount job using Hadoop YARN. This exercise walks you through preparing a basic Hadoop job and running it on a YARN cluster.
 
 ### Prerequisites:
-1. **YARN ResourceManager** and **NodeManager** must be up and running (which they are now).
-2. You should have a Hadoop job (e.g., WordCount) ready to be executed.
-3. HDFS should be running, and you should have access to the HDFS file system for input and output.
+1. **YARN ResourceManager** and **NodeManager** must be up and running.
+2. Hadoop should be set up correctly, with access to the HDFS file system.
+3. A sample WordCount program (JAR) is ready to be executed.
+
+---
 
 ### Step-by-Step Guide
 
 #### Step 1: Upload Data to HDFS
 
-Before you can run a YARN job, you need to upload some input data to HDFS. We will create a text file on your local machine and upload it to HDFS.
+Before running a YARN job, we need some input data in HDFS. We will create a simple text file locally and upload it to HDFS.
 
 1. **Create a sample text file locally**:
-   Create a file `sample.txt` on your local machine with some sample text data. You can use any text editor or use the `echo` command to quickly create one.
+   Use the following commands to create a file called `sample.txt` on your local machine with some sample text data.
 
    ```bash
    echo "Hadoop YARN Resource Manager" > sample.txt
@@ -28,64 +31,74 @@ Before you can run a YARN job, you need to upload some input data to HDFS. We wi
    Use the `hadoop fs -put` command to upload the file to HDFS.
 
    ```bash
-   hadoop fs -mkdir -p /user/root/input  # Create input directory in HDFS
+   hadoop fs -mkdir -p /user/root/input  # Create the input directory in HDFS
    hadoop fs -put sample.txt /user/root/input/
    ```
 
-   You can check if the file has been uploaded successfully by running:
+   You can confirm the file is uploaded by running:
 
    ```bash
    hadoop fs -ls /user/root/input/
    ```
 
+---
+
 #### Step 2: Submit the WordCount Job to YARN
 
-Now that we have a sample file in HDFS, we can run a MapReduce job (WordCount) using YARN.
+Now, we can run the WordCount job using YARN. This job will count the occurrences of each word in the input file.
 
-1. **Run the WordCount job on YARN**:
-   The Hadoop job will process the input file using the YARN ResourceManager. Use the following command:
+1. **Change your working directory to where the `wordCount.jar` is located**:
 
    ```bash
-   hadoop jar /usr/local/hadoop/share/hadoop/mapreduce/hadoop-mapreduce-examples-3.2.1.jar \
-   wordcount /user/root/input/sample.txt /user/root/output
+   cd /code/Hadoop_Code  # Change to the directory where wordCount.jar is stored
    ```
 
-   - `wordcount`: The name of the MapReduce program.
-   - `/user/root/input/sample.txt`: The input file on HDFS.
-   - `/user/root/output`: The directory on HDFS where the output will be stored.
+2. **Submit the WordCount job to YARN**:
+   Run the following command to submit the job:
 
-2. **Check the YARN UI**:
-   The job will be submitted to the YARN ResourceManager, and you can monitor its progress through the YARN ResourceManager UI.
+   ```bash
+   hadoop jar wordCount.jar org.apache.hadoop.examples.WordCount /user/root/input /user/root/outputfolder
+   ```
 
-   Go to `http://localhost:8088` (or `http://<container-ip>:8088` if using a different IP) and look for your job in the "Applications" section.
+   - `wordCount.jar`: The MapReduce program (JAR file).
+   - `/user/root/input`: The input directory in HDFS containing the `sample.txt` file.
+   - `/user/root/outputfolder`: The output directory in HDFS where the result will be stored.
 
-3. **Monitor the Job**:
-   Once the job is submitted, you can see its status and logs in the YARN ResourceManager UI. You can track:
-   - Job progress
-   - Running containers
-   - Job execution logs
+3. **Check the YARN UI**:
+   After submitting the job, you can monitor the job through the YARN ResourceManager UI.
+
+   - Visit the YARN ResourceManager UI at `http://localhost:8088`.
+   - Look for your job under the "Applications" section. You should see your job with its status (e.g., Running, Completed, etc.).
+
+   ![YARN UI](https://github.com/user-attachments/assets/5d771515-9f49-4fcf-85d4-1d726c4c3e4b)
+
+   - Click on your job to see more details, such as job progress, logs, and running containers.
+
+   ![YARN UI Logs](https://github.com/user-attachments/assets/f674fb08-1b1a-44b5-942c-43af7701a3ca)
+
+---
 
 #### Step 3: Check the Output of the WordCount Job
 
-Once the job has completed successfully, you can view the results of the WordCount job stored in the output directory in HDFS.
+Once the job finishes, you can view the results in HDFS.
 
-1. **Check output on HDFS**:
+1. **Check the output on HDFS**:
+   To verify that the output was successfully created, run the following command:
 
    ```bash
-   hadoop fs -ls /user/root/output
+   hadoop fs -ls /user/root/outputfolder
    ```
 
-   You should see files like `part-r-00000` generated by the job.
+   You should see output files like `part-r-00000`.
 
 2. **View the contents of the output file**:
-
-   To view the word count output, you can use the `cat` command:
+   To view the WordCount results, use the following command:
 
    ```bash
-   hadoop fs -cat /user/root/output/part-r-00000
+   hadoop fs -cat /user/root/outputfolder/part-r-00000
    ```
 
-   The output will show the words in the input file along with their counts, like this:
+   The output will show the words and their respective counts, like this:
 
    ```
    Hadoop 1
@@ -102,32 +115,51 @@ Once the job has completed successfully, you can view the results of the WordCou
    scheduler 1
    ```
 
+---
+
 #### Step 4: Clean Up
 
-After you have completed the practical, it's good practice to clean up by deleting the output directory and any intermediate files:
+Once you’ve completed the practical, it's good practice to clean up by deleting the output files and any unnecessary files.
 
 1. **Remove the output directory from HDFS**:
 
    ```bash
-   hadoop fs -rm -r /user/root/output
+   hadoop fs -rm -r /user/root/outputfolder
    ```
 
-2. **Optional**: You can also remove the input file from HDFS if you no longer need it.
+2. **Optional**: Remove the input file from HDFS if you no longer need it.
 
    ```bash
    hadoop fs -rm /user/root/input/sample.txt
    ```
 
+---
+
 ### Additional Tips
 
-- You can try running different MapReduce jobs and monitor their progress using the YARN UI.
-- If you want to run custom jobs, you can write your own MapReduce program in Java and package it into a JAR file, then submit it to YARN in a similar manner.
+- **Custom Jobs**: You can write your own MapReduce programs in Java and package them into a JAR file, then submit them to YARN in a similar way.
+- **Resource Allocation**: If you want to control how much memory or CPU your YARN job uses, you can specify resources in the command, or modify the YARN configuration files.
 
 ---
 
 ### Troubleshooting
 
-- **Job not starting**: If the job doesn't start or fails to run, check the logs in the YARN UI or using the command `yarn logs -applicationId <app-id>` to view the detailed logs.
-- **Out of memory errors**: If your job runs into memory-related issues, consider adjusting the memory allocation for YARN containers in the `yarn-site.xml` configuration file.
+- **Job Not Starting**: If the job does not start or fails, check the logs for errors. You can view the logs from the YARN ResourceManager UI or use the following command to retrieve logs:
 
-This practical gives you a basic understanding of how to submit jobs to YARN and monitor them. You can build on this by experimenting with other Hadoop tools and configurations.
+   ```bash
+   yarn logs -applicationId <application_id>
+   ```
+
+- **Out of Memory Errors**: If your job runs into memory issues, consider adjusting the memory allocation in the `yarn-site.xml` configuration file for your NodeManagers and ResourceManager.
+
+---
+
+### Conclusion
+
+This practical exercise provided a hands-on experience in running a simple MapReduce job (WordCount) on YARN. You can now submit jobs, monitor them, and view results in HDFS using the YARN ResourceManager. By following the steps outlined, you should be able to run more complex jobs and work with Hadoop in a YARN-managed environment.
+```
+
+### Instructions for Use:
+- Ensure your Hadoop environment (including YARN and HDFS) is properly set up before running the job.
+- Submit your jobs using the `hadoop jar` command and monitor their progress through the YARN UI.
+- Clean up your HDFS after completing the practical exercise to maintain a clutter-free environment.
