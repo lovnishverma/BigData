@@ -14,18 +14,23 @@ By Following these steps you will able to setup the hadoop setup on docker conta
 Steps to Set Up Hadoop on Docker
 
 Step 1: Clone the repository:
+
 git clone https://github.com/lovnishverma/BigData.git
 
 Step 2: Navigate into the repository:
+
 cd BigData
 
 Step 3: Start the Docker containers:
+
 docker-compose up -d
 
 Step 4: Verify running containers:
+
 docker container ls
 
 Step 5: Access the NameNode container:
+
 docker exec -it namenode /bin/bash
 
 
