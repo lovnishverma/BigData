@@ -1,19 +1,19 @@
-Here’s a step-by-step guide for running a WordCount job on YARN, written clearly and in a simplified manner for easy understanding:
+# Practical: Running a WordCount Job on YARN
+
+In this practical, you will run a simple WordCount job using Hadoop YARN. This exercise walks you through preparing a basic Hadoop job and running it on a YARN cluster.
 ![image](https://github.com/user-attachments/assets/04d38509-38b8-4cef-b544-4a8c566fd863) ![image](https://github.com/user-attachments/assets/4e70e157-5bc5-4cd3-9f0f-de6ce97437f2)
 
 ![image](https://github.com/user-attachments/assets/2d961b6d-f046-42cc-b18b-08d0a313137e)
 
-
-```markdown
-# Practical: Running a WordCount Job on YARN
-
-In this practical, you will run a simple WordCount job using Hadoop YARN. This exercise walks you through preparing a basic Hadoop job and running it on a YARN cluster.
-
 ### Prerequisites:
-1. Docker Destop must be up and running.
+1. Docker Desktop must be up and running.
 2. **YARN ResourceManager** and **NodeManager** must be up and running.
 3. Hadoop should be set up correctly, with access to the HDFS file system.
 4. A sample WordCount program (JAR) is ready to be executed.
+
+---
+
+### Step-by-Step Guide
 
 ---
 
