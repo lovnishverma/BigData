@@ -1,6 +1,8 @@
 Here’s a step-by-step guide for running a WordCount job on YARN, written clearly and in a simplified manner for easy understanding:
 ![image](https://github.com/user-attachments/assets/04d38509-38b8-4cef-b544-4a8c566fd863) ![image](https://github.com/user-attachments/assets/4e70e157-5bc5-4cd3-9f0f-de6ce97437f2)
 
+![image](https://github.com/user-attachments/assets/2d961b6d-f046-42cc-b18b-08d0a313137e)
+
 
 ```markdown
 # Practical: Running a WordCount Job on YARN
@@ -21,7 +23,7 @@ In this practical, you will run a simple WordCount job using Hadoop YARN. This e
 
 Before running a YARN job, we need some input data in HDFS. We will create a simple text file locally and upload it to HDFS.
 
-1. **Create a sample text file locally**:
+1. **Create a sample text file locally inside docker terminal**:
    Use the following commands to create a file called `sample.txt` on your local machine with some sample text data.
 
    ```bash
@@ -157,12 +159,12 @@ Once you’ve completed the practical, it's good practice to clean up by deletin
 
 ---
 
-### Conclusion
-
+**Conclusion**
 This practical exercise provided a hands-on experience in running a simple MapReduce job (WordCount) on YARN. You can now submit jobs, monitor them, and view results in HDFS using the YARN ResourceManager. By following the steps outlined, you should be able to run more complex jobs and work with Hadoop in a YARN-managed environment.
-```
+
+---
 
 ### Instructions for Use:
 - Ensure your Hadoop environment (including YARN and HDFS) is properly set up before running the job.
 - Submit your jobs using the `hadoop jar` command and monitor their progress through the YARN UI.
-- Clean up your HDFS after completing the practical exercise to maintain a clutter-free environment.
+- Clean up your HDFS after completing the practical exercise to maintain a clutter-free envir
