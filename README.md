@@ -330,6 +330,10 @@ RAT 2
 - Hadoop is designed for distributed systems, making it powerful for big data processing.
 
 😊 References
+
 https://data-flair.training/blogs/top-hadoop-hdfs-commands-tutorial/
+
 https://hadoop.apache.org/docs/stable/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html
+
 https://medium.com/@traininghub.io/hadoop-mapreduce-architecture-7e167e264595
+
