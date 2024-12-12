@@ -103,8 +103,8 @@ CREATE TABLE employees (
 ##### **📥 Step 3: Insert Data into the Table**
 Insert sample data into your table:
 ```sql
-INSERT INTO employees VALUES (1, 'John Doe', 30);
-INSERT INTO employees VALUES (2, 'Jane Smith', 25);
+INSERT INTO employees VALUES (1, 'Prince', 30);
+INSERT INTO employees VALUES (2, 'Ram Singh', 25);
 ```
 
 ---
