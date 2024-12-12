@@ -60,7 +60,9 @@ Step 5: Return back to directory where wordCount.jar file is located:
  ![image](https://github.com/user-attachments/assets/9ce4fff2-1419-441e-8914-61d066884154)
                                                                                                                                 
 Step 6: Then execute the jar file by following command:                                                                        
-      -> hadoop jar wordCount.jar org.apache.hadoop.examples.WordCount input output                                               
+      -> hadoop jar wordCount.jar org.apache.hadoop.examples.WordCount input output    
+  ![image](https://github.com/user-attachments/assets/3674da9c-fe7a-4d4d-948e-7b28bf3a0f50)
+
                                                                                                                                                                    
 Step 7: Display the output usind this command:                                                                              
       -> hdfs dfs -cat /user/root/output/*
