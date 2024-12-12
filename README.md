@@ -50,7 +50,9 @@ Step 3: Create some directories in hadoop file system by following command:
 
                                                                                                                                                       
 Step 4: Copy the data.txt to the input directory (user/root/input) created in hadoop file system by following command:                   
-      -> hdfs dfs -put data.txt /user/root/input                                                                            
+      -> hdfs dfs -put data.txt /user/root/input   
+![image](https://github.com/user-attachments/assets/8f8fd7f3-937a-42c9-b3f0-41279a993520)
+
                                                                                                                                           
 Step 5: Return back to directory where wordCount.jar file is located:                                                    
       -> cd ../
