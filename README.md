@@ -3,14 +3,14 @@
 
 # Pre-requisite:
                                                                           
--> Git                                                                                  
--> Docker
+-> Git        Link:  https://git-scm.com/downloads/win                                                                        
+-> Docker     Link:  https://docs.docker.com/desktop/setup/install/windows-install/
 
 # Steps to follow:
 By Following these steps you will able to setup the hadoop setup on docker container                                    
                                                                                                                       
-Step 1: Clone the "docker-hadoop" repository from GitHub using the following command:                                   
-git clone https://github.com/huzaifa-bilal-01/Hadoop-on-Docker.git                                              
+Step 1: Clone the "BigData" repository from GitHub using the following command:                                   
+git clone https://github.com/lovnishverma/BigData.git                                          
 
 Step 2: cd Hadoop-on-Docker
 
