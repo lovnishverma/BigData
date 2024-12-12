@@ -23,7 +23,11 @@ docker container ls
 
 Step 5:
 docker exec -it namenode /bin/bash
+
+
 ![image](https://github.com/user-attachments/assets/7b010ecc-f37e-4006-857d-839315304c93)
+
+
 
 # Running Hadoop Code:
 
