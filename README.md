@@ -1,4 +1,5 @@
-Here’s a well-formatted and beginner-friendly guide for setting up and running Hadoop on Docker, specifically designed for non-IT backgrounds:
+
+![image](https://github.com/user-attachments/assets/343cfd7e-73b7-4eb2-a9a4-76c31f5703c8)
 
 ---
 
