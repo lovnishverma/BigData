@@ -23,12 +23,17 @@ docker container ls
 
 Step 5:
 docker exec -it namenode /bin/bash
+![image](https://github.com/user-attachments/assets/7b010ecc-f37e-4006-857d-839315304c93)
 
 # Running Hadoop Code:
 
 Step 1: Copy the code folder on docker conatiner by running this command on the terminal (opened in the folder where you have cloned the repo):
-                                                                                                                                           
-docker cp code namenode:/                                                              
+
+cd BigData
+
+docker cp code namenode:/    
+![image](https://github.com/user-attachments/assets/9b29c002-63e2-4269-a85d-e8be401fb6f6)
+
                                                                                                                         
 Step 2: Then go into Hadoop_Code directory and further into input directory from where you have to copy the data.txt file
                                                                                                                              
