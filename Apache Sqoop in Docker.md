@@ -14,13 +14,21 @@ Setting up MySQL on your Docker container. This guide assumes that you're using 
 
 ### **Step 1: Prepare the Docker Environment**
 
-Ensure your Docker container (`hadoop-sqoop`) has Hadoop and necessary services (like MySQL) running. If the container is not running, start it using:
+Manually Set Up Hadoop and Sqoop in a New Container
+Create a new container from an official Ubuntu image:
 
 ```bash
-docker start hadoop-sqoop
+docker run -it --name hadoop-sqoop ubuntu:20.04 /bin/bash
 ```
 
----
+Install Java and Hadoop:
+
+Inside the container, install Java and Hadoop dependencies:
+
+```bash
+apt-get update
+apt-get install openjdk-8-jdk -y
+```
 
 ### **Step 2: Install MySQL in Docker (If Not Installed)**
 
