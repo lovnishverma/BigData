@@ -1,169 +1,310 @@
-Great! Now that you've installed Java and Sqoop is working, here’s a step-by-step guide to set up Sqoop in Docker and a small basic project using Sqoop for data transfer from a MySQL database to Hadoop.
+Setting up MySQL on your Docker container. This guide assumes that you're using Docker with Sqoop, and it covers the installation of Sqoop, setting up MySQL, and using Sqoop for importing/exporting data.
 
-### Sqoop Setup in Docker
+---
 
-```markdown
-# Sqoop Setup in Docker
+# **Complete Guide to Install and Use Sqoop on Docker**
 
-This guide helps you to set up Sqoop inside a Docker container and use it to transfer data between a MySQL database and Hadoop.
+### **Prerequisites:**
+1. **Docker** installed and running on your machine.
+2. **Java 8 or higher** installed in your Docker container.
+3. **Sqoop Tarball** (`sqoop-1.99.6-bin-hadoop200.tar.gz`) available locally.
+4. **MySQL** installed on the Docker container (or a separate MySQL instance running).
 
-## Prerequisites
+---
 
-1. **Docker** should be installed and running on your system.
-2. **Java 8** should be installed inside the Docker container.
-3. **Sqoop 1.99.6** should be downloaded and placed inside the Docker container.
-4. A **Hadoop** setup (local or remote) should be accessible.
-5. A **MySQL** instance should be running and accessible.
+### **Step 1: Prepare the Docker Environment**
 
-## Steps
+Ensure your Docker container (`hadoop-sqoop`) has Hadoop and necessary services (like MySQL) running. If the container is not running, start it using:
 
-### Step 1: Create a Dockerfile
-Create a Dockerfile to set up the environment with Java, Sqoop, and Hadoop.
-
-```Dockerfile
-FROM ubuntu:20.04
-
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    openjdk-8-jdk \
-    wget \
-    mysql-client \
-    curl \
-    && apt-get clean
-
-# Set JAVA_HOME
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
-ENV PATH $JAVA_HOME/bin:$PATH
-
-# Install Sqoop
-RUN wget https://archive.apache.org/dist/sqoop/1.99.6/sqoop-1.99.6-bin-hadoop200.tar.gz -P /tmp \
-    && tar -xzf /tmp/sqoop-1.99.6-bin-hadoop200.tar.gz -C /opt \
-    && rm /tmp/sqoop-1.99.6-bin-hadoop200.tar.gz
-
-# Set SQOOP_HOME and PATH
-ENV SQOOP_HOME /opt/sqoop-1.99.6-bin-hadoop200
-ENV PATH $SQOOP_HOME/bin:$PATH
-
-# Install Hadoop binaries (if needed)
-# RUN wget <HADOOP_URL> -P /opt && tar -xzf /opt/hadoop.tar.gz -C /opt
-# ENV HADOOP_HOME /opt/hadoop
-# ENV PATH $HADOOP_HOME/bin:$PATH
-
-CMD ["bash"]
+```bash
+docker start hadoop-sqoop
 ```
 
-### Step 2: Build and Run Docker Container
+---
 
-1. Build the Docker image:
+### **Step 2: Install MySQL in Docker (If Not Installed)**
 
-    ```bash
-    docker build -t sqoop-docker .
-    ```
+If MySQL is not already installed on your Docker container, follow these steps to install it.
 
-2. Run the Docker container:
+1. **Install MySQL**:
+   Access the container shell and run the following commands to install MySQL:
 
-    ```bash
-    docker run -it sqoop-docker
-    ```
-
-This will start a container with Java, Sqoop, and other dependencies installed.
-
-### Step 3: Configure Sqoop for MySQL and Hadoop
-
-1. **MySQL Configuration:**
-
-   - Make sure you have MySQL running.
-   - Create a database and table in MySQL.
-   
-   Example:
-
-   ```sql
-   CREATE DATABASE sqoop_db;
-   USE sqoop_db;
-
-   CREATE TABLE employee (
-       id INT PRIMARY KEY,
-       name VARCHAR(100),
-       age INT,
-       salary INT
-   );
-
-   INSERT INTO employee (id, name, age, salary) VALUES
-   (1, 'Alice', 30, 50000),
-   (2, 'Bob', 25, 40000),
-   (3, 'Charlie', 35, 60000);
+   ```bash
+   docker exec -it hadoop-sqoop bash
+   apt-get update
+   apt-get install mysql-server
    ```
 
-2. **Hadoop Configuration:**
-   - Ensure that Hadoop is properly set up and running. You can use the `HDFS` and `YARN` components for distributed storage and execution.
+2. **Start MySQL Server**:
+   After installation, start the MySQL server:
 
-3. **Sqoop Configuration:**
+   ```bash
+   service mysql start
+   ```
 
-   Sqoop should now be ready for data transfer. Set up the connection to your MySQL and Hadoop environment.
+3. **Set Up MySQL User and Database**:
+   Access the MySQL shell and set up a user and database:
 
-### Step 4: Basic Sqoop Project - Data Transfer
+   ```bash
+   mysql -u root -p
+   CREATE DATABASE testdb;
+   CREATE USER 'sqoop_user'@'%' IDENTIFIED BY 'password123';
+   GRANT ALL PRIVILEGES ON testdb.* TO 'sqoop_user'@'%';
+   FLUSH PRIVILEGES;
+   ```
 
-In this example, we will transfer data from MySQL to Hadoop.
+   - Replace `testdb`, `sqoop_user`, and `password123` with your preferred database name, username, and password.
 
-#### Step 4.1: Export Data from MySQL to HDFS
+---
 
-Run the following command to export data from MySQL into a file in HDFS:
+### **Step 3: Upload the Sqoop Tarball to Docker Container**
+
+1. **Copy the Sqoop Tarball from Your Local Machine to the Docker Container**:
+
+   Use the `docker cp` command to copy the Sqoop tarball to the `/tmp/` directory of the Docker container:
+
+   ```bash
+   docker cp C:\Users\Dell\Downloads\sqoop-1.99.6-bin-hadoop200.tar.gz hadoop-sqoop:/tmp/
+   ```
+
+---
+
+### **Step 4: Access the Docker Container**
+
+1. **Enter the Docker Container**:
+
+   Use the following command to access the Docker container's shell:
+
+   ```bash
+   docker exec -it hadoop-sqoop bash
+   ```
+
+---
+
+### **Step 5: Extract the Sqoop Tarball**
+
+1. **Navigate to the `/tmp` Directory**:
+   Change to the `/tmp` directory where the tarball was copied:
+
+   ```bash
+   cd /tmp/
+   ```
+
+2. **Extract the Tarball**:
+
+   Use the `tar` command to extract the Sqoop tarball:
+
+   ```bash
+   tar -xvzf sqoop-1.99.6-bin-hadoop200.tar.gz
+   ```
+
+3. **Verify the Extraction**:
+   After extraction, you should see the `sqoop-1.99.6` folder in the `/tmp/` directory.
+
+---
+
+### **Step 6: Move the Sqoop Directory**
+
+1. **Move the Extracted Sqoop Directory to `/opt`**:
+
+   Move the extracted `sqoop-1.99.6` folder to `/opt` for better organization:
+
+   ```bash
+   mv /tmp/sqoop-1.99.6 /opt/sqoop
+   ```
+
+2. **Verify the Move**:
+
+   Check if the folder is correctly moved:
+
+   ```bash
+   ls /opt/sqoop
+   ```
+
+---
+
+### **Step 7: Set Environment Variables**
+
+1. **Edit `.bashrc` to Add Sqoop Environment Variables**:
+
+   Open the `.bashrc` file to add the necessary environment variables for Sqoop:
+
+   ```bash
+   nano ~/.bashrc
+   ```
+
+2. **Add the Following Lines** at the end of the file:
+
+   ```bash
+   export SQOOP_HOME=/opt/sqoop
+   export PATH=$SQOOP_HOME/bin:$PATH
+   ```
+
+3. **Save and Exit**:
+   - Press `Ctrl+O` to save.
+   - Press `Enter` to confirm.
+   - Press `Ctrl+X` to exit the editor.
+
+4. **Apply the Changes**:
+
+   Reload the `.bashrc` file to apply the environment variable changes:
+
+   ```bash
+   source ~/.bashrc
+   ```
+
+---
+
+### **Step 8: Install Java (if not already installed)**
+
+If Java 8 is not already installed, install it using the following steps:
+
+1. **Install OpenJDK 8**:
+
+   ```bash
+   apt-get install openjdk-8-jdk
+   ```
+
+2. **Verify Java Installation**:
+
+   Check the Java version to ensure it’s installed:
+
+   ```bash
+   java -version
+   ```
+
+---
+
+### **Step 9: Verify the Sqoop Installation**
+
+Verify that Sqoop is installed correctly:
+
+1. **Check the Sqoop Version**:
+
+   Run the following command to check if Sqoop is working:
+
+   ```bash
+   sqoop version
+   ```
+
+   If everything is installed correctly, you should see Sqoop's version information.
+
+---
+
+### **Step 10: Use Basic Sqoop Commands**
+
+You can now use Sqoop to import and export data between MySQL and HDFS. Below are some basic commands for importing and exporting data.
+
+#### **1. Import Data from MySQL to HDFS**
+
+To import data from a MySQL table into HDFS:
 
 ```bash
-sqoop export \
-    --connect jdbc:mysql://<MYSQL_HOST>:<MYSQL_PORT>/sqoop_db \
-    --username <MYSQL_USER> \
-    --password <MYSQL_PASSWORD> \
-    --table employee \
-    --export-dir /user/hadoop/sqoop_data \
-    --input-fields-terminated-by ',' \
-    --hadoop-home /opt/hadoop
+sqoop import --connect jdbc:mysql://localhost:3306/testdb \
+--username sqoop_user --password password123 \
+--table employee --target-dir /user/hadoop/employee_data
 ```
 
-This will export the `employee` table into a file on HDFS.
+This command imports the `employee` table from the `testdb` database into the HDFS directory `/user/hadoop/employee_data`.
 
-#### Step 4.2: Import Data from MySQL to HDFS
+#### **2. Export Data from HDFS to MySQL**
 
-To import data from MySQL to HDFS:
+To export data from HDFS back into a MySQL database:
 
 ```bash
-sqoop import \
-    --connect jdbc:mysql://<MYSQL_HOST>:<MYSQL_PORT>/sqoop_db \
-    --username <MYSQL_USER> \
-    --password <MYSQL_PASSWORD> \
-    --table employee \
-    --target-dir /user/hadoop/sqoop_data \
-    --fields-terminated-by ',' \
-    --hadoop-home /opt/hadoop
+sqoop export --connect jdbc:mysql://localhost:3306/testdb \
+--username sqoop_user --password password123 \
+--table employee --export-dir /user/hadoop/employee_data
 ```
 
-This will import the `employee` table into HDFS, storing the data in the `/user/hadoop/sqoop_data` directory.
+This command exports the data stored in HDFS (`/user/hadoop/employee_data`) to the `employee` table in the `testdb` MySQL database.
 
-### Step 5: Verify the Data in HDFS
+#### **3. List Databases in MySQL**
 
-To verify the imported data, run the following command:
+To list all the databases in your MySQL server:
 
 ```bash
-hdfs dfs -cat /user/hadoop/sqoop_data/*
+sqoop list-databases --connect jdbc:mysql://localhost:3306 \
+--username sqoop_user --password password123
 ```
 
-### Step 6: Clean Up
+#### **4. List Tables in a Database**
 
-To clean up the resources:
+To list all the tables in the `testdb` database:
 
 ```bash
-hdfs dfs -rm -r /user/hadoop/sqoop_data
+sqoop list-tables --connect jdbc:mysql://localhost:3306/testdb \
+--username sqoop_user --password password123
 ```
 
-## Conclusion
+---
 
-You have successfully set up Sqoop in Docker and transferred data between MySQL and Hadoop. This setup can be extended for more complex data integration workflows using Sqoop.
-```
+### **Step 11: Troubleshooting**
 
-### Key Steps Recap:
-1. Install Java and dependencies inside Docker.
-2. Download and set up Sqoop inside Docker.
-3. Set up a MySQL database and Hadoop environment.
-4. Use Sqoop commands to import/export data between MySQL and HDFS.
+1. **Check Sqoop Logs**:
 
-This should help you get started with Sqoop in Docker! Let me know if you need any further details or have more questions.
+   If you encounter any issues, you can check the Sqoop logs for error messages:
+
+   ```bash
+   cat /opt/sqoop/sqoop-1.99.6/logs/sqoop*.log
+   ```
+
+2. **Ensure MySQL and Hadoop Services are Running**:
+
+   Make sure both MySQL and the Hadoop services (like HDFS and YARN) are running.
+
+3. **Verify Connection Details**:
+
+   Double-check that the JDBC URL and credentials for MySQL are correct.
+
+---
+
+### **Summary of Commands**
+
+- **Upload Sqoop Tarball to Docker Container**:
+
+  ```bash
+  docker cp C:\Users\Dell\Downloads\sqoop-1.99.6-bin-hadoop200.tar.gz hadoop-sqoop:/tmp/
+  ```
+
+- **Extract the Tarball**:
+
+  ```bash
+  tar -xvzf /tmp/sqoop-1.99.6-bin-hadoop200.tar.gz
+  ```
+
+- **Move Sqoop to `/opt` Directory**:
+
+  ```bash
+  mv /tmp/sqoop-1.99.6 /opt/sqoop
+  ```
+
+- **Set Environment Variables**:
+
+  ```bash
+  nano ~/.bashrc
+  export SQOOP_HOME=/opt/sqoop
+  export PATH=$SQOOP_HOME/bin:$PATH
+  source ~/.bashrc
+  ```
+
+- **Install Java**:
+
+  ```bash
+  apt-get install openjdk-8-jdk
+  ```
+
+- **Sqoop Commands**:
+  - **Import Data**:
+
+    ```bash
+    sqoop import --connect jdbc:mysql://localhost:3306/testdb --username sqoop_user --password password123 --table employee --target-dir /user/hadoop/employee_data
+    ```
+
+  - **Export Data**:
+
+    ```bash
+    sqoop export --connect jdbc:mysql://localhost:3306/testdb --username sqoop_user --password password123 --table employee --export-dir /user/hadoop/employee_data
+    ```
+
+This guide should help you set up and use Sqoop efficiently with a MySQL database and Hadoop in a Docker container.
