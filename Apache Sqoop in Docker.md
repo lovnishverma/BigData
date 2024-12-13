@@ -1,238 +1,371 @@
-Let’s start fresh and go through the steps step by step to properly install and configure Sqoop on your Docker container. This guide will also include MySQL installation and proper environment variable setup to ensure that everything works smoothly.
+Here’s the **complete and formatted guide** to install and configure Sqoop, Hadoop, MySQL, and Java step-by-step in your Docker container:
 
 ---
 
-### **Fresh Start Guide: Install Sqoop, MySQL, and Java in Docker**
+## **Fresh Installation Guide: Sqoop on Docker**
 
-#### **Step 1: Create a Fresh Docker Container**
-
-1. **Create a fresh container with Ubuntu:**
-
-   Run the following command to create and start a new Ubuntu container:
-
+### **Step 1: Set up a Fresh Docker Container**
+1. **Create and Start a New Ubuntu Container:**
    ```bash
    docker run -it --name sqoop-container ubuntu:20.04 /bin/bash
    ```
 
-2. **Update package lists in the container:**
-
-   Once inside the container, update the package lists:
-
+2. **Update Package Lists in the Container:**
    ```bash
    apt-get update
    ```
 
 ---
 
-#### **Step 2: Install Java (OpenJDK 8)**
-
+### **Step 2: Install Java (OpenJDK 8)**
 1. **Install OpenJDK 8:**
-
-   Run the following command to install Java:
-
    ```bash
    apt-get install openjdk-8-jdk -y
    ```
 
-2. **Verify the Java installation:**
-
-   After installation, verify the Java version:
-
+2. **Verify Java Installation:**
    ```bash
    java -version
    ```
 
-   You should see output confirming the installation of Java 8.
+   You should see Java 8 installed.
 
 3. **Set `JAVA_HOME`:**
-
-   Set the `JAVA_HOME` environment variable. Open `.bashrc`:
-
+   Open `.bashrc` to add environment variables:
    ```bash
-   apt-get install nano
-   ```
-
-   ```bash
+   apt-get install nano -y
    nano ~/.bashrc
    ```
 
-   Add the following line to the end of the file:
-
+   Add these lines to the end of the file:
    ```bash
    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
    export PATH=$JAVA_HOME/bin:$PATH
    ```
 
-   Save and exit by pressing `CTRL + X`, then `Y`, and then `Enter`.
-
-4. **Apply the changes:**
-
-   Run the following command to apply the changes:
-
+4. **Apply the Changes:**
    ```bash
    source ~/.bashrc
    ```
 
 ---
 
-#### **Step 3: Install MySQL**
-
-1. **Install MySQL server:**
-
-   Run the following commands to install MySQL:
-
+### **Step 3: Install MySQL**
+1. **Install MySQL Server:**
    ```bash
-   apt-get install mysql-server
+   apt-get install mysql-server -y
    ```
 
-2. **Start MySQL service:**
-
-   After installation, start the MySQL server:
-
+2. **Start MySQL Service:**
    ```bash
    service mysql start
    ```
 
-3. **Verify MySQL status:**
-
-   You can check if MySQL is running using:
-
+3. **Create a Test Database and User:**
+   Access the MySQL shell:
    ```bash
-   service mysql status
+   mysql -u root
    ```
-
-   It should show that the MySQL server is active and running.
-
-4. **Access MySQL:**
-
-   To access the MySQL shell, run:
-
-   ```bash
-   mysql -u root -p
-   ```
-
-   Enter your MySQL root password. If you haven’t set one yet, you can leave the password blank.
-
-5. **Create a test database and user:**
-
-   In the MySQL shell, run the following commands to create a database and a user for Sqoop:
-
+   Run these commands in the MySQL shell:
    ```sql
    CREATE DATABASE testdb;
    CREATE USER 'sqoop_user'@'%' IDENTIFIED BY 'password123';
    GRANT ALL PRIVILEGES ON testdb.* TO 'sqoop_user'@'%';
    FLUSH PRIVILEGES;
+   EXIT;
    ```
 
 ---
 
-#### **Step 4: Install Sqoop**
-
-1. **Download the Sqoop tarball:**
-
-   If you haven’t already, download the Sqoop tarball (`sqoop-1.99.6-bin-hadoop200.tar.gz`) from the official Apache website:
-
-   [Download Sqoop Tarball](https://archive.apache.org/dist/sqoop/1.99.6/sqoop-1.99.6-bin-hadoop200.tar.gz)
-
-2. **Copy the Sqoop tarball to the Docker container:**
-
-   Use `docker cp` to copy the Sqoop tarball to the `/tmp/` directory in the container:
-
+### **Step 4: Install Hadoop**
+1. **Install `wget` to Download Hadoop:**
    ```bash
-   docker cp /path/to/sqoop-1.99.6-bin-hadoop200.tar.gz sqoop-container:/tmp/
+   apt-get install wget -y
    ```
 
-   Replace `/path/to/sqoop-1.99.6-bin-hadoop200.tar.gz` with the actual path to the tarball on your local machine.
-
-3. **Extract the tarball:**
-
-   Inside the container, navigate to the `/tmp` directory and extract the tarball:
-
+2. **Download Hadoop 2.10.2:**
    ```bash
-   cd /tmp
-   tar -xvzf sqoop-1.99.6-bin-hadoop200.tar.gz
+   wget https://dlcdn.apache.org/hadoop/common/hadoop-2.10.2/hadoop-2.10.2.tar.gz
    ```
 
-4. **Move Sqoop to a proper directory:**
-
-   After extraction, move the Sqoop directory to `/opt/`:
-
+3. **Extract and Move Hadoop:**
    ```bash
-   mv /tmp/sqoop-1.99.6-bin-hadoop200 /opt/sqoop
+   tar -xzf hadoop-2.10.2.tar.gz -C /opt
+   mv /opt/hadoop-2.10.2 /opt/hadoop
    ```
 
----
-
-#### **Step 5: Set Environment Variables for Sqoop**
-
-1. **Open `.bashrc` to set environment variables:**
-
+4. **Set Hadoop Environment Variables:**
+   Open `.bashrc`:
    ```bash
    nano ~/.bashrc
    ```
-
-2. **Add the following lines to set environment variables for Sqoop and Java:**
-
+   Add these lines:
    ```bash
-   export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-   export SQOOP_HOME=/opt/sqoop
-   export PATH=$JAVA_HOME/bin:$SQOOP_HOME/bin:$PATH
+   export HADOOP_HOME=/opt/hadoop
+   export PATH=$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH
    ```
 
-3. **Save and exit:**
-
-   Press `CTRL + X`, then `Y`, and press `Enter`.
-
-4. **Apply the changes:**
-
-   To apply the changes, run:
-
+   Apply changes:
    ```bash
    source ~/.bashrc
    ```
 
----
-
-#### **Step 6: Verify the Installation**
-
-1. **Verify Java:**
-
-   Check if Java is correctly installed:
-
+5. **Verify Hadoop Installation:**
    ```bash
-   java -version
+   hadoop version
    ```
 
-   It should show Java 8 information.
+---
 
-2. **Verify Sqoop:**
+### **Step 5: Configure Hadoop**
+1. **Edit `core-site.xml`:**
+   Open the file:
+   ```bash
+   nano /opt/hadoop/etc/hadoop/core-site.xml
+   ```
+   Add the following configuration:
+   ```xml
+   <configuration>
+       <property>
+           <name>fs.defaultFS</name>
+           <value>hdfs://localhost:9000</value>
+       </property>
+   </configuration>
+   ```
 
-   Check if Sqoop is correctly installed by running:
+2. **Edit `hdfs-site.xml`:**
+   ```bash
+   nano /opt/hadoop/etc/hadoop/hdfs-site.xml
+   ```
+   Add this configuration:
+   ```xml
+   <configuration>
+       <property>
+           <name>dfs.replication</name>
+           <value>1</value>
+       </property>
+       <property>
+           <name>dfs.namenode.name.dir</name>
+           <value>file:///opt/hadoop/hdfs/namenode</value>
+       </property>
+       <property>
+           <name>dfs.datanode.data.dir</name>
+           <value>file:///opt/hadoop/hdfs/datanode</value>
+       </property>
+   </configuration>
+   ```
 
+The errors you are encountering indicate missing SSH utilities and potential misconfigurations in the Hadoop environment. Let's fix these issues step by step:
+
+---
+
+### **Step 1: Install SSH Utilities**
+
+Hadoop requires SSH for managing nodes in a distributed cluster. Even in single-node setups, it relies on these utilities.
+
+1. **Install SSH in the Docker container:**
+
+   ```bash
+   apt-get update
+   apt-get install -y openssh-client openssh-server
+   ```
+
+2. **Start the SSH service:**
+
+   ```bash
+   service ssh start
+   ```
+
+3. **Verify SSH installation:**
+
+   Ensure SSH is installed and running:
+
+   ```bash
+   ssh localhost
+   ```
+
+   If prompted to generate an RSA key or accept a host fingerprint, follow the instructions.
+
+---
+
+### **Step 2: Configure Passwordless SSH (Optional)**
+
+To avoid SSH issues in distributed environments, set up passwordless SSH for `localhost`.
+
+1. **Generate SSH keys:**
+
+   ```bash
+   ssh-keygen -t rsa -P "" -f ~/.ssh/id_rsa
+   ```
+
+2. **Add the public key to authorized keys:**
+
+   ```bash
+   cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+   chmod 600 ~/.ssh/authorized_keys
+   ```
+
+3. **Test SSH connectivity:**
+
+   ```bash
+   ssh localhost
+   ```
+
+   It should connect without asking for a password.
+
+---
+
+### **Step 3: Fix the `chown` Warning**
+
+The error `chown: missing operand after '/opt/hadoop/logs'` occurs because the Hadoop logs directory does not exist or has incorrect permissions.
+
+1. **Create the logs directory:**
+
+   ```bash
+   mkdir -p /opt/hadoop/logs
+   ```
+
+2. **Set the correct ownership:**
+
+   ```bash
+   chown -R $(whoami):$(whoami) /opt/hadoop/logs
+   ```
+
+   Replace `$(whoami)` with the appropriate user if necessary.
+
+3. **Ensure permissions are correct:**
+
+   ```bash
+   chmod -R 755 /opt/hadoop/logs
+   ```
+
+---
+
+### **Step 4: Format the Hadoop Filesystem (if needed)**
+
+If you’ve previously attempted to start Hadoop without properly formatting HDFS, reformat it:
+
+```bash
+hdfs namenode -format
+```
+
+---
+
+### **Step 5: Restart Hadoop Services**
+
+1. **Start the Hadoop Distributed File System (HDFS):**
+
+   ```bash
+   start-dfs.sh
+   ```
+
+   Verify that the Namenode, Datanode, and Secondary Namenode are running.
+
+2. **Start the YARN Resource Manager:**
+
+   ```bash
+   start-yarn.sh
+   ```
+
+   Verify that the Resource Manager and Node Manager are running.
+
+---
+
+### **Step 6: Verify Hadoop Services**
+
+1. **Check HDFS health:**
+
+   ```bash
+   hdfs dfsadmin -report
+   ```
+
+2. **Access the Hadoop web interfaces:**
+
+   - Namenode: [http://localhost:9870](http://localhost:9870)
+   - Resource Manager: [http://localhost:8088](http://localhost:8088)
+
+---
+
+### **Additional Notes**
+
+- **Ensure Java and environment variables are set correctly:**
+
+  ```bash
+  echo $JAVA_HOME
+  echo $HADOOP_HOME
+  ```
+
+  Both should return the expected paths (e.g., `/usr/lib/jvm/java-8-openjdk-amd64` for Java and `/opt/hadoop` for Hadoop).
+
+- **For single-node setups:** Make sure the `slaves` file (`$HADOOP_HOME/etc/hadoop/slaves`) contains only `localhost`.
+
+---
+
+Try these steps and let me know if you encounter further issues!
+
+4. **Start Hadoop Daemons:**
+   ```bash
+   start-dfs.sh
+   start-yarn.sh
+   ```
+
+5. **Verify Hadoop Services:**
+   Access the Hadoop web UI at: [http://localhost:9870](http://localhost:9870)
+
+---
+
+### **Step 6: Install Sqoop**
+1. **Download and Extract Sqoop:**
+   Download the Sqoop tarball to your local machine:
+   [Sqoop 1.99.6](https://archive.apache.org/dist/sqoop/1.99.6/sqoop-1.99.6-bin-hadoop200.tar.gz)
+
+   Transfer it to the container:
+   ```bash
+   docker cp sqoop-1.99.6-bin-hadoop200.tar.gz sqoop-container:/tmp
+   ```
+   Inside the container, extract and move Sqoop:
+   ```bash
+   tar -xvzf /tmp/sqoop-1.99.6-bin-hadoop200.tar.gz -C /opt
+   mv /opt/sqoop-1.99.6-bin-hadoop200 /opt/sqoop
+   ```
+
+2. **Set Sqoop Environment Variables:**
+   Edit `.bashrc`:
+   ```bash
+   nano ~/.bashrc
+   ```
+   Add these lines:
+   ```bash
+   export SQOOP_HOME=/opt/sqoop
+   export PATH=$SQOOP_HOME/bin:$PATH
+   ```
+   Apply changes:
+   ```bash
+   source ~/.bashrc
+   ```
+
+3. **Verify Sqoop Installation:**
    ```bash
    sqoop version
    ```
 
-   This should show the Sqoop version information, confirming that Sqoop is installed correctly.
-
 ---
 
-#### **Step 7: Test Sqoop with MySQL**
-
-1. **List Databases using Sqoop:**
-
-   To test the connection to MySQL, use the following Sqoop command to list databases:
-
+### **Step 7: Test Sqoop with MySQL**
+1. **Connect Sqoop to MySQL:**
+   Use Sqoop to list MySQL databases:
    ```bash
-   sqoop list-databases --connect jdbc:mysql://localhost:3306 --username root --password password123
+   sqoop list-databases \
+       --connect jdbc:mysql://localhost:3306 \
+       --username sqoop_user --password password123
    ```
 
-   Replace `password123` with the actual password you set for MySQL root user.
+   Replace `password123` with the MySQL user password.
 
-   This should list the available databases in MySQL, including the `testdb` we created earlier.
+2. **Expected Output:**
+   If everything is configured correctly, you should see a list of MySQL databases, including `testdb`.
 
 ---
 
 ### **Congratulations!**
-
-If you followed all these steps correctly, Sqoop, Java, and MySQL should be installed and configured correctly on your Docker container. You should now be able to use Sqoop to interact with your MySQL database. Let me know if you encounter any further issues!
+You’ve successfully installed and configured Sqoop, Hadoop, MySQL, and Java in your Docker container. You can now use Sqoop to transfer data between MySQL and Hadoop. Let me know if you face any issues!
