@@ -81,6 +81,7 @@ To ensure that MySQL is working correctly, you can check status:
    ```bash
    docker cp C:\Users\Dell\Downloads\sqoop-1.99.6-bin-hadoop200.tar.gz hadoop-sqoop:/tmp/
    ```
+![image](https://github.com/user-attachments/assets/0b3f1f5a-7fea-474e-8d2e-a17687d605f3)
 
 ---
 
