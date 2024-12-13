@@ -198,6 +198,7 @@ This guide outlines the steps to install and configure **Sqoop**, **Hadoop**, **
    ```bash
    sqoop version
    ```
+![image](https://github.com/user-attachments/assets/34ca8bd3-048a-4a9a-b76a-fbdb2f400f60)
 
 ---
 
