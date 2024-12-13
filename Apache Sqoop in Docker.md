@@ -49,6 +49,9 @@ Let’s start fresh and go through the steps step by step to properly install an
    Set the `JAVA_HOME` environment variable. Open `.bashrc`:
 
    ```bash
+  apt-get install nano
+   ```
+   ```bash
    nano ~/.bashrc
    ```
 
