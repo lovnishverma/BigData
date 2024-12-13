@@ -1,5 +1,9 @@
 Here’s the **complete and formatted guide** to install and configure Sqoop, Hadoop, MySQL, and Java step-by-step in your Docker container:
+if you've already done all these and want just enter 
 
+```bash
+docker exec -it sqoop-container /bin/bash
+```
 ---
 
 ## **Fresh Installation Guide: Sqoop on Docker**
