@@ -136,6 +136,7 @@ To ensure that MySQL is working correctly, you can check status:
    ```bash
    ls /opt/sqoop
    ```
+![image](https://github.com/user-attachments/assets/fd288081-38c3-4378-8c1d-53b91e23b1c9)
 
 ---
 
