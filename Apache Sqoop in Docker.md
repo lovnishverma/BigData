@@ -144,6 +144,13 @@ To ensure that MySQL is working correctly, you can check status:
 
 1. **Edit `.bashrc` to Add Sqoop Environment Variables**:
 
+If you'd prefer to use nano, you can install it using the following steps:
+
+Install nano:
+```bash
+apt-get update
+apt-get install nano
+```
    Open the `.bashrc` file to add the necessary environment variables for Sqoop:
 
    ```bash
