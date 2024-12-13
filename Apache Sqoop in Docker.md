@@ -49,6 +49,13 @@ If MySQL is not already installed on your Docker container, follow these steps t
    ```bash
    service mysql start
    ```
+The message su: warning: cannot change directory to /nonexistent: No such file or directory is a warning related to the default user configuration for MySQL. However, this warning doesn't affect the functionality of MySQL, and MySQL should be running.
+
+To ensure that MySQL is working correctly, you can check status:
+   
+   ```bash
+   service mysql status
+   ```
 
 3. **Set Up MySQL User and Database**:
    Access the MySQL shell and set up a user and database:
