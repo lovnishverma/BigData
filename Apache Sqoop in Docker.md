@@ -357,24 +357,107 @@ Hadoop requires `JAVA_HOME` to be explicitly set in its environment configuratio
 
 ---
 
-### **Step 5: Restart Hadoop Services**
+The error message suggests that Hadoop cannot find the required configuration files in the `/etc/hadoop` directory. This typically occurs if the Hadoop configuration directory is either missing or not properly set up.
 
-1. **Start the Hadoop Distributed File System (HDFS):**
+Let's fix this issue step by step:
+
+---
+
+### **Step 1: Verify Configuration Directory Path**
+
+By default, Hadoop looks for its configuration files in `/etc/hadoop`. However, in your installation, the Hadoop configuration files are located in `/opt/hadoop/etc/hadoop`. You need to either update the Hadoop configuration path or move the configuration files to `/etc/hadoop`.
+
+---
+
+### **Option 1: Update the Configuration Path**
+
+1. **Set the `HADOOP_CONF_DIR` environment variable:**
+
+   You can tell Hadoop where to find the configuration files by setting the `HADOOP_CONF_DIR` environment variable.
+
+   - Open `.bashrc` for editing:
+
+     ```bash
+     nano ~/.bashrc
+     ```
+
+   - Add the following line to specify the correct configuration directory:
+
+     ```bash
+     export HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
+     ```
+
+   - Save and exit the file (`CTRL + X`, then `Y`, then `Enter`).
+
+2. **Source the updated `.bashrc` to apply the changes:**
+
+   ```bash
+   source ~/.bashrc
+   ```
+
+---
+
+### **Option 2: Move the Configuration Files**
+
+Alternatively, you can copy the Hadoop configuration files from `/opt/hadoop/etc/hadoop` to `/etc/hadoop`.
+
+1. **Create the `/etc/hadoop` directory (if it doesn’t exist):**
+
+   ```bash
+   mkdir -p /etc/hadoop
+   ```
+
+2. **Copy the configuration files:**
+
+   ```bash
+   cp -r /opt/hadoop/etc/hadoop/* /etc/hadoop/
+   ```
+
+---
+
+### **Step 2: Verify and Restart Hadoop**
+
+After updating the configuration path or copying the configuration files, let's verify the setup:
+
+1. **Check Hadoop’s configuration directory:**
+
+   Ensure that Hadoop can now find the configuration files:
+
+   ```bash
+   ls /etc/hadoop
+   ```
+
+   You should see configuration files like `core-site.xml`, `hdfs-site.xml`, and `yarn-site.xml`.
+
+2. **Restart Hadoop services:**
 
    ```bash
    start-dfs.sh
-   ```
-
-   Verify that the Namenode, Datanode, and Secondary Namenode are running.
-
-2. **Start the YARN Resource Manager:**
-
-   ```bash
    start-yarn.sh
    ```
 
-   Verify that the Resource Manager and Node Manager are running.
+---
 
+### **Step 3: Verify Hadoop Setup**
+
+1. **Check HDFS health:**
+
+   After the services start, check HDFS health:
+
+   ```bash
+   hdfs dfsadmin -report
+   ```
+
+2. **Access Hadoop Web UI:**
+
+   Visit the following URL in your browser to verify that Hadoop is running properly:
+
+   - **HDFS Web UI:** `http://localhost:9870`
+   - **YARN Resource Manager UI:** `http://localhost:8088`
+
+---
+
+By following these steps, Hadoop should be able to find the configuration directory and start without issues. Let me know if you encounter any further errors!
 ---
 
 ### **Step 6: Verify Hadoop Services**
