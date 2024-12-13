@@ -176,6 +176,7 @@ apt-get install nano
    ```bash
    source ~/.bashrc
    ```
+![image](https://github.com/user-attachments/assets/e7cfb266-ddad-4f04-a23a-47d82b355aa2)
 
 ---
 
