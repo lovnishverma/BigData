@@ -11,9 +11,8 @@ Here is a complete step-by-step guide to install and configure Sqoop in a Docker
 
 2. **Run the Hadoop container:**
    ```bash
-   docker run -itd --name hadoop-container \
-     -p 50070:50070 -p 8088:8088 \
-     bde2020/hadoop-namenode:latest bash
+  docker run -itd --name hadoop-container -p 50070:50070 -p 8088:8088 bde2020/hadoop-namenode:latest bash
+
    ```
 
 3. **Verify Hadoop is running:**
