@@ -1,4 +1,4 @@
-Setting up MySQL on your Docker container. This guide assumes that you're using Docker with Sqoop, and it covers the installation of Sqoop, setting up MySQL, and using Sqoop for importing/exporting data.
+Here is the complete, properly formatted guide to install and set up Sqoop and MySQL in your Docker container:
 
 ---
 
@@ -14,335 +14,249 @@ Setting up MySQL on your Docker container. This guide assumes that you're using 
 
 ### **Step 1: Prepare the Docker Environment**
 
-Manually Set Up Hadoop and Sqoop in a New Container
-Create a new container from an official Ubuntu image:
+#### 1.1. **Create a new Docker container**:
+
+Create a new container from the official Ubuntu image:
 
 ```bash
 docker run -it --name hadoop-sqoop ubuntu:20.04 /bin/bash
 ```
 
-Install Java and Hadoop:
+#### 1.2. **Install Java and Hadoop dependencies**:
 
-Inside the container, install Java and Hadoop dependencies:
+Inside the container, run the following commands:
 
 ```bash
 apt-get update
-apt-get install openjdk-8-jdk -y #no need if you've updated already
+apt-get install openjdk-8-jdk -y
 ```
+
+---
 
 ### **Step 2: Install MySQL in Docker (If Not Installed)**
 
 If MySQL is not already installed on your Docker container, follow these steps to install it.
 
-1. **Install MySQL**:
-   Access the container shell and run the following commands to install MySQL:
+#### 2.1. **Install MySQL**:
 
-   ```bash
-   docker exec -it hadoop-sqoop bash  #no need if you're already in the container
-   apt-get update                     #no need if you've updated already
-   apt-get install mysql-server
-   ```
+Access the container shell and run the following commands to install MySQL:
 
-2. **Start MySQL Server**:
-   After installation, start the MySQL server:
+```bash
+docker exec -it hadoop-sqoop bash
+apt-get update
+apt-get install mysql-server
+```
 
-   ```bash
-   service mysql start
-   ```
-The message su: warning: cannot change directory to /nonexistent: No such file or directory is a warning related to the default user configuration for MySQL. However, this warning doesn't affect the functionality of MySQL, and MySQL should be running.
+#### 2.2. **Start MySQL Server**:
 
-To ensure that MySQL is working correctly, you can check status:
-   
-   ```bash
-   service mysql status
-   ```
+After installation, start the MySQL server:
 
-3. **Set Up MySQL User and Database**:
-   Access the MySQL shell and set up a user and database:
+```bash
+service mysql start
+```
 
-   ```bash
-   mysql -u root -p
-   CREATE DATABASE testdb;
-   CREATE USER 'sqoop_user'@'%' IDENTIFIED BY 'password123';
-   GRANT ALL PRIVILEGES ON testdb.* TO 'sqoop_user'@'%';
-   FLUSH PRIVILEGES;
-   ```
+You may encounter a warning message related to the user configuration (`su: warning: cannot change directory to /nonexistent: No such file or directory`). This does not affect MySQL functionality.
 
-   - Replace `testdb`, `sqoop_user`, and `password123` with your preferred database name, username, and password.
+#### 2.3. **Verify MySQL Status**:
+
+Check MySQL server status:
+
+```bash
+service mysql status
+```
+
+#### 2.4. **Set Up MySQL User and Database**:
+
+Access the MySQL shell and create a user and database:
+
+```bash
+mysql -u root -p
+CREATE DATABASE testdb;
+CREATE USER 'sqoop_user'@'%' IDENTIFIED BY 'password123';
+GRANT ALL PRIVILEGES ON testdb.* TO 'sqoop_user'@'%';
+FLUSH PRIVILEGES;
+```
+
+Replace `testdb`, `sqoop_user`, and `password123` with your preferred database name, username, and password.
 
 ---
 
 ### **Step 3: Upload the Sqoop Tarball to Docker Container**
 
-1. **Copy the Sqoop Tarball from Your Local Machine to the Docker Container**:
+#### 3.1. **Copy the Sqoop Tarball**:
 
-   Use the `docker cp` command to copy the Sqoop tarball to the `/tmp/` directory of the Docker container:
+Use the `docker cp` command to copy the Sqoop tarball to the `/tmp/` directory of the Docker container:
 
-   ```bash
-   docker cp C:\Users\Dell\Downloads\sqoop-1.99.6-bin-hadoop200.tar.gz hadoop-sqoop:/tmp/
-   ```
-![image](https://github.com/user-attachments/assets/0b3f1f5a-7fea-474e-8d2e-a17687d605f3)
+```bash
+docker cp C:\Users\Dell\Downloads\sqoop-1.99.6-bin-hadoop200.tar.gz hadoop-sqoop:/tmp/
+```
 
 ---
 
 ### **Step 4: Access the Docker Container**
 
-1. **Enter the Docker Container**:
+#### 4.1. **Enter the Docker Container**:
 
-   Use the following command to access the Docker container's shell:
+Use the following command to access the Docker container’s shell:
 
-   ```bash
-   docker exec -it hadoop-sqoop bash
-   ```
+```bash
+docker exec -it hadoop-sqoop bash
+```
 
 ---
 
 ### **Step 5: Extract the Sqoop Tarball**
 
-1. **Navigate to the `/tmp` Directory**:
-   Change to the `/tmp` directory where the tarball was copied:
+#### 5.1. **Navigate to the `/tmp` Directory**:
 
-   ```bash
-   cd /tmp/
-   ```
+Change to the `/tmp` directory where the tarball was copied:
 
-2. **Extract the Tarball**:
+```bash
+cd /tmp/
+```
 
-   Use the `tar` command to extract the Sqoop tarball:
+#### 5.2. **Extract the Tarball**:
 
-   ```bash
-   tar -xvzf sqoop-1.99.6-bin-hadoop200.tar.gz
-   ```
+Use the `tar` command to extract the Sqoop tarball:
 
-3. **Verify the Extraction**:
-   After extraction, you should see the `sqoop-1.99.6-bin-hadoop200` folder in the `/tmp/` directory.
+```bash
+tar -xvzf sqoop-1.99.6-bin-hadoop200.tar.gz
+```
+
+#### 5.3. **Verify the Extraction**:
+
+After extraction, you should see the `sqoop-1.99.6-bin-hadoop200` folder in the `/tmp/` directory.
 
 ---
 
 ### **Step 6: Move the Sqoop Directory**
 
-1. **Move the Extracted Sqoop Directory to `/opt`**:
+#### 6.1. **Move the Extracted Sqoop Directory**:
 
-   Move the extracted `sqoop-1.99.6-bin-hadoop200` folder to `/opt` for better organization:
+Move the extracted `sqoop-1.99.6-bin-hadoop200` folder to `/opt` for better organization:
 
-   ```bash
-   mv /tmp/sqoop-1.99.6-bin-hadoop200 /opt/sqoop
-   ```
+```bash
+mv /tmp/sqoop-1.99.6-bin-hadoop200 /opt/sqoop
+```
 
-2. **Verify the Move**:
+#### 6.2. **Verify the Move**:
 
-   Check if the folder is correctly moved:
+Check if the folder is correctly moved:
 
-   ```bash
-   ls /opt/sqoop
-   ```
-![image](https://github.com/user-attachments/assets/fd288081-38c3-4378-8c1d-53b91e23b1c9)
+```bash
+ls /opt/sqoop
+```
 
 ---
 
 ### **Step 7: Set Environment Variables**
 
-1. **Edit `.bashrc` to Add Sqoop Environment Variables**:
-
-Steps to Fix and Finalize Sqoop Setup:
-Check for sqoop.sh script: From the previous steps, it seems that the sqoop.sh script is present, but you faced issues running it. Ensure that it's executable and in the correct environment:
+#### 7.1. **Edit `.bashrc` to Add Sqoop Environment Variables**:
 
 ```bash
-chmod +x /opt/sqoop/bin/sqoop.sh
+nano ~/.bashrc
 ```
-Set the correct environment variables: You've already set SQOOP_HOME in .bashrc. Ensure you correctly source the bashrc file to load the environment variables:
+
+Add the following lines to set the environment variables:
+
+```bash
+export SQOOP_HOME=/opt/sqoop
+export PATH=$SQOOP_HOME/bin:$PATH
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+export PATH=$JAVA_HOME/bin:$PATH
+```
+
+#### 7.2. **Source `.bashrc` to Apply Changes**:
 
 ```bash
 source ~/.bashrc
-``
-Check the Java environment: Ensure that Java is set up correctly. Sqoop requires Java to run. Since you installed OpenJDK 8, verify the Java version:
-
+```
 
 ---
 
-### **Step 8: Install Java (if not already installed)**
+### **Step 8: Install Java (If Not Already Installed)**
 
-If Java 8 is not already installed, install it using the following steps:
+#### 8.1. **Install OpenJDK 8**:
 
-1. **Install OpenJDK 8**:
+If Java is not already installed, install OpenJDK 8:
 
-   ```bash
-   apt-get install openjdk-8-jdk
-   ```
+```bash
+apt-get install openjdk-8-jdk
+```
 
-2. **Verify Java Installation**:
+#### 8.2. **Verify Java Installation**:
 
-   Check the Java version to ensure it’s installed:
+Check the Java version:
 
-   ```bash
-   java -version
-   ```
-This should display the correct OpenJDK 8 version. If not, you may need to configure the JAVA_HOME environment variable and ensure that it points to the correct Java path. Add this to .bashrc if not already done:
+```bash
+java -version
+```
 
-**Set Environment Variables**
+#### 8.3. **Set JAVA_HOME**:
+
+If `JAVA_HOME` is not already set, add the following lines to `.bashrc`:
 
 ```bash
 echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> ~/.bashrc
 echo "export PATH=\$JAVA_HOME/bin:\$PATH" >> ~/.bashrc
 ```
+
+Then, apply the changes:
+
 ```bash
 source ~/.bashrc
 ```
-Try running the Sqoop commands again: After ensuring the environment variables are properly set, attempt to run the sqoop command again:
-
-```bash
-sqoop2-shell
-```
-![image](https://github.com/user-attachments/assets/cf313ba8-4978-4bf5-907b-c6a1716e9bb5)
-
-
-Exit the Sqoop Interactive Shell: First, you need to exit the Sqoop shell. You can exit the Groovy shell by typing:
-
-```bash
-exit
-```
-This will take you back to the regular terminal prompt.
-
-This should open the Sqoop interactive shell.
-
-Test with a sample job: Once everything is set up, you can test a sample Sqoop command (for example, listing available databases) to ensure everything is working:
-
-```bash
-sqoop list-databases --connect jdbc:mysql://<MYSQL_HOST>:<PORT>/<DATABASE> --username <USER> -
-```
 
 ---
 
-### **Step 9: Verify the Sqoop Installation**
+### **Step 9: Test the Setup**
 
-Verify that Sqoop is installed correctly:
+#### 9.1. **Verify Sqoop**:
 
-1. **Check the Sqoop Version**:
+After setting the environment variables, run:
 
-   Run the following command to check if Sqoop is working:
+```bash
+sqoop version
+```
 
-   ```bash
-   sqoop version
-   ```
-
-   If everything is installed correctly, you should see Sqoop's version information.
+You should see the Sqoop version information, confirming the installation.
 
 ---
 
-### **Step 10: Use Basic Sqoop Commands**
+### **Step 10: Running Sqoop Commands**
 
-You can now use Sqoop to import and export data between MySQL and HDFS. Below are some basic commands for importing and exporting data.
+#### 10.1. **List Databases**:
 
-#### **1. Import Data from MySQL to HDFS**
-
-To import data from a MySQL table into HDFS:
+To verify the connection to MySQL and list databases:
 
 ```bash
-sqoop import --connect jdbc:mysql://localhost:3306/testdb \
---username sqoop_user --password password123 \
---table employee --target-dir /user/hadoop/employee_data
-```
-
-This command imports the `employee` table from the `testdb` database into the HDFS directory `/user/hadoop/employee_data`.
-
-#### **2. Export Data from HDFS to MySQL**
-
-To export data from HDFS back into a MySQL database:
-
-```bash
-sqoop export --connect jdbc:mysql://localhost:3306/testdb \
---username sqoop_user --password password123 \
---table employee --export-dir /user/hadoop/employee_data
-```
-
-This command exports the data stored in HDFS (`/user/hadoop/employee_data`) to the `employee` table in the `testdb` MySQL database.
-
-#### **3. List Databases in MySQL**
-
-To list all the databases in your MySQL server:
-
-```bash
-sqoop list-databases --connect jdbc:mysql://localhost:3306 \
---username sqoop_user --password password123
-```
-
-#### **4. List Tables in a Database**
-
-To list all the tables in the `testdb` database:
-
-```bash
-sqoop list-tables --connect jdbc:mysql://localhost:3306/testdb \
---username sqoop_user --password password123
+sqoop list-databases --connect jdbc:mysql://localhost:3306 --username root --password password123
 ```
 
 ---
 
 ### **Step 11: Troubleshooting**
 
-1. **Check Sqoop Logs**:
+#### 11.1. **Missing Executable Permission**:
 
-   If you encounter any issues, you can check the Sqoop logs for error messages:
+If you encounter issues running the `sqoop.sh` script, ensure it's executable:
 
-   ```bash
-   cat /opt/sqoop/sqoop-1.99.6/logs/sqoop*.log
-   ```
-
-2. **Ensure MySQL and Hadoop Services are Running**:
-
-   Make sure both MySQL and the Hadoop services (like HDFS and YARN) are running.
-
-3. **Verify Connection Details**:
-
-   Double-check that the JDBC URL and credentials for MySQL are correct.
+```bash
+chmod +x /opt/sqoop/bin/sqoop.sh
+```
 
 ---
 
-### **Summary of Commands**
+### **Step 12: Exit the Sqoop Interactive Shell**
 
-- **Upload Sqoop Tarball to Docker Container**:
+To exit the Sqoop interactive shell, type:
 
-  ```bash
-  docker cp C:\Users\Dell\Downloads\sqoop-1.99.6-bin-hadoop200.tar.gz hadoop-sqoop:/tmp/
-  ```
+```bash
+exit
+```
 
-- **Extract the Tarball**:
+This will return you to the regular terminal prompt.
 
-  ```bash
-  tar -xvzf /tmp/sqoop-1.99.6-bin-hadoop200.tar.gz
-  ```
+---
 
-- **Move Sqoop to `/opt` Directory**:
-
-  ```bash
-  mv /tmp/sqoop-1.99.6 /opt/sqoop
-  ```
-
-- **Set Environment Variables**:
-
-  ```bash
-  nano ~/.bashrc
-  export SQOOP_HOME=/opt/sqoop
-  export PATH=$SQOOP_HOME/bin:$PATH
-  source ~/.bashrc
-  ```
-
-- **Install Java**:
-
-  ```bash
-  apt-get install openjdk-8-jdk
-  ```
-
-- **Sqoop Commands**:
-  - **Import Data**:
-
-    ```bash
-    sqoop import --connect jdbc:mysql://localhost:3306/testdb --username sqoop_user --password password123 --table employee --target-dir /user/hadoop/employee_data
-    ```
-
-  - **Export Data**:
-
-    ```bash
-    sqoop export --connect jdbc:mysql://localhost:3306/testdb --username sqoop_user --password password123 --table employee --export-dir /user/hadoop/employee_data
-    ```
-
-This guide should help you set up and use Sqoop efficiently with a MySQL database and Hadoop in a Docker container.
+This guide should help you successfully set up Sqoop, MySQL, and Java on your Docker container. If you encounter issues with specific steps, feel free to ask for further clarification.
