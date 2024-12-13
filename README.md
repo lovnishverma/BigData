@@ -5,8 +5,7 @@
 
 # **Hadoop-on-Docker Setup Guide**
 
-This guide walks you through installing and running Hadoop on Docker, step-by-step. The instructions are simple and include visuals for clarity.
-
+This guide walks you through installing and running Hadoop on Docker, step-by-step.
 ---
 
 ## **Prerequisites**
