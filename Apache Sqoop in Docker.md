@@ -115,7 +115,7 @@ To ensure that MySQL is working correctly, you can check status:
    ```
 
 3. **Verify the Extraction**:
-   After extraction, you should see the `sqoop-1.99.6` folder in the `/tmp/` directory.
+   After extraction, you should see the `sqoop-1.99.6-bin-hadoop200` folder in the `/tmp/` directory.
 
 ---
 
@@ -123,10 +123,10 @@ To ensure that MySQL is working correctly, you can check status:
 
 1. **Move the Extracted Sqoop Directory to `/opt`**:
 
-   Move the extracted `sqoop-1.99.6` folder to `/opt` for better organization:
+   Move the extracted `sqoop-1.99.6-bin-hadoop200` folder to `/opt` for better organization:
 
    ```bash
-   mv /tmp/sqoop-1.99.6 /opt/sqoop
+   mv /tmp/sqoop-1.99.6-bin-hadoop200 /opt/sqoop
    ```
 
 2. **Verify the Move**:
