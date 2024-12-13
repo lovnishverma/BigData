@@ -41,6 +41,8 @@ Set up and start Hadoop containers using Docker:
 docker-compose up -d
 ```
 
+ the purpose of -d (runs the container in detached mode).
+
 ### Step 4: Verify running containers
 Check if the containers are running:
 ```bash
@@ -52,7 +54,7 @@ Enter the NameNode container to interact with Hadoop:
 ```bash
 docker exec -it namenode /bin/bash
 ```
-
+** -it refers to (interactive terminal)**
 ---
 
 ## **Running Hadoop Code** 
@@ -335,6 +337,60 @@ RAT 2
 - **MapReduce** splits the task into small, manageable pieces and processes them in parallel.
 - It’s ideal for large datasets but works the same for smaller ones (like your example).
 - Hadoop is designed for distributed systems, making it powerful for big data processing.
+
+
+
+
+
+
+### . **Stopping the Containers**  
+To stop the Docker containers when done:
+```bash
+docker-compose down
+```
+This will stop and remove the containers and networks created by `docker-compose up`.
+
+### 4. **Permissions Issue with Copying Files**  
+If you face permission issues while copying files to containers ensure the correct directory permissions in Docker by using:
+```bash
+docker exec -it namenode bash
+chmod -R 777 /your-directory
+```
+
+### 5. **Additional Debugging Tips**  
+Sometimes, containers might not start or might throw errors related to Hadoop configuration. A small troubleshooting section or references to common issues (e.g., insufficient memory for Hadoop) would be helpful.
+
+### 6. **Final Output File Path**  
+The output of the WordCount job will be written to `/user/root/output/` in HDFS. This is clearly explained, but you could also include a note that the output directory might need to be created beforehand to avoid errors.
+
+---
+
+### **Example Additions:**
+
+1. **Network Issues:**
+   ```
+   If you can't access the NameNode UI, ensure that your Docker container's ports are correctly exposed. For example, if you're running a local machine, the UI should be accessible via http://localhost:9870.
+   ```
+   
+2. **Stopping Containers:**
+   ```bash
+   docker-compose down  # Stop and remove the containers
+   ```
+
+3. **Permissions Fix:**
+   ```bash
+   docker exec -it namenode bash
+   chmod -R 777 /your-directory  # If you face any permission errors
+   ```
+
+4. **Handling HDFS Directory Creation:**
+   If `hdfs dfs -mkdir` gives an error, it may be because the directory already exists. Consider adding:
+   ```bash
+   hdfs dfs -rm -r /user/root/input  # If the directory exists, remove it first
+   hdfs dfs -mkdir /user/root/input
+   ```
+
+---
 
 😊 References
 
