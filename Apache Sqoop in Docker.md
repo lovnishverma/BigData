@@ -27,7 +27,7 @@ Inside the container, install Java and Hadoop dependencies:
 
 ```bash
 apt-get update
-apt-get install openjdk-8-jdk -y
+apt-get install openjdk-8-jdk -y #no need if you've updated already
 ```
 
 ### **Step 2: Install MySQL in Docker (If Not Installed)**
@@ -38,8 +38,8 @@ If MySQL is not already installed on your Docker container, follow these steps t
    Access the container shell and run the following commands to install MySQL:
 
    ```bash
-   docker exec -it hadoop-sqoop bash
-   apt-get update
+   docker exec -it hadoop-sqoop bash  #no need if you're already in the container
+   apt-get update                     #no need if you've updated already
    apt-get install mysql-server
    ```
 
