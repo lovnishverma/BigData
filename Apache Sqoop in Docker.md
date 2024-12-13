@@ -193,6 +193,16 @@ Try running the Sqoop commands again: After ensuring the environment variables a
 ```bash
 sqoop2-shell
 ```
+![image](https://github.com/user-attachments/assets/cf313ba8-4978-4bf5-907b-c6a1716e9bb5)
+
+
+Exit the Sqoop Interactive Shell: First, you need to exit the Sqoop shell. You can exit the Groovy shell by typing:
+
+```bash
+exit
+```
+This will take you back to the regular terminal prompt.
+
 This should open the Sqoop interactive shell.
 
 Test with a sample job: Once everything is set up, you can test a sample Sqoop command (for example, listing available databases) to ensure everything is working:
