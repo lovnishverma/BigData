@@ -7,7 +7,7 @@ Here is the complete, properly formatted guide to install and set up Sqoop and M
 ### **Prerequisites:**
 1. **Docker** installed and running on your machine.
 2. **Java 8 or higher** installed in your Docker container.
-3. **Sqoop Tarball** (`sqoop-1.99.6-bin-hadoop200.tar.gz`) available locally.
+3. **Sqoop Tarball** (`sqoop-1.99.6-bin-hadoop200.tar.gz`) available locally. Download Link: https://archive.apache.org/dist/sqoop/1.99.6/sqoop-1.99.6-bin-hadoop200.tar.gz
 4. **MySQL** installed on the Docker container (or a separate MySQL instance running).
 
 ---
