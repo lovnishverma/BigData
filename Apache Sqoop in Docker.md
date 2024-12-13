@@ -1,14 +1,11 @@
-Here’s the **complete and formatted guide** to install and configure Sqoop, Hadoop, MySQL, and Java step-by-step in your Docker container:
-if you've already done all these and want just enter 
+### **Complete Guide to Install and Configure Sqoop, Hadoop, MySQL, and Java on Docker**
 
-```bash
-docker exec -it sqoop-container /bin/bash
-```
+This guide will help you set up **Sqoop**, **Hadoop**, **MySQL**, and **Java** in a fresh Docker container. Follow each step to get everything working smoothly.
+
 ---
 
-## **Fresh Installation Guide: Sqoop on Docker**
+## **Step 1: Set up a Fresh Docker Container**
 
-### **Step 1: Set up a Fresh Docker Container**
 1. **Create and Start a New Ubuntu Container:**
    ```bash
    docker run -it --name sqoop-container ubuntu:20.04 /bin/bash
@@ -21,7 +18,8 @@ docker exec -it sqoop-container /bin/bash
 
 ---
 
-### **Step 2: Install Java (OpenJDK 8)**
+## **Step 2: Install Java (OpenJDK 8)**
+
 1. **Install OpenJDK 8:**
    ```bash
    apt-get install openjdk-8-jdk -y
@@ -31,7 +29,6 @@ docker exec -it sqoop-container /bin/bash
    ```bash
    java -version
    ```
-
    You should see Java 8 installed.
 
 3. **Set `JAVA_HOME`:**
@@ -54,7 +51,8 @@ docker exec -it sqoop-container /bin/bash
 
 ---
 
-### **Step 3: Install MySQL**
+## **Step 3: Install MySQL**
+
 1. **Install MySQL Server:**
    ```bash
    apt-get install mysql-server -y
@@ -81,7 +79,8 @@ docker exec -it sqoop-container /bin/bash
 
 ---
 
-### **Step 4: Install Hadoop**
+## **Step 4: Install Hadoop**
+
 1. **Install `wget` to Download Hadoop:**
    ```bash
    apt-get install wget -y
@@ -121,7 +120,8 @@ docker exec -it sqoop-container /bin/bash
 
 ---
 
-### **Step 5: Configure Hadoop**
+## **Step 5: Configure Hadoop**
+
 1. **Edit `core-site.xml`:**
    Open the file:
    ```bash
@@ -159,31 +159,24 @@ docker exec -it sqoop-container /bin/bash
    </configuration>
    ```
 
-The errors you are encountering indicate missing SSH utilities and potential misconfigurations in the Hadoop environment. Let's fix these issues step by step:
-
 ---
 
-### **Step 1: Install SSH Utilities**
+### **Step 6: Install SSH Utilities for Hadoop**
 
-Hadoop requires SSH for managing nodes in a distributed cluster. Even in single-node setups, it relies on these utilities.
+Hadoop requires SSH for managing nodes, even for single-node setups.
 
 1. **Install SSH in the Docker container:**
-
    ```bash
    apt-get update
    apt-get install -y openssh-client openssh-server
    ```
 
 2. **Start the SSH service:**
-
    ```bash
    service ssh start
    ```
 
 3. **Verify SSH installation:**
-
-   Ensure SSH is installed and running:
-
    ```bash
    ssh localhost
    ```
@@ -192,143 +185,50 @@ Hadoop requires SSH for managing nodes in a distributed cluster. Even in single-
 
 ---
 
-### **Step 2: Configure Passwordless SSH (Optional)**
-
-To avoid SSH issues in distributed environments, set up passwordless SSH for `localhost`.
-
-1. **Generate SSH keys:**
-
-   ```bash
-   ssh-keygen -t rsa -P "" -f ~/.ssh/id_rsa
-   ```
-
-2. **Add the public key to authorized keys:**
-
-   ```bash
-   cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-   chmod 600 ~/.ssh/authorized_keys
-   ```
-
-3. **Test SSH connectivity:**
-
-   ```bash
-   ssh localhost
-   ```
-
-   It should connect without asking for a password.
-
----
-
-### **Step 3: Fix the `chown` Warning**
-
-The error `chown: missing operand after '/opt/hadoop/logs'` occurs because the Hadoop logs directory does not exist or has incorrect permissions.
+### **Step 7: Fix Hadoop Logs and Ownership**
 
 1. **Create the logs directory:**
-
    ```bash
    mkdir -p /opt/hadoop/logs
    ```
 
 2. **Set the correct ownership:**
-
    ```bash
    chown -R $(whoami):$(whoami) /opt/hadoop/logs
-   ```
-
-   Replace `$(whoami)` with the appropriate user if necessary.
-
-3. **Ensure permissions are correct:**
-
-   ```bash
    chmod -R 755 /opt/hadoop/logs
    ```
 
 ---
 
-The error indicates that the `JAVA_HOME` environment variable is not set or not recognized by Hadoop during execution. Let's address this step by step:
-
----
-
-### **Step 1: Verify `JAVA_HOME` in Environment**
-
-1. **Check the current value of `JAVA_HOME`:**
-
-   ```bash
-   echo $JAVA_HOME
-   ```
-
-   If it’s not set or incorrect, you’ll need to configure it properly.
-
-2. **Identify the Java installation path:**
-
-   If `JAVA_HOME` is not set, find the installed Java path:
-
-   ```bash
-   update-alternatives --config java
-   ```
-
-   Note the path to Java, usually something like `/usr/lib/jvm/java-8-openjdk-amd64`.
-
----
-
-### **Step 2: Set `JAVA_HOME` in Hadoop Environment**
-
-Hadoop requires `JAVA_HOME` to be explicitly set in its environment configuration file.
+### **Step 8: Set `JAVA_HOME` in Hadoop**
 
 1. **Edit `hadoop-env.sh`:**
-
    Open the Hadoop environment file:
-
    ```bash
    nano /opt/hadoop/etc/hadoop/hadoop-env.sh
    ```
 
 2. **Set the `JAVA_HOME` variable:**
-
    Find the line (or add it if it doesn't exist):
-
    ```bash
    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
    ```
 
-   Replace `/usr/lib/jvm/java-8-openjdk-amd64` with your actual Java installation path.
-
-3. **Save and exit:**
-
-   Press `CTRL + X`, then `Y`, and then `Enter`.
-
----
-
-### **Step 3: Apply the Configuration**
-
-1. **Source the environment file:**
-
+3. **Apply the changes:**
    ```bash
    source /opt/hadoop/etc/hadoop/hadoop-env.sh
    ```
 
-2. **Verify the environment variable:**
-
-   ```bash
-   echo $JAVA_HOME
-   ```
-
-   It should display the correct Java path.
-
 ---
 
-### **Step 4: Start Hadoop**
+### **Step 9: Start Hadoop**
 
-1. **Format the Namenode again (optional):**
-
-   If this is a fresh setup:
-
+1. **Format the Namenode (optional for fresh setup):**
    ```bash
    hdfs namenode -format
    ```
 
 2. **Start Hadoop services:**
-
    ```bash
    start-dfs.sh
    start-yarn.sh
@@ -336,182 +236,17 @@ Hadoop requires `JAVA_HOME` to be explicitly set in its environment configuratio
 
 ---
 
-### **Step 5: Test the Setup**
+## **Step 10: Install Sqoop**
 
-1. **Verify HDFS health:**
-
-   ```bash
-   hdfs dfsadmin -report
-   ```
-
-2. **Check Hadoop logs (if necessary):**
-
-   If there are any issues, check the logs:
-
-   ```bash
-   cat /opt/hadoop/logs/*
-   ```
-
----
-
-
----
-
-The error message suggests that Hadoop cannot find the required configuration files in the `/etc/hadoop` directory. This typically occurs if the Hadoop configuration directory is either missing or not properly set up.
-
-Let's fix this issue step by step:
-
----
-
-### **Step 1: Verify Configuration Directory Path**
-
-By default, Hadoop looks for its configuration files in `/etc/hadoop`. However, in your installation, the Hadoop configuration files are located in `/opt/hadoop/etc/hadoop`. You need to either update the Hadoop configuration path or move the configuration files to `/etc/hadoop`.
-
----
-
-### **Option 1: Update the Configuration Path**
-
-1. **Set the `HADOOP_CONF_DIR` environment variable:**
-
-   You can tell Hadoop where to find the configuration files by setting the `HADOOP_CONF_DIR` environment variable.
-
-   - Open `.bashrc` for editing:
-
-     ```bash
-     nano ~/.bashrc
-     ```
-
-   - Add the following line to specify the correct configuration directory:
-
-     ```bash
-     export HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
-     ```
-
-   - Save and exit the file (`CTRL + X`, then `Y`, then `Enter`).
-
-2. **Source the updated `.bashrc` to apply the changes:**
-
-   ```bash
-   source ~/.bashrc
-   ```
-
----
-
-### **Option 2: Move the Configuration Files**
-
-Alternatively, you can copy the Hadoop configuration files from `/opt/hadoop/etc/hadoop` to `/etc/hadoop`.
-
-1. **Create the `/etc/hadoop` directory (if it doesn’t exist):**
-
-   ```bash
-   mkdir -p /etc/hadoop
-   ```
-
-2. **Copy the configuration files:**
-
-   ```bash
-   cp -r /opt/hadoop/etc/hadoop/* /etc/hadoop/
-   ```
-
----
-
-### **Step 2: Verify and Restart Hadoop**
-
-After updating the configuration path or copying the configuration files, let's verify the setup:
-
-1. **Check Hadoop’s configuration directory:**
-
-   Ensure that Hadoop can now find the configuration files:
-
-   ```bash
-   ls /etc/hadoop
-   ```
-
-   You should see configuration files like `core-site.xml`, `hdfs-site.xml`, and `yarn-site.xml`.
-
-2. **Restart Hadoop services:**
-
-   ```bash
-   start-dfs.sh
-   start-yarn.sh
-   ```
-
----
-
-### **Step 3: Verify Hadoop Setup**
-
-1. **Check HDFS health:**
-
-   After the services start, check HDFS health:
-
-   ```bash
-   hdfs dfsadmin -report
-   ```
-
-2. **Access Hadoop Web UI:**
-
-   Visit the following URL in your browser to verify that Hadoop is running properly:
-
-   - **HDFS Web UI:** `http://localhost:9870`
-   - **YARN Resource Manager UI:** `http://localhost:8088`
-
----
-
-By following these steps, Hadoop should be able to find the configuration directory and start without issues. Let me know if you encounter any further errors!
----
-
-### **Step 6: Verify Hadoop Services**
-
-1. **Check HDFS health:**
-
-   ```bash
-   hdfs dfsadmin -report
-   ```
-
-2. **Access the Hadoop web interfaces:**
-
-   - Namenode: [http://localhost:9870](http://localhost:9870)
-   - Resource Manager: [http://localhost:8088](http://localhost:8088)
-
----
-
-### **Additional Notes**
-
-- **Ensure Java and environment variables are set correctly:**
-
-  ```bash
-  echo $JAVA_HOME
-  echo $HADOOP_HOME
-  ```
-
-  Both should return the expected paths (e.g., `/usr/lib/jvm/java-8-openjdk-amd64` for Java and `/opt/hadoop` for Hadoop).
-
-- **For single-node setups:** Make sure the `slaves` file (`$HADOOP_HOME/etc/hadoop/slaves`) contains only `localhost`.
-
----
-
-Try these steps and let me know if you encounter further issues!
-
-4. **Start Hadoop Daemons:**
-   ```bash
-   start-dfs.sh
-   start-yarn.sh
-   ```
-
-5. **Verify Hadoop Services:**
-   Access the Hadoop web UI at: [http://localhost:9870](http://localhost:9870)
-
----
-
-### **Step 6: Install Sqoop**
 1. **Download and Extract Sqoop:**
-   Download the Sqoop tarball to your local machine:
+   Download Sqoop:
    [Sqoop 1.99.6](https://archive.apache.org/dist/sqoop/1.99.6/sqoop-1.99.6-bin-hadoop200.tar.gz)
 
    Transfer it to the container:
    ```bash
    docker cp sqoop-1.99.6-bin-hadoop200.tar.gz sqoop-container:/tmp
    ```
+
    Inside the container, extract and move Sqoop:
    ```bash
    tar -xvzf /tmp/sqoop-1.99.6-bin-hadoop200.tar.gz -C /opt
@@ -519,7 +254,7 @@ Try these steps and let me know if you encounter further issues!
    ```
 
 2. **Set Sqoop Environment Variables:**
-   Edit `.bashrc`:
+   Open `.bashrc`:
    ```bash
    nano ~/.bashrc
    ```
@@ -528,6 +263,7 @@ Try these steps and let me know if you encounter further issues!
    export SQOOP_HOME=/opt/sqoop
    export PATH=$SQOOP_HOME/bin:$PATH
    ```
+
    Apply changes:
    ```bash
    source ~/.bashrc
@@ -540,7 +276,8 @@ Try these steps and let me know if you encounter further issues!
 
 ---
 
-### **Step 7: Test Sqoop with MySQL**
+## **Step 11: Test Sqoop with MySQL**
+
 1. **Connect Sqoop to MySQL:**
    Use Sqoop to list MySQL databases:
    ```bash
@@ -549,7 +286,7 @@ Try these steps and let me know if you encounter further issues!
        --username sqoop_user --password password123
    ```
 
-   Replace `password123` with the MySQL user password.
+   Replace `password123` with your MySQL user password.
 
 2. **Expected Output:**
    If everything is configured correctly, you should see a list of MySQL databases, including `testdb`.
@@ -557,4 +294,7 @@ Try these steps and let me know if you encounter further issues!
 ---
 
 ### **Congratulations!**
-You’ve successfully installed and configured Sqoop, Hadoop, MySQL, and Java in your Docker container. You can now use Sqoop to transfer data between MySQL and Hadoop. Let me know if you face any issues!
+
+You’ve successfully installed and configured **Sqoop**, **Hadoop**, **MySQL**, and **Java** in your Docker container. You can now use **Sqoop** to transfer data between **MySQL** and **Hadoop**.
+
+If you face any issues, feel free to ask!
