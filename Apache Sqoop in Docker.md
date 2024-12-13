@@ -144,39 +144,19 @@ To ensure that MySQL is working correctly, you can check status:
 
 1. **Edit `.bashrc` to Add Sqoop Environment Variables**:
 
-If you'd prefer to use nano, you can install it using the following steps:
+Steps to Fix and Finalize Sqoop Setup:
+Check for sqoop.sh script: From the previous steps, it seems that the sqoop.sh script is present, but you faced issues running it. Ensure that it's executable and in the correct environment:
 
-Install nano:
 ```bash
-apt-get update
-apt-get install nano
+chmod +x /opt/sqoop/bin/sqoop.sh
 ```
-   Open the `.bashrc` file to add the necessary environment variables for Sqoop:
+Set the correct environment variables: You've already set SQOOP_HOME in .bashrc. Ensure you correctly source the bashrc file to load the environment variables:
 
-   ```bash
-   nano ~/.bashrc
-   ```
+```bash
+source ~/.bashrc
+``
+Check the Java environment: Ensure that Java is set up correctly. Sqoop requires Java to run. Since you installed OpenJDK 8, verify the Java version:
 
-2. **Add the Following Lines** at the end of the file:
-
-   ```bash
-   export SQOOP_HOME=/opt/sqoop
-   export PATH=$SQOOP_HOME/bin:$PATH
-   ```
-
-3. **Save and Exit**:
-   - Press `Ctrl+O` to save.
-   - Press `Enter` to confirm.
-   - Press `Ctrl+X` to exit the editor.
-
-4. **Apply the Changes**:
-
-   Reload the `.bashrc` file to apply the environment variable changes:
-
-   ```bash
-   source ~/.bashrc
-   ```
-![image](https://github.com/user-attachments/assets/e7cfb266-ddad-4f04-a23a-47d82b355aa2)
 
 ---
 
@@ -197,6 +177,29 @@ If Java 8 is not already installed, install it using the following steps:
    ```bash
    java -version
    ```
+This should display the correct OpenJDK 8 version. If not, you may need to configure the JAVA_HOME environment variable and ensure that it points to the correct Java path. Add this to .bashrc if not already done:
+
+**Set Environment Variables**
+
+```bash
+echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> ~/.bashrc
+echo "export PATH=\$JAVA_HOME/bin:\$PATH" >> ~/.bashrc
+```
+```bash
+source ~/.bashrc
+```
+Try running the Sqoop commands again: After ensuring the environment variables are properly set, attempt to run the sqoop command again:
+
+```bash
+sqoop2-shell
+```
+This should open the Sqoop interactive shell.
+
+Test with a sample job: Once everything is set up, you can test a sample Sqoop command (for example, listing available databases) to ensure everything is working:
+
+```bash
+sqoop list-databases --connect jdbc:mysql://<MYSQL_HOST>:<PORT>/<DATABASE> --username <USER> -
+```
 
 ---
 
