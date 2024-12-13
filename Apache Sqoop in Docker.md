@@ -238,19 +238,75 @@ Hadoop requires SSH for managing nodes, even for single-node setups.
 
 ## **Step 10: Install Sqoop**
 
-1. **Download and Extract Sqoop:**
-   Download Sqoop:
-   [Sqoop 1.99.6](https://archive.apache.org/dist/sqoop/1.99.6/sqoop-1.99.6-bin-hadoop200.tar.gz)
+1. It appears that the file you downloaded is still an HTML document, not the `.tar.gz` file as expected. This suggests that the file download process may have encountered an issue, such as being redirected to an HTML page rather than downloading the actual archive.
 
-   Transfer it to the container:
+### Steps to Fix the Download:
+
+1. **Double-check the download link:**
+
+   The file URL you are trying to download (`sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz`) might not be correct. The correct URL for downloading Sqoop 1.4.7 with Hadoop 2.6.0 support is:
+
    ```bash
-   docker cp sqoop-1.99.6-bin-hadoop200.tar.gz sqoop-container:/tmp
+   https://archive.apache.org/dist/sqoop/1.4.7/sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz
    ```
 
-   Inside the container, extract and move Sqoop:
+   But, since you're still receiving an HTML file, it may be worth verifying by visiting the link in a browser to see if there is a redirect happening.
+
+2. **Download using `curl` (if `wget` is failing):**
+
+   Sometimes, using `wget` can still result in an HTML page download if there’s a redirect. You can try using `curl` instead to force a direct download:
+
    ```bash
-   tar -xvzf /tmp/sqoop-1.99.6-bin-hadoop200.tar.gz -C /opt
-   mv /opt/sqoop-1.99.6-bin-hadoop200 /opt/sqoop
+   apt-get install curl
+   ```
+
+   ```bash
+   curl -L -o sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz https://archive.apache.org/dist/sqoop/1.4.7/sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz
+   ```
+
+   The `-L` flag tells `curl` to follow redirects, and `-o` allows you to specify the filename.
+
+3. **Check the file content again:**
+
+   After downloading with `curl`, check the file type again:
+
+   ```bash
+   file sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz
+   ```
+
+   The output should now show something like:
+   ```bash
+   sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz: gzip compressed data, was "sqoop-1.4.7.bin__hadoop-2.6.0.tar", last modified: ...
+   ```
+
+4. **Extract the archive:**
+
+   If the file type is correct (gzip compressed), you should be able to extract it using:
+
+   ```bash
+   tar -xvzf sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz -C /opt
+   ```
+
+---
+
+### Alternate Solution: Manual Download via Browser
+
+If the issue persists, you could manually download the file from the Apache archive:
+
+- Go to the [Sqoop 1.4.7 download page](https://archive.apache.org/dist/sqoop/1.4.7/)
+- Download the file directly via your browser and then use `docker cp` to copy the file into your container:
+
+   ```bash
+   docker cp /path/to/sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz sqoop-container:/tmp
+   ```
+
+Then, extract it inside the container:
+
+```bash
+tar -xvzf /tmp/sqoop-1.4.7.bin__hadoop-2.6.0.tar.gz -C /opt
+```
+
+Let me know if you encounter further issues!
    ```
 
 2. **Set Sqoop Environment Variables:**
