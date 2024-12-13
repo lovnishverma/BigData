@@ -241,13 +241,115 @@ The error `chown: missing operand after '/opt/hadoop/logs'` occurs because the H
 
 ---
 
-### **Step 4: Format the Hadoop Filesystem (if needed)**
+The error indicates that the `JAVA_HOME` environment variable is not set or not recognized by Hadoop during execution. Let's address this step by step:
 
-If you’ve previously attempted to start Hadoop without properly formatting HDFS, reformat it:
+---
 
-```bash
-hdfs namenode -format
-```
+### **Step 1: Verify `JAVA_HOME` in Environment**
+
+1. **Check the current value of `JAVA_HOME`:**
+
+   ```bash
+   echo $JAVA_HOME
+   ```
+
+   If it’s not set or incorrect, you’ll need to configure it properly.
+
+2. **Identify the Java installation path:**
+
+   If `JAVA_HOME` is not set, find the installed Java path:
+
+   ```bash
+   update-alternatives --config java
+   ```
+
+   Note the path to Java, usually something like `/usr/lib/jvm/java-8-openjdk-amd64`.
+
+---
+
+### **Step 2: Set `JAVA_HOME` in Hadoop Environment**
+
+Hadoop requires `JAVA_HOME` to be explicitly set in its environment configuration file.
+
+1. **Edit `hadoop-env.sh`:**
+
+   Open the Hadoop environment file:
+
+   ```bash
+   nano /opt/hadoop/etc/hadoop/hadoop-env.sh
+   ```
+
+2. **Set the `JAVA_HOME` variable:**
+
+   Find the line (or add it if it doesn't exist):
+
+   ```bash
+   export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+   ```
+
+   Replace `/usr/lib/jvm/java-8-openjdk-amd64` with your actual Java installation path.
+
+3. **Save and exit:**
+
+   Press `CTRL + X`, then `Y`, and then `Enter`.
+
+---
+
+### **Step 3: Apply the Configuration**
+
+1. **Source the environment file:**
+
+   ```bash
+   source /opt/hadoop/etc/hadoop/hadoop-env.sh
+   ```
+
+2. **Verify the environment variable:**
+
+   ```bash
+   echo $JAVA_HOME
+   ```
+
+   It should display the correct Java path.
+
+---
+
+### **Step 4: Start Hadoop**
+
+1. **Format the Namenode again (optional):**
+
+   If this is a fresh setup:
+
+   ```bash
+   hdfs namenode -format
+   ```
+
+2. **Start Hadoop services:**
+
+   ```bash
+   start-dfs.sh
+   start-yarn.sh
+   ```
+
+---
+
+### **Step 5: Test the Setup**
+
+1. **Verify HDFS health:**
+
+   ```bash
+   hdfs dfsadmin -report
+   ```
+
+2. **Check Hadoop logs (if necessary):**
+
+   If there are any issues, check the logs:
+
+   ```bash
+   cat /opt/hadoop/logs/*
+   ```
+
+---
+
 
 ---
 
