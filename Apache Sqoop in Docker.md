@@ -6,7 +6,56 @@ Here’s a reformatted and streamlined guide reflecting the steps that worked fo
 
 This guide outlines the steps to install and configure **Sqoop**, **Hadoop**, **MySQL**, and **Java** in a Docker container for big data operations.
 
----
+1. **Check Existing Containers**  
+   List all containers (including stopped ones) to confirm the presence of `sqoop-container`:
+   ```bash
+   docker ps -a
+   ```
+
+   Look for the container named `sqoop-container` in the output.
+
+2. **Restart the Existing Container (If You Want to Reuse It)**  
+   If the container `sqoop-container` is stopped and you want to use it, restart it:
+   ```bash
+   docker start sqoop-container
+   ```
+
+   Then, attach to it using:
+   ```bash
+   docker exec -it sqoop-container /bin/bash
+   ```
+
+3. **Remove the Existing Container (If You Want to Create a New One)**  
+   If you no longer need the existing `sqoop-container`, remove it:
+   ```bash
+   docker rm sqoop-container
+   ```
+
+   After removing it, you can create a new container with the same name:
+   ```bash
+   docker run -it --name sqoop-container ubuntu:20.04 /bin/bash
+   ```
+
+4. **Use a Different Container Name**  
+   If you don’t want to delete the existing container, create a new one with a different name:
+   ```bash
+   docker run -it --name sqoop-container-2 ubuntu:20.04 /bin/bash
+   ```
+
+### Additional Notes
+- **Check Container Logs**  
+   If the container failed previously, check its logs to identify issues:
+   ```bash
+   docker logs sqoop-container
+   ```
+
+- **Inspect Container Details**  
+   To investigate the container further:
+   ```bash
+   docker inspect sqoop-container
+   ``` 
+
+Let me know if you encounter further issues!
 
 ## **Step 1: Set up a Fresh Docker Container**
 
