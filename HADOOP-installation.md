@@ -208,7 +208,22 @@ apt-get install openssh-client -y
 ```
 ![image](https://github.com/user-attachments/assets/45140d6e-844d-43bb-a6c2-9ead988a9b03)
 
-## **Step 12: Start Hadoop Services**
+## **Step 12: Start Namenode and Datanode**
+
+Start the NameNode:
+
+```bash
+hadoop-daemon.sh start namenode
+```
+
+Start the DataNode:
+
+```bash
+hadoop-daemon.sh start datanode
+```
+
+
+## **Step 13: Start Hadoop Services**
 
 ### **1. Start HDFS**
 ```bash
@@ -227,6 +242,7 @@ Verify with:
 ```bash
 jps
 ```
+![image](https://github.com/user-attachments/assets/1e8afc9b-3ac7-49ef-a342-6be253bea0d1)
 
 ---
 
