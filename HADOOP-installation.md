@@ -1,4 +1,8 @@
 # **Installing Hadoop on Ubuntu Using Docker**
+![image](https://github.com/user-attachments/assets/a78badcf-4181-4379-aea2-8922855bfc0a) ![image](https://github.com/user-attachments/assets/0180422c-3395-4e93-a5ce-e4291820f9e5) ![image](https://github.com/user-attachments/assets/c37d59ff-7b5f-43e0-aeb8-cc3f5700dfca)
+![image](https://github.com/user-attachments/assets/c282459d-ef45-4589-b452-9424561d5ba3)
+
+
 
 ## **Introduction**
 Docker provides a convenient way to create isolated environments for applications. This guide walks you through the installation and setup of Hadoop on Ubuntu inside a Docker container.
