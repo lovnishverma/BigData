@@ -83,7 +83,7 @@ hdfs dfs -mkdir /user/root/input
 ### Step 4: Upload the `data.txt` file
 Copy `data.txt` into the Hadoop file system:
 ```bash
-hdfs dfs -put data.txt /user/root/input
+hdfs dfs -put /code/Hadoop_Code/input/data.txt /user/root/input
 ```
 
 ### Step 5: Navigate to the directory containing the `wordCount.jar` file
