@@ -61,7 +61,9 @@ apt-get update
 
 ---
 
-## **Step 3: Install Java** It will take about 2-3 minutes
+## **Step 3: Install Java** 
+Notw: It will take about 2-3 minutes
+
 1. Install OpenJDK 8:
    ```bash
    apt-get install openjdk-8-jdk -y
