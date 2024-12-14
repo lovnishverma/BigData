@@ -195,13 +195,10 @@ apt-get install wget -y
    <name>yarn.resourcemanager.webapp.address</name>
    <value>0.0.0.0:8088</value>
    </property>
-</configuration>
-
-
-
-
----
+   </configuration>
+   ```
 ![image](https://github.com/user-attachments/assets/c0b47340-47a6-4dd0-93b8-a8dceab780e9)
+
 ### **4. Set JAVA_HOME in Hadoop**
 1. Edit `hadoop-env.sh`:
    ```bash
