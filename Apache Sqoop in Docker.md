@@ -55,8 +55,6 @@ This guide outlines the steps to install and configure **Sqoop**, **Hadoop**, **
    docker inspect sqoop-container
    ``` 
 
-Let me know if you encounter further issues!
-
 ## **Step 1: Set up a Fresh Docker Container**
 
 1. **Create and Start a New Ubuntu Container:**
