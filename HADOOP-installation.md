@@ -133,7 +133,8 @@ apt-get install wget -y
    ```bash
    mv /opt/hadoop-2.10.2 /opt/hadoop
    ```
-   ![Download and Extract Hadoop](https://github.com/user-attachments/assets/63396bcc-03a6-42dd-8987-eadc566beb15)
+  ![image](https://github.com/user-attachments/assets/54706ca3-6c04-49b5-9ea1-d3ae9d698f45)
+
 
 ---
 3. **Set Hadoop Environment Variables for HADOOP:**
