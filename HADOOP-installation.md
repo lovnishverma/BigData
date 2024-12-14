@@ -133,6 +133,32 @@ apt-get install wget -y
    ![Download and Extract Hadoop](https://github.com/user-attachments/assets/63396bcc-03a6-42dd-8987-eadc566beb15)
 
 ---
+3. **Set Hadoop Environment Variables for HADOOP:**
+   Open `.bashrc`:
+   ```bash
+   nano ~/.bashrc
+   ```
+   Add these lines:
+   ```bash
+   export HADOOP_HOME=/opt/hadoop
+   export PATH=$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH
+   ```
+![image](https://github.com/user-attachments/assets/d7213cb8-734a-43c0-8c7a-d2abd5b3b64b)
+
+   Apply changes:
+   ```bash
+   source ~/.bashrc
+   ```
+![image](https://github.com/user-attachments/assets/afdb5195-e56c-4148-902b-0883a36d0379)
+
+
+4. **Verify Hadoop Installation:**
+   ```bash
+   hadoop version
+   ```
+![image](https://github.com/user-attachments/assets/1af4f232-e90a-4572-9217-fcdf92e21d1d)
+
+---
 
 ## **Step 8: Configure Hadoop**
 
