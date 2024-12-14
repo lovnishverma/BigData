@@ -89,7 +89,7 @@ hdfs dfs -put /code/Hadoop_Code/input/data.txt /user/root/input
 ### Step 5: Navigate to the directory containing the `wordCount.jar` file
 Return to the directory where the `wordCount.jar` file is located:
 ```bash
-cd ../
+cd /code/Hadoop_Code/
 ```
 
 ### Step 6: Execute the WordCount program 
