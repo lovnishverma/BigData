@@ -45,6 +45,7 @@ Docker provides a convenient way to create isolated environments for application
 ---
 
 ## **Step 1: Run a Docker Container with exposed ports**
+Note: -p 9870:9870 -p 8088:8088 is used to expose port for YARN ResourceManager UI and NameNode UI
 1. Start a Docker container using the `ubuntu:20.04` image:
    ```bash
    docker run -it -p 9870:9870 -p 8088:8088 --name hadoop-container ubuntu:20.04 /bin/bash
@@ -62,7 +63,7 @@ apt-get update
 ---
 
 ## **Step 3: Install Java** 
-Notw: It will take about 2-3 minutes
+Note: It will take about 2-3 minutes
 
 1. Install OpenJDK 8:
    ```bash
