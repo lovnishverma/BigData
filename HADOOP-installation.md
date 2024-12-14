@@ -119,10 +119,15 @@ apt-get install wget -y
    ```bash
    wget https://dlcdn.apache.org/hadoop/common/hadoop-2.10.2/hadoop-2.10.2.tar.gz
    ```
+![image](https://github.com/user-attachments/assets/71bc9046-5363-4660-988d-e920e12ff631)
 
 2. Extract and move to `/opt`:
    ```bash
    tar -xzf hadoop-2.10.2.tar.gz -C /opt
+   ```
+![image](https://github.com/user-attachments/assets/14a64148-0ead-4f61-b9b3-2f7c1577c69a)
+
+   ```bash
    mv /opt/hadoop-2.10.2 /opt/hadoop
    ```
    ![Download and Extract Hadoop](https://github.com/user-attachments/assets/63396bcc-03a6-42dd-8987-eadc566beb15)
