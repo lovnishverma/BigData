@@ -1,9 +1,3 @@
-![image](https://github.com/user-attachments/assets/e5c06007-d31d-4e03-8447-90650ba21513)
-
-Guide to installing Hadoop on Ubuntu using Docker, properly formatted in Markdown with detailed instructions and relevant images embedded.
-
----
-
 # **Installing Hadoop on Ubuntu Using Docker**
 
 ## **Introduction**
@@ -34,7 +28,7 @@ Docker provides a convenient way to create isolated environments for application
    ```
    Then create a new one:
    ```bash
-   docker run -it --name hadoop-container ubuntu:20.04 /bin/bash
+   docker run -it -p 9870:9870 -p 8088:8088 --name hadoop-container ubuntu:20.04 /bin/bash
    ```
 
 4. **Create a Container with a Different Name**  
@@ -48,9 +42,10 @@ Docker provides a convenient way to create isolated environments for application
 ## **Step 1: Run a Docker Container**
 1. Start a Docker container using the `ubuntu:20.04` image:
    ```bash
-   docker run -it --name hadoop-container ubuntu:20.04 /bin/bash
-   ```
+   docker run -it -p 9870:9870 -p 8088:8088 --name hadoop-container ubuntu:20.04 /bin/bash
+
    ![Docker Run Command](https://github.com/user-attachments/assets/75ff0e66-d30a-430e-b869-3efe99a6a1a2)
+   ```
 
 ---
 
@@ -183,23 +178,22 @@ apt-get install wget -y
 2. Add:
    ```xml
    <configuration>
-<property>
+   <property>
   <name>yarn.resourcemanager.address</name>
   <value>0.0.0.0:8088</value>
-</property>
+  </property>
 <property>
-  <name>yarn.resourcemanager.webapp.address</name>
-  <value>0.0.0.0:8088</value>
+<name>yarn.resourcemanager.webapp.address</name>
+<value>0.0.0.0:8088</value>
 </property>
-   </configuration>
-   ```
-   
+</configuration>
+```
 
 ![image](https://github.com/user-attachments/assets/c0b47340-47a6-4dd0-93b8-a8dceab780e9)
 
 ---
 
-### **3. Set JAVA_HOME in Hadoop**
+### **4. Set JAVA_HOME in Hadoop**
 1. Edit `hadoop-env.sh`:
    ```bash
    nano /opt/hadoop/etc/hadoop/hadoop-env.sh
@@ -222,8 +216,7 @@ apt-get install wget -y
 
 ---
 
-##  **Step 11: Install OpenSSH Client**
-
+## **Step 11: Install OpenSSH Client**
 ```bash
 apt-get update
 apt-get install openssh-client -y
@@ -233,17 +226,14 @@ apt-get install openssh-client -y
 ## **Step 12: Start Namenode and Datanode**
 
 Start the NameNode:
-
 ```bash
 hadoop-daemon.sh start namenode
 ```
 
 Start the DataNode:
-
 ```bash
 hadoop-daemon.sh start datanode
 ```
-
 
 ## **Step 13: Start Hadoop Services**
 
