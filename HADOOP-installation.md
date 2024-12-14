@@ -200,7 +200,15 @@ apt-get install wget -y
 
 ---
 
-## **Step 10: Start Hadoop Services**
+##  **Step 11: Install OpenSSH Client**
+
+```bash
+apt-get update
+apt-get install openssh-client -y
+```
+![image](https://github.com/user-attachments/assets/45140d6e-844d-43bb-a6c2-9ead988a9b03)
+
+## **Step 12: Start Hadoop Services**
 
 ### **1. Start HDFS**
 ```bash
