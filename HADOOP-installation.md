@@ -181,8 +181,9 @@ apt-get install wget -y
    nano /opt/hadoop/etc/hadoop/yarn-site.xml
    ```
 2. Add:
+   
    ```xml
-   <property>
+<property>
   <name>yarn.resourcemanager.address</name>
   <value>0.0.0.0:8088</value>
 </property>
