@@ -213,15 +213,62 @@ apt-get install wget -y
 
 ```xml
 <configuration>
+
+   <!-- ResourceManager hostname -->
    <property>
-   <name>yarn.resourcemanager.address</name>
-   <value>0.0.0.0:8088</value>
+       <name>yarn.resourcemanager.hostname</name>
+       <value>localhost</value>
    </property>
+
+   <!-- ResourceManager web UI address -->
    <property>
-   <name>yarn.resourcemanager.webapp.address</name>
-   <value>0.0.0.0:8088</value>
+       <name>yarn.resourcemanager.webapp.address</name>
+       <value>0.0.0.0:8088</value>
    </property>
-   </configuration>
+
+   <!-- YARN ResourceManager address -->
+   <property>
+       <name>yarn.resourcemanager.address</name>
+       <value>0.0.0.0:8088</value>
+   </property>
+
+   <!-- ResourceManager Scheduler address -->
+   <property>
+       <name>yarn.resourcemanager.scheduler.address</name>
+       <value>0.0.0.0:8030</value>
+   </property>
+
+   <!-- NodeManager address -->
+   <property>
+       <name>yarn.nodemanager.address</name>
+       <value>0.0.0.0:8042</value>
+   </property>
+
+   <!-- ResourceManager State Store -->
+   <property>
+       <name>yarn.resourcemanager.store.class</name>
+       <value>org.apache.hadoop.yarn.server.resourcemanager.store.impl.InMemoryRMStateStore</value>
+   </property>
+
+   <!-- Maximum Memory for NodeManagers -->
+   <property>
+       <name>yarn.nodemanager.resource.memory-mb</name>
+       <value>8192</value>
+   </property>
+
+   <!-- Maximum vCores for NodeManagers -->
+   <property>
+       <name>yarn.nodemanager.resource.cpu-vcores</name>
+       <value>4</value>
+   </property>
+
+   <!-- The number of containers allowed per NodeManager -->
+   <property>
+       <name>yarn.nodemanager.resource.memory-mb</name>
+       <value>8192</value>
+   </property>
+
+</configuration>
    ```
 ![image](https://github.com/user-attachments/assets/c0b47340-47a6-4dd0-93b8-a8dceab780e9)
 
