@@ -1,4 +1,4 @@
-Here’s a reformatted and streamlined guide reflecting the steps for setting up **Sqoop**, **Hadoop**, **MySQL**, and **Java** on Docker:  
+Here’s a streamlined guide reflecting the steps for setting up **Sqoop**, **Hadoop**, **MySQL**, and **Java** on Docker:  
 
 ---
 
