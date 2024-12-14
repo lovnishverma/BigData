@@ -184,19 +184,18 @@ apt-get install wget -y
    nano /opt/hadoop/etc/hadoop/yarn-site.xml
    ```
 2. Add:
-3. 
-   ```bash
+
    <configuration>
    <property>
-  <name>yarn.resourcemanager.address</name>
-  <value>0.0.0.0:8088</value>
-  </property>
-<property>
-<name>yarn.resourcemanager.webapp.address</name>
-<value>0.0.0.0:8088</value>
-</property>
-</configuration>
-```
+   <name>yarn.resourcemanager.address</name>
+   <value>0.0.0.0:8088</value>
+   </property>
+   <property>
+   <name>yarn.resourcemanager.webapp.address</name>
+   <value>0.0.0.0:8088</value>
+   </property>
+   </configuration>
+
 
 ![image](https://github.com/user-attachments/assets/c0b47340-47a6-4dd0-93b8-a8dceab780e9)
 
