@@ -300,6 +300,7 @@ jps
    hdfs dfs -mkdir /test
    hdfs dfs -ls /
    ```
+![image](https://github.com/user-attachments/assets/1a03bf0b-8280-4ea3-9bca-a68ca1ebc78a)
 
 ---
 
