@@ -185,18 +185,6 @@ apt-get install wget -y
    ```
 2. Add:
 
-```markdown
-   <configuration>
-   <property>
-   <name>yarn.resourcemanager.address</name>
-   <value>0.0.0.0:8088</value>
-   </property>
-   <property>
-   <name>yarn.resourcemanager.webapp.address</name>
-   <value>0.0.0.0:8088</value>
-   </property>
-   </configuration>
-```
 ```xml
 <configuration>
    <property>
