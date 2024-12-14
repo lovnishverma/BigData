@@ -1,65 +1,52 @@
-Here's a step-by-step guide to installing Hadoop on Ubuntu using Docker.
+![image](https://github.com/user-attachments/assets/e5c06007-d31d-4e03-8447-90650ba21513)
+
+Guide to installing Hadoop on Ubuntu using Docker, properly formatted in Markdown with detailed instructions and relevant images embedded.
 
 ---
-1. **Check Existing Containers**  
-   List all containers (including stopped ones) to confirm the presence of `hadoop-container`:
+
+# **Installing Hadoop on Ubuntu Using Docker**
+
+## **Introduction**
+Docker provides a convenient way to create isolated environments for applications. This guide walks you through the installation and setup of Hadoop on Ubuntu inside a Docker container.
+
+---
+
+## **Preliminary Steps**
+
+### **Check Existing Containers**
+1. List all containers (including stopped ones):
    ```bash
    docker ps -a
    ```
+   Look for a container named `hadoop-container`.
 
-   Look for the container named `hadoop-container` in the output.
-
-2. **Restart the Existing Container (If You Want to Reuse It)**  
-   If the container `hadoop-container` is stopped and you want to use it, restart it:
+2. **Restart an Existing Container**  
+   If the container is stopped:
    ```bash
    docker start hadoop-container
-   ```
-
-   Then, attach to it using:
-   ```bash
    docker exec -it hadoop-container /bin/bash
    ```
 
-3. **Remove the Existing Container (If You Want to Create a New One)**  
-   If you no longer need the existing `hadoop-container`, remove it:
+3. **Remove an Old Container**  
+   To remove an existing container:
    ```bash
    docker rm hadoop-container
    ```
-
-   After removing it, you can create a new container with the same name:
+   Then create a new one:
    ```bash
    docker run -it --name hadoop-container ubuntu:20.04 /bin/bash
    ```
 
-4. **Use a Different Container Name**  
-   If you don’t want to delete the existing container, create a new one with a different name:
+4. **Create a Container with a Different Name**  
+   If you want a new container without deleting the old one:
    ```bash
    docker run -it --name hadoop-container-2 ubuntu:20.04 /bin/bash
    ```
 
-### Additional Notes
-- **Check Container Logs**  
-   If the container failed previously, check its logs to identify issues:
-   ```bash
-   docker logs hadoop-container
-   ```
-
-- **Inspect Container Details**  
-   To investigate the container further:
-   ```bash
-   docker inspect hadoop-container
-   ``` 
-
-# **Hadoop Installation on Ubuntu Using Docker**
-
-### **Introduction to Docker**
-Docker is a platform that allows you to run software in lightweight, isolated containers. Think of containers as small, portable virtual environments that contain everything needed to run an application.
-
 ---
 
-### **Step 1: Run a Docker Container**
-
-1. Open your terminal and run the following command to start a Docker container using the `ubuntu:20.04` image:
+## **Step 1: Run a Docker Container**
+1. Start a Docker container using the `ubuntu:20.04` image:
    ```bash
    docker run -it --name hadoop-container ubuntu:20.04 /bin/bash
    ```
@@ -67,19 +54,17 @@ Docker is a platform that allows you to run software in lightweight, isolated co
 
 ---
 
-### **Step 2: Update the Package List**
-
-1. Inside the container, update the package list to ensure all software is up-to-date:
-   ```bash
-   apt-get update
-   ```
-   ![Update Packages](https://github.com/user-attachments/assets/d6e32909-7ce1-446c-a3bc-082b7d0187c0)
+## **Step 2: Update the Package List**
+Update the package list inside the container:
+```bash
+apt-get update
+```
+![Update Packages](https://github.com/user-attachments/assets/d6e32909-7ce1-446c-a3bc-082b7d0187c0)
 
 ---
 
-### **Step 3: Install Java**
-
-1. Hadoop requires Java. Install OpenJDK 8 by running:
+## **Step 3: Install Java**
+1. Install OpenJDK 8:
    ```bash
    apt-get install openjdk-8-jdk -y
    ```
@@ -93,23 +78,21 @@ Docker is a platform that allows you to run software in lightweight, isolated co
 
 ---
 
-### **Step 4: Install a Text Editor (Nano)**
-
-1. Install the Nano text editor, which you’ll use to edit configuration files:
-   ```bash
-   apt-get install nano -y
-   ```
-   ![Install Nano](https://github.com/user-attachments/assets/78319fa9-9365-4b41-94de-a8959ce4fe12)
+## **Step 4: Install a Text Editor**
+Install the Nano text editor for editing configuration files:
+```bash
+apt-get install nano -y
+```
+![Install Nano](https://github.com/user-attachments/assets/78319fa9-9365-4b41-94de-a8959ce4fe12)
 
 ---
 
-### **Step 5: Set JAVA_HOME**
-
-1. Open the `.bashrc` file to set environment variables:
+## **Step 5: Set JAVA_HOME**
+1. Open `.bashrc` to add environment variables:
    ```bash
    nano ~/.bashrc
    ```
-   Add the following lines:
+   Add these lines:
    ```bash
    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
    export PATH=$JAVA_HOME/bin:$PATH
@@ -124,74 +107,38 @@ Docker is a platform that allows you to run software in lightweight, isolated co
 
 ---
 
-### **Step 6: Install wget for File Downloads**
-
-1. Install the `wget` tool, which is used to download files from the internet:
-   ```bash
-   apt-get install wget -y
-   ```
-   ![Install Wget](https://github.com/user-attachments/assets/3e076cbc-74d7-461f-be96-54521057aaf9)
+## **Step 6: Install wget**
+Install `wget` for downloading files:
+```bash
+apt-get install wget -y
+```
+![Install Wget](https://github.com/user-attachments/assets/3e076cbc-74d7-461f-be96-54521057aaf9)
 
 ---
 
-### **Step 7: Download and Extract Hadoop**
-
-1. Download Hadoop using `wget`:
+## **Step 7: Download and Extract Hadoop**
+1. Download Hadoop:
    ```bash
    wget https://dlcdn.apache.org/hadoop/common/hadoop-2.10.2/hadoop-2.10.2.tar.gz
    ```
 
-2. Extract the downloaded file to `/opt`:
+2. Extract and move to `/opt`:
    ```bash
    tar -xzf hadoop-2.10.2.tar.gz -C /opt
-   ```
-
-3. Rename the extracted directory for simplicity:
-   ```bash
    mv /opt/hadoop-2.10.2 /opt/hadoop
    ```
    ![Download and Extract Hadoop](https://github.com/user-attachments/assets/63396bcc-03a6-42dd-8987-eadc566beb15)
-   ![Rename Hadoop Directory](https://github.com/user-attachments/assets/4bfe042a-0a03-4064-b44f-6ff60e7e3b62)
 
 ---
 
-### **Step 8: Set Hadoop Environment Variables**
+## **Step 8: Configure Hadoop**
 
-1. Open the `.bashrc` file again:
-   ```bash
-   nano ~/.bashrc
-   ```
-
-2. Add these lines:
-   ```bash
-   export HADOOP_HOME=/opt/hadoop
-   export PATH=$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH
-   ```
-   ![Edit Bashrc for Hadoop](https://github.com/user-attachments/assets/ab6d24f8-5348-4329-9a39-0ba869ee315c)
-
-3. Apply the changes:
-   ```bash
-   source ~/.bashrc
-   ```
-   ![Apply Hadoop Changes](https://github.com/user-attachments/assets/08d511c2-487a-4b9e-b3dc-be1ec830e744)
-
-4. Verify the Hadoop installation:
-   ```bash
-   hadoop version
-   ```
-   ![Hadoop Version](https://github.com/user-attachments/assets/f34af121-3663-495a-bcb8-680584a6111e)
-
----
-
-### **Step 9: Configure Hadoop**
-
-#### **1. Configure core-site.xml**
-1. Open the `core-site.xml` file:
+### **1. Configure core-site.xml**
+1. Edit `core-site.xml`:
    ```bash
    nano /opt/hadoop/etc/hadoop/core-site.xml
    ```
-
-2. Add the following configuration:
+2. Add:
    ```xml
    <configuration>
        <property>
@@ -200,17 +147,16 @@ Docker is a platform that allows you to run software in lightweight, isolated co
        </property>
    </configuration>
    ```
-![image](https://github.com/user-attachments/assets/c8579cd5-708f-4398-bc5b-f683c6df5356)
+   ![Edit core-site.xml](https://github.com/user-attachments/assets/c8579cd5-708f-4398-bc5b-f683c6df5356)
 
 ---
 
-#### **2. Configure hdfs-site.xml**
-1. Open the `hdfs-site.xml` file:
+### **2. Configure hdfs-site.xml**
+1. Edit `hdfs-site.xml`:
    ```bash
    nano /opt/hadoop/etc/hadoop/hdfs-site.xml
    ```
-
-2. Add the following configuration:
+2. Add:
    ```xml
    <configuration>
        <property>
@@ -227,120 +173,72 @@ Docker is a platform that allows you to run software in lightweight, isolated co
        </property>
    </configuration>
    ```
-![image](https://github.com/user-attachments/assets/5cd73d3d-2d59-479e-b7a2-19a20eb52ee8)
+   ![Edit hdfs-site.xml](https://github.com/user-attachments/assets/5cd73d3d-2d59-479e-b7a2-19a20eb52ee8)
 
 ---
 
-#### **3. Set JAVA_HOME in Hadoop**
-1. Open the `hadoop-env.sh` file:
+### **3. Set JAVA_HOME in Hadoop**
+1. Edit `hadoop-env.sh`:
    ```bash
    nano /opt/hadoop/etc/hadoop/hadoop-env.sh
    ```
-
-2. Add the following line:
+2. Add:
    ```bash
    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
    ```
-![image](https://github.com/user-attachments/assets/6ca75959-ee7f-422d-8dd3-52ad1f363121)
+   ![Edit hadoop-env.sh](https://github.com/user-attachments/assets/6ca75959-ee7f-422d-8dd3-52ad1f363121)
 
 ---
-Step 10: Format the HDFS
-Format the Hadoop NameNode. This prepares the HDFS directories defined in your configuration:
 
-```bash
-hdfs namenode -format
-```
+## **Step 9: Format HDFS**
+1. Format the NameNode:
+   ```bash
+   hdfs namenode -format
+   ```
+   Example Output:
+   ![Format HDFS](https://github.com/user-attachments/assets/f530cb29-9040-47cd-b8ba-4d7bbc6c5b00)
 
-What happens here?
-This command initializes the namenode metadata. It creates the directory structure for HDFS and writes the necessary files to the locations specified in the hdfs-site.xml.
-Example output:
+---
 
-```xml
-INFO namenode.NameNode: STARTUP_MSG: 
-Starting NameNode
-INFO namenode.FSNamesystem: File system image storage format has been created.
-```
-
-![image](https://github.com/user-attachments/assets/f530cb29-9040-47cd-b8ba-4d7bbc6c5b00)
-
-
-## **Step 11: Start Hadoop Services**
+## **Step 10: Start Hadoop Services**
 
 ### **1. Start HDFS**
-1. Start NameNode and DataNode:
-   ```bash
-   start-dfs.sh
-   ```
-
-2. Verify services:
-   ```bash
-   jps
-   ```
-   > Expected output:
-   ```
-   NameNode
-   DataNode
-   SecondaryNameNode
-   ```
-
----
+```bash
+start-dfs.sh
+```
+Check services:
+```bash
+jps
+```
 
 ### **2. Start YARN**
-1. Start ResourceManager and NodeManager:
-   ```bash
-   start-yarn.sh
-   ```
-
-2. Verify services:
-   ```bash
-   jps
-   ```
-   > Expected output:
-   ```
-   ResourceManager
-   NodeManager
-   ```
+```bash
+start-yarn.sh
+```
+Verify with:
+```bash
+jps
+```
 
 ---
 
-## **Step 12: Verify Setup**
+## **Verification**
+1. Access the Hadoop Web UIs:
+   - **HDFS**: [http://localhost:9870](http://localhost:9870)
+   - **YARN**: [http://localhost:8088](http://localhost:8088)
 
-### **1. Access Hadoop Web UI**
-- **NameNode UI:**  
-  [http://localhost:9870](http://localhost:9870)  
-  Displays the HDFS overview.
-  
-- **ResourceManager UI:**  
-  [http://localhost:8088](http://localhost:8088)  
-  Displays YARN resource management.
-
----
-
-### **2. Test HDFS**
-1. Create a directory:
+2. Test HDFS:
    ```bash
    hdfs dfs -mkdir /test
-   ```
-
-2. List HDFS root directory:
-   ```bash
    hdfs dfs -ls /
    ```
 
 ---
 
-## **Step 13: Stop Hadoop Services**
-
-1. Stop HDFS:
-   ```bash
-   stop-dfs.sh
-   ```
-
-2. Stop YARN:
-   ```bash
-   stop-yarn.sh
-   ```
-
----
-
-With these steps completed, you now have Hadoop running in a Docker container on Ubuntu! 🎉
+## **Stopping Hadoop Services**
+To stop services:
+```bash
+stop-dfs.sh
+stop-yarn.sh
+```
+**With these steps completed, you now have Hadoop running in a Docker container on Ubuntu!**
