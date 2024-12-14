@@ -39,14 +39,12 @@ Docker provides a convenient way to create isolated environments for application
 
 ---
 
-## **Step 1: Run a Docker Container**
+## **Step 1: Run a Docker Container with exposed ports**
 1. Start a Docker container using the `ubuntu:20.04` image:
    ```bash
    docker run -it -p 9870:9870 -p 8088:8088 --name hadoop-container ubuntu:20.04 /bin/bash
-
-   ![Docker Run Command](https://github.com/user-attachments/assets/75ff0e66-d30a-430e-b869-3efe99a6a1a2)
    ```
-
+![Docker Run Command](https://github.com/user-attachments/assets/75ff0e66-d30a-430e-b869-3efe99a6a1a2)
 ---
 
 ## **Step 2: Update the Package List**
