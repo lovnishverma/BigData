@@ -183,6 +183,8 @@ SELECT * FROM employees;
 | 4  | Emily      | Davis     | emily.davis@example.com | 2018-12-05 | 70000.00|
 | 5  | David      | Brown     | david.brown@example.com | 2022-11-18 | 48000.00|
 
+![image](https://github.com/user-attachments/assets/1f9d2c98-7dbe-42f6-9c86-78ae4a2dfc8e)
+
 
 ## **Step 4: Install Hadoop**
 
