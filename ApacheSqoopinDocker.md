@@ -248,6 +248,10 @@ SELECT * FROM employees;
    ```xml
    <configuration>
        <property>
+        <name>dfs.namenode.http-address</name>
+        <value>localhost:50070</value>
+    </property>
+       <property>
            <name>dfs.replication</name>
            <value>1</value>
        </property>
@@ -370,9 +374,9 @@ You should see processes like `NameNode`, `ResourceManager`, `DataNode`, and `Se
 
 ### 5. **Check HDFS Web UI**
 
-Once the services are running, check the **NameNode Web UI**:
+Once the services are running, check the **ResourceManager Web UI**:
 
-- **NameNode Web UI**: `http://localhost:50070`
+- **ResourceManager Web UI**: `http://localhost:8088`
 
 This will show you the status of your HDFS cluster.
 
@@ -446,7 +450,7 @@ You can download the MySQL JDBC driver `.jar` file from the official MySQL websi
 #### From Maven Repository:
 Alternatively, you can download it from Maven Central:
 - Visit [MySQL Connector/J at Maven Central](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
-- Find the latest version, and use the direct download URL. For example, for version `5.1.49`:
+- Find the latest version, and use the direct download URL. For example, for version `8.0.29`:
   ```bash
   wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.49/mysql-connector-java-5.1.49.jar
   ```
@@ -463,7 +467,7 @@ This will extract the `mysql-connector-java-x.x.x.jar` file from the archive.
 ### 3. **Move the JAR File to Sqoop's lib Directory**
 Once you have the `.jar` file, move it to Sqoop’s `lib` directory:
 ```bash
-cp mysql-connector-java-5.1.49.jar /opt/sqoop/lib/
+cp mysql-connector-java-8.0.29.jar /opt/sqoop/lib/
 ```
 
 ### 4. **Verify the Driver in Sqoop**
