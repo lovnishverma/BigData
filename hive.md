@@ -128,12 +128,16 @@ Retrieve data from your table:
 SELECT * FROM employees;
 ```
 - Output:
+
+![image](https://github.com/user-attachments/assets/63529cb9-c74d-453e-a4d7-9f176762a8bc)
+
+
   ```
   +----+----------+-----+
   | id |   name   | age |
   +----+----------+-----+
-  | 1  | John Doe |  30 |
-  | 2  | Jane Smith | 25 |
+  | 2  | Ram Singh |  25 |
+  | 1  | Prince     | 30 |
   +----+----------+-----+
   ```
 
