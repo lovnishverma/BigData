@@ -25,8 +25,12 @@
    ```bash
    docker pull apache/hive:4.0.0-alpha-2
    ```
+
 2. This will take some time .....This will download the Hive Docker image to your system.  
    📝 *The `4.0.0-alpha-2` is the version we are using.*
+   
+   ![image](https://github.com/user-attachments/assets/9c6a81a1-0464-4bfb-a120-3d2942154394)
+
 
 ---
 
@@ -37,6 +41,9 @@
    ```
    📝 *This helps us avoid hardcoding the version repeatedly.*
 
+   ![image](https://github.com/user-attachments/assets/d5c6321e-e4a5-4608-b025-3378646b2c2d)
+
+
 ---
 
 ##### **🚀 Step 3: Run HiveServer2 in a Docker Container**
@@ -44,6 +51,9 @@
    ```bash
    docker run -d -p 10000:10000 -p 10002:10002 --env SERVICE_NAME=hiveserver2 --name hive4 apache/hive:4.0.0-alpha-2
    ```
+   
+   ![image](https://github.com/user-attachments/assets/2fa0a2dd-89ff-4ead-ae67-39291bdb03a4)
+
 2. This command:
    - Runs the container in detached mode (`-d`).
    - Maps ports `10000` (HiveServer2) and `10002` (web interface) to your system.
