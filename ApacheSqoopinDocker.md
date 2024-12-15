@@ -1,4 +1,4 @@
-Here’s a streamlined guide reflecting the steps for setting up **Sqoop**, **Hadoop**, **MySQL**, and **Java** on Docker:  
+Here’s a Guide reflecting the steps for setting up **Sqoop**, **Hadoop**, **MySQL**, and **Java** on Docker:  
 
 ---
 
@@ -33,7 +33,7 @@ This guide outlines the steps to install and configure **Sqoop**, **Hadoop**, **
 
    After removing it, you can create a new container with the same name:
    ```bash
-   docker run -d -p 8088:8088 --name sqoop-container ubuntu:20.04
+   docker run -d -p 8088:8088 -p 9000:9000 --name sqoop-container ubuntu:20.04
    ```
 
 4. **Use a Different Container Name**  
@@ -60,8 +60,7 @@ This guide outlines the steps to install and configure **Sqoop**, **Hadoop**, **
 
 1. **Create and Start a New Ubuntu Container:**
    ```bash
-   docker run -d -p 8088:8088 --name sqoop-container ubuntu:20.04 /bin/bash
-
+   docker run -d -p 8088:8088 -p 9000:9000 --name sqoop-container ubuntu:20.04 /bin/bash
    ```
 
 2. **Update Package Lists:**
