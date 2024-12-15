@@ -129,6 +129,60 @@ This guide outlines the steps to install and configure **Sqoop**, **Hadoop**, **
 
 ---
 
+Create a MySQL Table
+
+First, let’s create a simple table called `employees` in your `testdb` database.
+
+```sql
+-- Log into MySQL
+mysql -u root -p
+
+-- Select the database
+USE testdb;
+
+-- Create a table
+CREATE TABLE employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(100),
+    hire_date DATE,
+    salary DECIMAL(10, 2)
+);
+```
+
+### 2. **Insert Test Data into the Table**
+Now, let’s add some sample data to the `employees` table.
+
+```sql
+-- Insert sample data into the employees table
+INSERT INTO employees (first_name, last_name, email, hire_date, salary) VALUES
+('John', 'Doe', 'john.doe@example.com', '2020-01-15', 55000.00),
+('Jane', 'Smith', 'jane.smith@example.com', '2019-03-22', 60000.00),
+('Mike', 'Johnson', 'mike.johnson@example.com', '2021-07-10', 65000.00),
+('Emily', 'Davis', 'emily.davis@example.com', '2018-12-05', 70000.00),
+('David', 'Brown', 'david.brown@example.com', '2022-11-18', 48000.00);
+```
+
+### 3. **Verify the Data**
+Once the data is inserted, you can run a `SELECT` query to verify the inserted data:
+
+```sql
+-- Verify the inserted data
+SELECT * FROM employees;
+```
+
+### Example Output:
+
+| id | first_name | last_name | email                  | hire_date  | salary  |
+|----|------------|-----------|------------------------|------------|---------|
+| 1  | John       | Doe       | john.doe@example.com    | 2020-01-15 | 55000.00|
+| 2  | Jane       | Smith     | jane.smith@example.com  | 2019-03-22 | 60000.00|
+| 3  | Mike       | Johnson   | mike.johnson@example.com| 2021-07-10 | 65000.00|
+| 4  | Emily      | Davis     | emily.davis@example.com | 2018-12-05 | 70000.00|
+| 5  | David      | Brown     | david.brown@example.com | 2022-11-18 | 48000.00|
+
+
 ## **Step 4: Install Hadoop**
 
 1. **Install `wget` for File Downloads:**
