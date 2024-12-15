@@ -417,3 +417,176 @@ Here is a collection of basic Apache Hive commands with explanations that can he
   ```
 
 These basic commands will help you interact with Hive and perform common operations like creating tables, querying data, and managing your Hive environment efficiently.
+
+While **Hive** and **MySQL** both use SQL-like syntax for querying data, there are some key differences in their commands, especially since Hive is designed for querying large datasets in a Hadoop ecosystem, while MySQL is a relational database management system (RDBMS).
+
+Here’s a comparison of **Hive** and **MySQL** commands in terms of common operations:
+
+### **1. Creating Databases**
+- **Hive**:
+   ```sql
+   CREATE DATABASE mydb;
+   ```
+
+- **MySQL**:
+   ```sql
+   CREATE DATABASE mydb;
+   ```
+
+   *Both Hive and MySQL use the same syntax to create a database.*
+
+---
+
+### **2. Switching to a Database**
+- **Hive**:
+   ```sql
+   USE mydb;
+   ```
+
+- **MySQL**:
+   ```sql
+   USE mydb;
+   ```
+
+   *The syntax is the same for selecting a database in both systems.*
+
+---
+
+### **3. Creating Tables**
+- **Hive**:
+   ```sql
+   CREATE TABLE employees (
+       id INT,
+       name STRING,
+       age INT
+   );
+   ```
+
+- **MySQL**:
+   ```sql
+   CREATE TABLE employees (
+       id INT,
+       name VARCHAR(255),
+       age INT
+   );
+   ```
+
+   **Differences**:
+   - In Hive, **STRING** is used for text data, while in MySQL, **VARCHAR** is used.
+   - Hive also has some specialized data types for distributed storage and performance, like `ARRAY`, `MAP`, `STRUCT`, etc.
+
+---
+
+### **4. Inserting Data**
+- **Hive**:
+   ```sql
+   INSERT INTO employees VALUES (1, 'John', 30);
+   INSERT INTO employees VALUES (2, 'Alice', 25);
+   ```
+
+- **MySQL**:
+   ```sql
+   INSERT INTO employees (id, name, age) VALUES (1, 'John', 30);
+   INSERT INTO employees (id, name, age) VALUES (2, 'Alice', 25);
+   ```
+
+   **Differences**:
+   - Hive allows direct `INSERT INTO` with values, while MySQL explicitly lists column names in the insert statement (though this is optional in MySQL if the columns match).
+
+---
+
+### **5. Querying Data**
+- **Hive**:
+   ```sql
+   SELECT * FROM employees;
+   ```
+
+- **MySQL**:
+   ```sql
+   SELECT * FROM employees;
+   ```
+
+   *Querying data using `SELECT` is identical in both systems.*
+
+---
+
+### **6. Modifying Data**
+- **Hive**:
+   Hive doesn’t support traditional **UPDATE** or **DELETE** commands directly, as it is optimized for batch processing and is more suited for append operations. However, it does support **INSERT** and **INSERT OVERWRITE** operations.
+
+   Example of replacing data:
+   ```sql
+   INSERT OVERWRITE TABLE employees SELECT * FROM employees WHERE age > 30;
+   ```
+
+- **MySQL**:
+   ```sql
+   UPDATE employees SET age = 31 WHERE id = 1;
+   DELETE FROM employees WHERE id = 2;
+   ```
+
+   **Differences**:
+   - Hive does not allow direct **UPDATE** or **DELETE**; instead, it uses **INSERT OVERWRITE** to modify data in batch operations.
+
+---
+
+### **7. Dropping Tables**
+- **Hive**:
+   ```sql
+   DROP TABLE IF EXISTS employees;
+   ```
+
+- **MySQL**:
+   ```sql
+   DROP TABLE IF EXISTS employees;
+   ```
+
+   *The syntax for dropping tables is the same in both systems.*
+
+---
+
+### **8. Query Performance**
+- **Hive**:
+   - Hive is designed to run on large datasets using the Hadoop Distributed File System (HDFS), so it focuses more on **batch processing** rather than real-time queries. Query performance in Hive may be slower than MySQL because it’s optimized for scale, not for low-latency transaction processing.
+
+- **MySQL**:
+   - MySQL is an RDBMS, designed to handle **transactional workloads** with low-latency queries. It’s better suited for OLTP (Online Transaction Processing) rather than OLAP (Online Analytical Processing) workloads.
+
+---
+
+### **9. Indexing**
+- **Hive**:
+   - Hive doesn’t support traditional indexing as MySQL does. However, you can create **partitioned** or **bucketed** tables in Hive to improve query performance for certain types of data.
+
+- **MySQL**:
+   - MySQL supports **indexes** (e.g., **PRIMARY KEY**, **UNIQUE**, **INDEX**) to speed up query performance on large datasets.
+
+---
+
+### **10. Joins**
+- **Hive**:
+   ```sql
+   SELECT a.id, a.name, b.age
+   FROM employees a
+   JOIN employee_details b ON a.id = b.id;
+   ```
+
+- **MySQL**:
+   ```sql
+   SELECT a.id, a.name, b.age
+   FROM employees a
+   JOIN employee_details b ON a.id = b.id;
+   ```
+
+   *The syntax for **JOIN** is the same in both systems.*
+
+---
+
+### **Summary of Key Differences**:
+- **Data Types**: Hive uses types like `STRING`, `TEXT`, `BOOLEAN`, etc., while MySQL uses types like `VARCHAR`, `CHAR`, `TEXT`, etc.
+- **Data Modification**: Hive does not support **UPDATE** or **DELETE** in the traditional way, and is generally used for **batch processing**.
+- **Performance**: Hive is designed for querying large-scale datasets in Hadoop, so queries tend to be slower than MySQL.
+- **Indexing**: Hive does not natively support indexing but can use partitioning and bucketing for performance optimization. MySQL supports indexing for faster queries.
+- **ACID Properties**: MySQL supports full ACID compliance for transactional systems, whereas Hive is not transactional by default (but can support limited ACID features starting from version 0.14 with certain configurations).
+
+In conclusion, while **Hive** and **MySQL** share SQL-like syntax, they are designed for very different use cases, and not all commands work the same way in both systems.
