@@ -70,10 +70,9 @@ bash
 
    ![image](https://github.com/user-attachments/assets/8722fa7e-3f1f-48de-8083-ee0372367e02)
 
-   
    Connected to: Apache Hive (version 4.0.0-alpha-2)
    Beeline version 4.0.0-alpha-2 by Apache Hive
-   ```
+
 
 ---
 
