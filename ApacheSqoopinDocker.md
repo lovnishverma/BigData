@@ -249,18 +249,11 @@ This guide outlines the steps to install and configure **Sqoop**, **Hadoop**, **
 
 ---
 
-## **Step 7: Test Sqoop with MySQL**
 
-1. **Use Sqoop to List MySQL Databases:**
-   ```bash
-   sqoop list-databases \
-       --connect jdbc:mysql://localhost:3306 \
-       --username sqoop_user --password password123
-   ```
 
 To download the MySQL JDBC driver using `wget`, you can follow these steps:
 
-### 1. **Download the MySQL JDBC Driver**
+### **Step 7: Download the MySQL JDBC Driver**
 You can download the MySQL JDBC driver `.jar` file from the official MySQL website or from a Maven repository.
 
 #### From MySQL's Official Site:
@@ -299,7 +292,14 @@ Now that the JDBC driver is in place, you can proceed with running your Sqoop co
 sqoop list-databases --connect jdbc:mysql://localhost:3306 --username sqoop_user --password password123
 ```
 
-This should resolve the `Could not load db driver class: com.mysql.jdbc.Driver` error.
+## **Step 8: Test Sqoop with MySQL**
+
+1. **Use Sqoop to List MySQL Databases:**
+   ```bash
+   sqoop list-databases \
+       --connect jdbc:mysql://localhost:3306 \
+       --username sqoop_user --password password123
+   ```
 
 . **Expected Output:**
    A list of databases should appear, including `testdb`.
@@ -308,4 +308,4 @@ This should resolve the `Could not load db driver class: com.mysql.jdbc.Driver` 
 
 ---
 
-This concludes the installation and configuration process for **Sqoop**, **Hadoop**, **MySQL**, and **Java** on Docker.
+This concludes the installation and configuration process for **Sqoop**, **Hadoop**, **MySQL**, and **Java** on Docker Container.
