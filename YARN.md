@@ -143,6 +143,159 @@ Once you’ve completed the practical, it's good practice to clean up by deletin
 
 ---
 
+Yarn (Yet Another Resource Negotiator) in the Hadoop ecosystem is a resource management layer, and its commands are different from the JavaScript package manager **Yarn**. Below is a list of essential **Yarn commands for Hadoop**:
+
+---
+
+### **General Yarn Commands**
+1. **Check Yarn Version**  
+   ```bash
+   yarn version
+   ```
+   Displays the version of Yarn installed in your Hadoop environment.
+
+2. **Check Cluster Nodes**  
+   ```bash
+   yarn node -list
+   ```
+   Lists all the active, decommissioned, and unhealthy nodes in the cluster.
+
+3. **Resource Manager Web UI**  
+   ```bash
+   yarn rmadmin -getServiceState rm1
+   ```
+   Checks the state of a specific Resource Manager.
+
+---
+
+### **Application Management**
+4. **Submit an Application**  
+   ```bash
+   yarn jar <path-to-jar> <main-class> [options]
+   ```
+   Submits a new application to the Yarn cluster.
+
+5. **List Applications**  
+   ```bash
+   yarn application -list
+   ```
+   Lists all running applications on the Yarn cluster.
+
+6. **View Application Status**  
+   ```bash
+   yarn application -status <application_id>
+   ```
+   Shows the status of a specific application.
+
+7. **Kill an Application**  
+   ```bash
+   yarn application -kill <application_id>
+   ```
+   Terminates a specific application.
+
+---
+
+### **Logs and Diagnostics**
+8. **View Logs of an Application**  
+   ```bash
+   yarn logs -applicationId <application_id>
+   ```
+   Displays logs for a specific application.
+
+9. **Fetch Application Logs to Local System**  
+   ```bash
+   yarn logs -applicationId <application_id> > logs.txt
+   ```
+   Saves application logs to a local file.
+
+---
+
+### **Queue Management**
+10. **List Queues**  
+    ```bash
+    yarn queue -list
+    ```
+    Lists all queues available in the Yarn cluster.
+
+11. **Move Application to Another Queue**  
+    ```bash
+    yarn application -moveToQueue <queue_name> -appId <application_id>
+    ```
+    Moves a running application to a different queue.
+
+---
+
+### **Resource Manager Administration**
+12. **Refresh Queue Configuration**  
+    ```bash
+    yarn rmadmin -refreshQueues
+    ```
+    Reloads the queue configuration without restarting the Resource Manager.
+
+13. **Refresh Node Information**  
+    ```bash
+    yarn rmadmin -refreshNodes
+    ```
+    Updates the Resource Manager with the latest node information.
+
+14. **Get Cluster Metrics**  
+    ```bash
+    yarn cluster -metrics
+    ```
+    Shows resource usage metrics of the Yarn cluster.
+
+15. **Decommission a Node**  
+    ```bash
+    yarn rmadmin -decommission <node-hostname>
+    ```
+    Marks a specific node as decommissioned.
+
+16. **Check Cluster Status**  
+    ```bash
+    yarn cluster -status
+    ```
+    Displays overall status and health of the cluster.
+
+---
+
+### **Node Manager Commands**
+17. **Start Node Manager**  
+    ```bash
+    yarn nodemanager
+    ```
+    Starts the Node Manager daemon.
+
+18. **Stop Node Manager**  
+    ```bash
+    yarn nodemanager -stop
+    ```
+    Stops the Node Manager daemon.
+
+19. **List Containers on a Node**  
+    ```bash
+    yarn nodemanager -list
+    ```
+    Lists all running containers on the Node Manager.
+
+---
+
+### **Debugging and Troubleshooting**
+20. **View Container Logs**  
+    ```bash
+    yarn logs -containerId <container_id> -nodeAddress <node_hostname>
+    ```
+    Retrieves logs for a specific container.
+
+21. **Check Application Environment Variables**  
+    ```bash
+    yarn application -envs <application_id>
+    ```
+    Displays environment variables for a specific application.
+
+---
+
+These commands allow you to manage applications, queues, resources, and logs effectively on a Hadoop Yarn cluster.
+
 ### Additional Tips
 
 - **Custom Jobs**: You can write your own MapReduce programs in Java and package them into a JAR file, then submit them to YARN in a similar way.
