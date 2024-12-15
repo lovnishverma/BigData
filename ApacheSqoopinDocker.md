@@ -221,10 +221,7 @@ SELECT * FROM employees;
    hadoop version
    ```
 
-5. **Format NameNode:**
-   ```bash
-   hdfs namenode -format
-   ```
+
 ---
 
 ## **Step 5: Configure Hadoop**
@@ -274,7 +271,10 @@ SELECT * FROM employees;
    ```bash
    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
    ```
-
+4. **Format NameNode:**
+   ```bash
+   hdfs namenode -format
+   ```
 ---
 
 ### 1. **Install SSH**
