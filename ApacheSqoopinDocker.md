@@ -221,6 +221,10 @@ SELECT * FROM employees;
    hadoop version
    ```
 
+5. **Format NameNode:**
+   ```bash
+   hdfs namenode -format
+   ```
 ---
 
 ## **Step 5: Configure Hadoop**
