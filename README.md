@@ -58,7 +58,9 @@ docker exec -it namenode /bin/bash
 
 ## **Running Hadoop Code** 
 
-To View NameNode UI Visit:  http://localhost:9870/
+To View NameNode UI Visit:   [http://localhost:9870/](http://localhost:9870/)
+
+To View Resource Manager UI Visit [http://localhost:8088/](http://localhost:8088/)
 
 ### Step 1: Copy the `code` folder into the container
 Use the following command in your windows cmd to copy the `code` folder to the container:
@@ -94,8 +96,9 @@ cd /code/Hadoop_Code/
 
 ### Step 6: Execute the WordCount program 
 
-To View NameNode UI Visit:  [http://localhost:8080/](http://localhost:8088/)
-To View Resource Manager UI Visithttp://localhost:9870
+To View NameNode UI Visit:   [http://localhost:9870/](http://localhost:9870/)
+
+To View Resource Manager UI Visit [http://localhost:8088/](http://localhost:8088/)
 
 Run the WordCount program to process the input data:
 ```bash
