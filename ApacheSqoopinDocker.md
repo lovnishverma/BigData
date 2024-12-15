@@ -270,6 +270,116 @@ SELECT * FROM employees;
 
 ---
 
+### 1. **Install SSH**
+
+Hadoop requires SSH to be installed on all nodes in the cluster (even if you're running everything on a single node). Install SSH using the following commands:
+
+```bash
+apt update
+apt install openssh-client openssh-server
+```
+
+After installing SSH, make sure that the `ssh` command is available:
+
+```bash
+ssh -v localhost
+```
+
+If this works, SSH is properly set up if not then start SSH Daemon.
+
+### 2. **Start SSH Daemon**
+
+Make sure the SSH daemon is running. You can start it using:
+
+```bash
+service ssh start
+```
+
+Then, ensure SSH is properly configured for passwordless login. You can do this by creating an SSH key and copying it to the `~/.ssh/authorized_keys` file on the same machine (or between nodes if you have a multi-node setup).
+
+To generate the SSH key pair:
+
+```bash
+ssh-keygen -t rsa
+```
+don't enter anything keep blank for now
+Then, copy the public key to the authorized keys:
+
+```bash
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+```
+
+### 3. **Verify Hadoop Configuration**
+
+Ensure that your Hadoop `slaves` configuration is correct. By default, Hadoop expects a list of slave nodes (if you are running a multi-node setup), but since you’re on a single node, make sure the `slaves` file located at `$HADOOP_HOME/etc/hadoop/slaves` contains `localhost` or the hostname of your machine.
+
+Edit the `slaves` file:
+
+```bash
+nano $HADOOP_HOME/etc/hadoop/slaves
+```
+
+Ensure it contains:
+
+```text
+localhost
+```
+
+### 4. **Restart HDFS**
+
+Now, try to start HDFS again:
+
+```bash
+start-dfs.sh
+```
+```bash
+jps
+```
+
+You should see processes like `NameNode`, `DataNode`, and `SecondaryNameNode` if everything is working correctly.
+
+Start ResourceManager
+If the ResourceManager is not running, try starting it manually:
+
+```bash
+start-yarn.sh
+```
+Check the status of the HDFS services:
+
+```bash
+jps
+```
+
+You should see processes like `NameNode`, `ResourceManager`, `DataNode`, and `SecondaryNameNode` if everything is working correctly.
+
+### 5. **Check HDFS Web UI**
+
+Once the services are running, check the **NameNode Web UI**:
+
+- **NameNode Web UI**: `http://localhost:50070`
+
+This will show you the status of your HDFS cluster.
+
+### 6. **Verify HDFS Access**
+
+After ensuring that HDFS is running, check the HDFS directory:
+
+```bash
+hdfs dfs -ls /
+```
+
+It should now list the directories in the root of HDFS (e.g., `/user`, `/tmp`).
+
+### Recap of Fixes:
+- Install and configure SSH.
+- Ensure SSH is running.
+- Set up passwordless SSH.
+- Check your `slaves` file for correct configuration.
+- Restart Hadoop services (`start-dfs.sh`).
+- Verify HDFS status with `jps` and `hdfs dfs -ls /`.
+
+This should resolve the issues you're encountering with starting HDFS nodes.
+
 ## **Step 6: Install Sqoop**
 
 1. **Download and Extract Sqoop:**
