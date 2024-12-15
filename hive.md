@@ -48,26 +48,29 @@
 
 ##### **🚀 Step 3: Run HiveServer2 in a Docker Container**
 1. Back in **Command Prompt**, run the following command to start the HiveServer2 container:
-   ```bash
-   docker exec -it hive4 beeline -u 'jdbc:hive2://localhost:10000/' --verbose=true
-   ```
    
-   ![image](https://github.com/user-attachments/assets/2fa0a2dd-89ff-4ead-ae67-39291bdb03a4)
+bash
+   docker run -d -p 10000:10000 -p 10002:10002 --env SERVICE_NAME=hiveserver2 --name hive4 apache/hive:4.0.0-alpha-2
 
 2. This command:
-   - Runs the container in detached mode (`-d`).
-   - Maps ports `10000` (HiveServer2) and `10002` (web interface) to your system.
-   - Names the container `hive4`.
+   - Runs the container in detached mode (-d).
+   - Maps ports 10000 (HiveServer2) and 10002 (web interface) to your system.
+   - Names the container hive4.
 
 ---
 
 ##### **🖥️ Step 4: Connect to Hive using Beeline**
 1. Run the following in **Command Prompt** to connect to Hive through Beeline:
-   ```bash
+   
+bash
    docker exec -it hive4 beeline -u 'jdbc:hive2://localhost:10000/'
    ```
+
 2. You should see a successful connection message:
-   ```
+
+   ![image](https://github.com/user-attachments/assets/8722fa7e-3f1f-48de-8083-ee0372367e02)
+
+   
    Connected to: Apache Hive (version 4.0.0-alpha-2)
    Beeline version 4.0.0-alpha-2 by Apache Hive
    ```
