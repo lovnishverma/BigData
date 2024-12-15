@@ -57,6 +57,9 @@
    - Runs the container in detached mode (-d).
    - Maps ports 10000 (HiveServer2) and 10002 (web interface) to your system.
    - Names the container hive4.
+Note: After Step 3 wait 2-3 minutes then go to Step 4 otherwise you will face error if you seen error message enter
+docker exec -it hive4 beeline -u 'jdbc:hive2://localhost:10000/'
+comman again.....
 
 ---
 
