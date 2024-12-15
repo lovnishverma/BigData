@@ -25,7 +25,7 @@
    ```bash
    docker pull apache/hive:4.0.0-alpha-2
    ```
-2. This will download the Hive Docker image to your system.  
+2. This will take some time .....This will download the Hive Docker image to your system.  
    📝 *The `4.0.0-alpha-2` is the version we are using.*
 
 ---
