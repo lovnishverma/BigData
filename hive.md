@@ -149,3 +149,254 @@ SELECT * FROM employees;
 You’ve successfully:
 1. Set up Apache Hive.
 2. Created and queried a sample project.  🐝
+
+### **🐝 Apache Hive Basic Commands**
+
+Here is a collection of basic Apache Hive commands with explanations that can help you while working with Hive:
+
+---
+
+#### **1. Database Commands**
+
+- **Show Databases:**
+  Displays all the databases available in your Hive environment.
+  ```sql
+  SHOW DATABASES;
+  ```
+
+- **Create a Database:**
+  Create a new database.
+  ```sql
+  CREATE DATABASE <database_name>;
+  ```
+  Example:
+  ```sql
+  CREATE DATABASE mydb;
+  ```
+
+- **Use a Database:**
+  Switch to the specified database.
+  ```sql
+  USE <database_name>;
+  ```
+  Example:
+  ```sql
+  USE mydb;
+  ```
+
+- **Drop a Database:**
+  Deletes a database and its associated data.
+  ```sql
+  DROP DATABASE <database_name>;
+  ```
+
+---
+
+#### **2. Table Commands**
+
+- **Show Tables:**
+  List all the tables in the current database.
+  ```sql
+  SHOW TABLES;
+  ```
+
+- **Create a Table:**
+  Define a new table with specific columns.
+  ```sql
+  CREATE TABLE <table_name> (
+      column_name column_type,
+      ...
+  );
+  ```
+  Example:
+  ```sql
+  CREATE TABLE employees (
+      id INT,
+      name STRING,
+      age INT
+  );
+  ```
+
+- **Describe a Table:**
+  Get detailed information about a table, including column names and types.
+  ```sql
+  DESCRIBE <table_name>;
+  ```
+
+- **Drop a Table:**
+  Deletes a table and its associated data.
+  ```sql
+  DROP TABLE <table_name>;
+  ```
+
+- **Alter a Table:**
+  Modify a table structure, like adding new columns.
+  ```sql
+  ALTER TABLE <table_name> ADD COLUMNS (<new_column> <type>);
+  ```
+  Example:
+  ```sql
+  ALTER TABLE employees ADD COLUMNS (salary DOUBLE);
+  ```
+
+---
+
+#### **3. Data Manipulation Commands**
+
+- **Insert Data:**
+  Insert data into a table.
+  ```sql
+  INSERT INTO <table_name> VALUES (<value1>, <value2>, ...);
+  ```
+  Example:
+  ```sql
+  INSERT INTO employees VALUES (1, 'John Doe', 30);
+  ```
+
+- **Select Data:**
+  Retrieve data from a table.
+  ```sql
+  SELECT * FROM <table_name>;
+  ```
+
+- **Update Data:**
+  Update existing data in a table.
+  ```sql
+  UPDATE <table_name> SET <column_name> = <new_value> WHERE <condition>;
+  ```
+
+- **Delete Data:**
+  Delete rows from a table based on a condition.
+  ```sql
+  DELETE FROM <table_name> WHERE <condition>;
+  ```
+
+---
+
+#### **4. Querying Commands**
+
+- **Select Specific Columns:**
+  Retrieve specific columns from a table.
+  ```sql
+  SELECT <column1>, <column2> FROM <table_name>;
+  ```
+
+- **Filtering Data:**
+  Filter data based on conditions using the `WHERE` clause.
+  ```sql
+  SELECT * FROM <table_name> WHERE <column_name> <operator> <value>;
+  ```
+  Example:
+  ```sql
+  SELECT * FROM employees WHERE age > 25;
+  ```
+
+- **Sorting Data:**
+  Sort the result by a column in ascending or descending order.
+  ```sql
+  SELECT * FROM <table_name> ORDER BY <column_name> ASC|DESC;
+  ```
+  Example:
+  ```sql
+  SELECT * FROM employees ORDER BY age DESC;
+  ```
+
+- **Group By:**
+  Group data by one or more columns and aggregate it using functions like `COUNT`, `AVG`, `SUM`, etc.
+  ```sql
+  SELECT <column_name>, COUNT(*) FROM <table_name> GROUP BY <column_name>;
+  ```
+  Example:
+  ```sql
+  SELECT age, COUNT(*) FROM employees GROUP BY age;
+  ```
+
+---
+
+#### **5. File Format Commands**
+
+- **Create External Table:**
+  Create a table that references data stored externally (e.g., in HDFS).
+  ```sql
+  CREATE EXTERNAL TABLE <table_name> (<column_name> <data_type>, ...) 
+  ROW FORMAT DELIMITED
+  FIELDS TERMINATED BY '<delimiter>'
+  LOCATION '<file_path>';
+  ```
+  Example:
+  ```sql
+  CREATE EXTERNAL TABLE employees (
+      id INT,
+      name STRING,
+      age INT
+  ) ROW FORMAT DELIMITED
+  FIELDS TERMINATED BY ','
+  LOCATION '/user/hive/warehouse/employees';
+  ```
+
+- **Load Data into Table:**
+  Load data from a file into an existing Hive table.
+  ```sql
+  LOAD DATA LOCAL INPATH '<file_path>' INTO TABLE <table_name>;
+  ```
+
+---
+
+#### **6. Other Useful Commands**
+
+- **Show Current User:**
+  Display the current user running the Hive session.
+  ```sql
+  !whoami;
+  ```
+
+- **Exit Hive:**
+  Exit from the Hive shell.
+  ```sql
+  EXIT;
+  ```
+
+- **Set Hive Variables:**
+  Set Hive session variables.
+  ```sql
+  SET <variable_name>=<value>;
+  ```
+
+- **Show Hive Variables:**
+  Display all the set variables.
+  ```sql
+  SET;
+  ```
+
+- **Show the Status of Hive Jobs:**
+  Display the status of running queries.
+  ```sql
+  SHOW JOBS;
+  ```
+
+---
+
+#### **🌟 Tips & Best Practices**
+
+- **Partitioning Tables:**
+  When dealing with large datasets, partitioning your tables can help improve query performance.
+  ```sql
+  CREATE TABLE sales (id INT, amount DOUBLE)
+  PARTITIONED BY (year INT, month INT);
+  ```
+
+- **Bucketing:**
+  Bucketing splits your data into a fixed number of files or "buckets."
+  ```sql
+  CREATE TABLE sales (id INT, amount DOUBLE)
+  CLUSTERED BY (id) INTO 4 BUCKETS;
+  ```
+
+- **Optimization:**
+  Use columnar formats like `ORC` or `Parquet` for efficient storage and performance.
+  ```sql
+  CREATE TABLE sales (id INT, amount DOUBLE)
+  STORED AS ORC;
+  ```
+
+These basic commands will help you interact with Hive and perform common operations like creating tables, querying data, and managing your Hive environment efficiently.
