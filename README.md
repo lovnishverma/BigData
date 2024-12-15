@@ -94,7 +94,8 @@ cd /code/Hadoop_Code/
 
 ### Step 6: Execute the WordCount program 
 
-To View NameNode UI Visit:  http://localhost:8080/
+To View NameNode UI Visit:  [http://localhost:8080/](http://localhost:8088/)
+To View Resource Manager UI Visithttp://localhost:9870
 
 Run the WordCount program to process the input data:
 ```bash
