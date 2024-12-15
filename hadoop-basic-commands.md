@@ -1,136 +1,187 @@
-Here are some of the essential **Hadoop basic commands** for managing Hadoop Distributed File System (HDFS) and interacting with YARN:
+Here’s an extended list of **HDFS commands**
 
-### **1. HDFS Commands**  
-These commands are used for interacting with HDFS, which is Hadoop's file system.
+---
 
-- **List files in a directory**  
+### **HDFS Commands - Extended**
+
+#### **1. File Creation and Upload**
+- **Create a new file locally**  
+  Use the `echo` or `vi` command to create a file locally:  
   ```bash
-  hdfs dfs -ls /path/to/directory
-  ```
-  Lists all files and directories in the specified HDFS directory.
-
-- **Create a directory**  
+  echo "This is a sample file" > localfile.txt
+  ```  
+  Or use `vi` to open a text editor:  
   ```bash
-  hdfs dfs -mkdir /path/to/directory
-  ```
-  Creates a directory in HDFS.
-
-- **Upload a file to HDFS**  
-  ```bash
-  hdfs dfs -put localfile /user/hadoop/hdfspath
-  ```
-  Uploads a file from the local file system to HDFS.
-
-- **Download a file from HDFS**  
-  ```bash
-  hdfs dfs -get /user/hadoop/hdfspath localfile
-  ```
-  Downloads a file from HDFS to the local file system.
-
-- **View file contents**  
-  ```bash
-  hdfs dfs -cat /path/to/file
-  ```
-  Displays the contents of a file in HDFS.
-
-- **Remove a file or directory from HDFS**  
-  ```bash
-  hdfs dfs -rm /path/to/file
-  hdfs dfs -rm -r /path/to/directory  # To remove a directory and its contents
-  ```
-  Removes files or directories from HDFS.
-
-- **Check file status**  
-  ```bash
-  hdfs dfs -stat /path/to/file
-  ```
-  Displays the status of a file or directory in HDFS.
-
-- **Display the disk usage of a directory**  
-  ```bash
-  hdfs dfs -du /path/to/directory
-  ```
-  Shows the disk usage of files and directories in HDFS.
-
-### **2. YARN Commands**  
-YARN (Yet Another Resource Negotiator) is used for resource management and job scheduling.
-
-- **List running YARN applications**  
-  ```bash
-  yarn application -list
-  ```
-  Lists all the currently running applications on YARN.
-
-- **Check application status**  
-  ```bash
-  yarn application -status <Application_ID>
-  ```
-  Displays the status of a specific application.
-
-- **Kill a running YARN application**  
-  ```bash
-  yarn application -kill <Application_ID>
-  ```
-  Kills a running YARN application by its ID.
-
-- **Run a YARN application**  
-  ```bash
-  yarn jar <jar-file> <main-class> [arguments]
-  ```
-  Runs a YARN job with the specified JAR file and main class.
-
-### **3. Hadoop Daemon Commands**  
-These commands are used for managing Hadoop services and daemons like NameNode, DataNode, ResourceManager, etc.
-
-- **Start Hadoop services (HDFS and YARN)**  
-  ```bash
-  start-dfs.sh    # Starts HDFS daemons: NameNode, DataNode, etc.
-  start-yarn.sh   # Starts YARN daemons: ResourceManager, NodeManager, etc.
+  vi localfile.txt
   ```
 
-- **Stop Hadoop services (HDFS and YARN)**  
+- **Upload a local file to HDFS**  
   ```bash
-  stop-dfs.sh     # Stops HDFS daemons
-  stop-yarn.sh    # Stops YARN daemons
+  hdfs dfs -put localfile.txt /user/hadoop/destination-path
   ```
 
-- **Check the status of Hadoop services**  
+- **Append content to an HDFS file**  
   ```bash
-  jps    # Lists all running Java processes, including Hadoop daemons like NameNode, ResourceManager, etc.
+  hdfs dfs -appendToFile localfile.txt /user/hadoop/hdfspath
+  ```
+  Appends the content of `localfile.txt` to an existing HDFS file.
+
+---
+
+#### **2. Directory Operations**
+- **Create multiple directories**  
+  ```bash
+  hdfs dfs -mkdir -p /path/to/dir1 /path/to/dir2
+  ```
+  Creates multiple directories in one command.
+
+- **Check directory usage with summary**  
+  ```bash
+  hdfs dfs -du -s -h /path/to/directory
+  ```
+  Displays the summarized disk usage in human-readable format.
+
+---
+
+#### **3. File Operations**
+- **Rename a file in HDFS**  
+  ```bash
+  hdfs dfs -mv /path/to/oldfile /path/to/newfile
+  ```
+  Renames or moves a file within HDFS.
+
+- **Copy a file within HDFS**  
+  ```bash
+  hdfs dfs -cp /path/to/source /path/to/destination
   ```
 
-### **4. General Hadoop Commands**
-
-- **Run a MapReduce job**  
+- **Count files, directories, and bytes in HDFS**  
   ```bash
-  hadoop jar <your-jar-file> <main-class> <input> <output>
+  hdfs dfs -count /path/to/directory
   ```
-  Executes a MapReduce job using the specified JAR file, with input and output directories.
 
-- **Show Hadoop version**  
+- **Display the first few lines of a file in HDFS**  
   ```bash
-  hadoop version
+  hdfs dfs -head /path/to/file
   ```
-  Displays the version of Hadoop installed.
+  Displays the first few lines of a file.
 
-- **Start a Hadoop cluster (for a single-node setup)**  
+- **Display the last few lines of a file in HDFS**  
   ```bash
-  start-all.sh
+  hdfs dfs -tail /path/to/file
   ```
-  Starts all the Hadoop daemons (NameNode, DataNode, ResourceManager, and NodeManager).
 
-### **5. Other Useful Commands**
+- **Display file checksum**  
+  ```bash
+  hdfs dfs -checksum /path/to/file
+  ```
+  Shows the checksum of a file for verifying data integrity.
 
-- **Check the status of HDFS health**  
+---
+
+#### **4. File Permission and Ownership**
+- **Change file or directory permissions**  
+  ```bash
+  hdfs dfs -chmod 755 /path/to/file-or-directory
+  ```
+
+- **Change file or directory ownership**  
+  ```bash
+  hdfs dfs -chown user:group /path/to/file-or-directory
+  ```
+
+- **Set file replication factor**  
+  ```bash
+  hdfs dfs -setrep -w 3 /path/to/file-or-directory
+  ```
+  Changes the replication factor of a file or directory to `3` and waits for the operation to complete.
+
+---
+
+#### **5. Data Verification and Repair**
+- **Verify the file checksum**  
+  ```bash
+  hdfs dfs -checksum /path/to/file
+  ```
+  Verify the checksum to ensure the file's integrity.
+
+- **Recover corrupted blocks in HDFS**  
+  ```bash
+  hdfs fsck /path/to/file -move -delete
+  ```
+  Checks and repairs corrupted files by moving or deleting bad blocks.
+
+---
+
+### **Additional YARN Commands**
+
+#### **Resource Manager Operations**
+- **Check cluster metrics**  
+  ```bash
+  yarn cluster -metrics
+  ```
+
+- **View NodeManager details**  
+  ```bash
+  yarn node -list
+  ```
+
+#### **Container Management**
+- **List containers for an application**  
+  ```bash
+  yarn container -list <Application_ID>
+  ```
+
+- **Kill a specific container**  
+  ```bash
+  yarn container -kill <Container_ID>
+  ```
+
+---
+
+### **HDFS Admin Commands**
+
+#### **1. Check and Monitor HDFS**
+- **Show HDFS file system status**  
   ```bash
   hdfs dfsadmin -report
   ```
-  Provides a report on the status of the HDFS cluster.
 
-- **Show detailed information about a file**  
+- **Safemode operations**  
+  Enable, disable, or get the status of HDFS safemode:  
   ```bash
-  hdfs dfs -stat %b /path/to/file
+  hdfs dfsadmin -safemode enter
+  hdfs dfsadmin -safemode leave
+  hdfs dfsadmin -safemode get
   ```
-  Displays the block size of the file in HDFS.
 
-These are some of the basic commands used to interact with and manage Hadoop clusters, including file operations, YARN job management, and daemon control.
+#### **2. DataNode Management**
+- **Decommission a DataNode**  
+  Update the `dfs.exclude` file to include the DataNode, then execute:  
+  ```bash
+  hdfs dfsadmin -refreshNodes
+  ```
+
+- **Check DataNode block status**  
+  ```bash
+  hdfs fsck / -blocks -locations
+  ```
+
+---
+
+### **General Tips**
+- Always use `-help` with any Hadoop command to explore additional options:
+  ```bash
+  hdfs dfs -help
+  yarn -help
+  hadoop -help
+  ```
+
+- Use aliases for frequently used commands. For example, add this to your `.bashrc` or `.zshrc`:
+  ```bash
+  alias hls="hdfs dfs -ls"
+  alias hput="hdfs dfs -put"
+  alias hget="hdfs dfs -get"
+  ```
+
+These commands cover a wide range of HDFS and YARN operations, from basic file manipulation to administrative tasks, ensuring you have the tools to effectively manage a Hadoop cluster.
