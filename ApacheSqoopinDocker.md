@@ -332,7 +332,16 @@ Now, try to start HDFS again:
 
 ```bash
 start-dfs.sh
+hadoop-daemon.sh start namenode
 ```
+
+or
+
+```bash
+start-all.sh
+```
+then verify
+
 ```bash
 jps
 ```
