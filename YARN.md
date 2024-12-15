@@ -14,7 +14,7 @@ In this practical, you will run a simple WordCount job using Hadoop YARN. This e
 ---
 
 ### Step-by-Step Guide
-
+docker exec -it namenode /bin/bash
 ---
 
 ### Step-by-Step Guide
