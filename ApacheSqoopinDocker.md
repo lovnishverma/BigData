@@ -360,6 +360,26 @@ sqoop list-databases --connect jdbc:mysql://localhost:3306 --username sqoop_user
    
 ![image](https://github.com/user-attachments/assets/08d18ae5-c686-4433-af5a-de14bb433803)
 
+
+### 2. **Import the Table using Sqoop**
+Now that you have a table with data, you can proceed with the Sqoop import:
+
+```bash
+sqoop import --connect jdbc:mysql://localhost:3306/testdb --username sqoop_user --password password123 --table employees --target-dir /user/hdfs/employees_data
+```
+
+### 5. **Check HDFS for Data**
+After the Sqoop import completes successfully, you can check the HDFS directory to verify the imported data.
+
+```bash
+hadoop fs -ls /user/hdfs/employees_data
+```
+
+This will show the files created in HDFS with the data from the `employees` table.
+
+
+You can now perform practical operations like exporting data, running queries, etc., with this setup.
+
 ---
 
 This concludes the installation and configuration process for **Sqoop**, **Hadoop**, **MySQL**, and **Java** on Docker Container.
