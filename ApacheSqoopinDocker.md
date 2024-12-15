@@ -258,8 +258,53 @@ This guide outlines the steps to install and configure **Sqoop**, **Hadoop**, **
        --username sqoop_user --password password123
    ```
 
-2. **Expected Output:**
+To download the MySQL JDBC driver using `wget`, you can follow these steps:
+
+### 1. **Download the MySQL JDBC Driver**
+You can download the MySQL JDBC driver `.jar` file from the official MySQL website or from a Maven repository.
+
+#### From MySQL's Official Site:
+- Find the MySQL Connector/J download page: [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/)
+- Direct download URL (for version 8.0.29 as an example):
+  ```bash
+  wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.29.tar.gz
+  ```
+
+#### From Maven Repository:
+Alternatively, you can download it from Maven Central:
+- Visit [MySQL Connector/J at Maven Central](https://mvnrepository.com/artifact/mysql/mysql-connector-java)
+- Find the latest version, and use the direct download URL. For example, for version `5.1.49`:
+  ```bash
+  wget https://repo1.maven.org/maven2/mysql/mysql-connector-java/5.1.49/mysql-connector-java-5.1.49.jar
+  ```
+
+### 2. **Extract the JAR File**
+If you downloaded a `.tar.gz` archive (from the MySQL website), you need to extract the `.jar` file:
+```bash
+tar -xvzf mysql-connector-java-8.0.29.tar.gz
+ls
+cd mysql-connector-java-8.0.29
+```
+This will extract the `mysql-connector-java-x.x.x.jar` file from the archive.
+
+### 3. **Move the JAR File to Sqoop's lib Directory**
+Once you have the `.jar` file, move it to Sqoop’s `lib` directory:
+```bash
+cp mysql-connector-java-5.1.49.jar /opt/sqoop/lib/
+```
+
+### 4. **Verify the Driver in Sqoop**
+Now that the JDBC driver is in place, you can proceed with running your Sqoop command again:
+```bash
+sqoop list-databases --connect jdbc:mysql://localhost:3306 --username sqoop_user --password password123
+```
+
+This should resolve the `Could not load db driver class: com.mysql.jdbc.Driver` error.
+
+. **Expected Output:**
    A list of databases should appear, including `testdb`.
+   
+![image](https://github.com/user-attachments/assets/08d18ae5-c686-4433-af5a-de14bb433803)
 
 ---
 
