@@ -186,8 +186,12 @@ Yarn (Yet Another Resource Negotiator) in the Hadoop ecosystem is a resource man
    yarn application -status <application_id>
    ```
    Shows the status of a specific application.
+Example Output:-
+![image](https://github.com/user-attachments/assets/44ab74ab-f662-4d87-834c-43e812117be0)
 
-7. **Kill an Application**  
+
+
+8. **Kill an Application**  
    ```bash
    yarn application -kill <application_id>
    ```
