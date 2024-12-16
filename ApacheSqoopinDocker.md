@@ -67,10 +67,11 @@ This guide outlines the steps to install and configure **Sqoop**, **Hadoop**, **
    ```bash
    apt-get update
    ```
+![image](https://github.com/user-attachments/assets/711d5e9c-fc73-41d8-bf3f-e65d55e348c8)
 
 ---
 
-## **Step 2: Install Java (OpenJDK 8)**
+## **Step 2: Install Java (OpenJDK 8) This Step will Take some time**
 
 1. **Install OpenJDK 8:**
    ```bash
