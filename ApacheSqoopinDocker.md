@@ -377,7 +377,8 @@ Once the services are running, check the **ResourceManager Web UI**:
 
 - **ResourceManager Web UI**: `http://localhost:8088`
 
-This will show you the status of your HDFS cluster.
+![image](https://github.com/user-attachments/assets/76c37ea9-f385-41f2-94b3-15364250594c)
+
 
 ### 6. **Verify HDFS Access**
 
