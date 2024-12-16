@@ -222,6 +222,32 @@ You can use this same process to load and analyze data from different file forma
 ![image](https://github.com/user-attachments/assets/21f50d78-31bd-4db9-8ea4-6ce762bde45a)
 
 
+Move or create file with some words in docker container
+
+**Command:**
+docker cp data.txt spark-container:/opt/bitnami/spark/spark-practicals/data.txt
+
+**WordCount program in Scala**
+
+import org.apache.spark.{SparkConf, SparkContext}
+
+val conf = new SparkConf().setAppName("WordCountExample").setMaster("local")
+val sc = new SparkContext(conf)
+
+val input = sc.textFile("/opt/bitnami/spark/spark-practicals/data.txt")
+
+val wordPairs = input.flatMap(line => line.split(" ")).map(word => (word, 1))
+
+val wordCounts = wordPairs.reduceByKey((a, b) => a + b)
+
+wordCounts.collect().foreach { case (word, count) =>
+  println(s"$word: $count")
+}
+
+sc.stop()
+
+![image](https://github.com/user-attachments/assets/e1787f84-a89d-4a14-a71f-3fe5ccaa9323)
+
 
 
 Running **Apache Spark in Local Mode with Hadoop** involves configuring Spark to run on your local machine while still leveraging Hadoop's components, like HDFS (Hadoop Distributed File System) for storage and possibly YARN (Yet Another Resource Negotiator) for managing resources, although the overall execution will be single-node (locally). In this configuration, Spark runs on your local machine, but you can still access and utilize Hadoop's storage and resource management features.
