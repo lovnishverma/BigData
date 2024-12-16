@@ -60,7 +60,7 @@ Here’s a step-by-step guide to **start HDFS** and then **install and configure
    ```
 
 2. Add the following lines to configure Java and Hadoop paths:
-   ```bash
+
 # Set Java Home Path
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
@@ -75,7 +75,7 @@ export PATH=$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH
 # Optional: Configure Flume logging (uncomment if needed)
 # export FLUME_LOG_DIR=/usr/local/flume/logs
 # export FLUME_PID_DIR=/usr/local/flume/pid
-   ```
+
 
    Replace `/path/to/java` and `/path/to/hadoop` with your actual Java and Hadoop installation paths.
 
