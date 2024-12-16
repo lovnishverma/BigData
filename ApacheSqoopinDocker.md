@@ -77,11 +77,15 @@ This guide outlines the steps to install and configure **Sqoop**, **Hadoop**, **
    ```bash
    apt-get install openjdk-8-jdk -y
    ```
+![image](https://github.com/user-attachments/assets/6c7edc75-61fb-4f5e-a3fb-2e23d823cf84)
+
 
 2. **Verify Java Installation:**
    ```bash
    java -version
    ```
+![image](https://github.com/user-attachments/assets/a838c0ec-7f92-454c-af88-6731101cb514)
+
 
 3. **Set `JAVA_HOME` Environment Variable:**
    Open `.bashrc`:
