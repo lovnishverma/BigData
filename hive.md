@@ -69,6 +69,8 @@ comman again.....
   ```bash
    docker exec -it hive4 beeline -u 'jdbc:hive2://localhost:10000/'
    ```
+![image](https://github.com/user-attachments/assets/4cf242e7-e6d6-46c5-bc86-7c83068796dc)
+
 
 2. You should see a successful connection message:
 
