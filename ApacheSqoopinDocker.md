@@ -269,20 +269,29 @@ EXIT;
        </property>
    </configuration>
    ```
-   3. **Edit `yarn-site.xml`:**
+Here’s the instruction in Markdown format:
+
+---
+
+### Step 3: Edit `yarn-site.xml`
+1. Open the `yarn-site.xml` file for editing:
    ```bash
    nano /opt/hadoop/etc/hadoop/yarn-site.xml
    ```
-   Add the following configuration:
-   
+
+2. Add the following configuration to expose the NodeManager web UI:
    ```xml
-<configuration>
-  <property>
-    <name>yarn.nodemanager.webapp.address</name>
-    <value>0.0.0.0:8042</value>
-  </property>
-</configuration>
+   <configuration>
+     <property>
+       <name>yarn.nodemanager.webapp.address</name>
+       <value>0.0.0.0:8042</value>
+     </property>
+   </configuration>
    ```
+
+3. Save and exit the editor by pressing `CTRL + O`, `Enter`, and then `CTRL + X`.
+
+--- 
 
 3. **Set `JAVA_HOME` in Hadoop:**
    Edit `hadoop-env.sh`:
