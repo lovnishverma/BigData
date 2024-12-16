@@ -6,39 +6,39 @@ Steps for setting up **Sqoop**, **Hadoop**, **MySQL**, **SPARK**, and **Java** o
 This guide outlines the steps to install and configure **Sqoop**, **Hadoop**, **MySQL**, and **Java** in a Docker container for big data operations.
 
 1. **Check Existing Containers**  
-   List all containers (including stopped ones) to confirm the presence of `sqoop-container`:
+   List all containers (including stopped ones) to confirm the presence of `nielit-container`:
    ```bash
    docker ps -a
    ```
 
-   Look for the container named `sqoop-container` in the output.
+   Look for the container named `nielit-container` in the output.
 
 2. **Restart the Existing Container (If You Want to Reuse It)**  
-   If the container `sqoop-container` is stopped and you want to use it, restart it:
+   If the container `nielit-container` is stopped and you want to use it, restart it:
    ```bash
-   docker start sqoop-container
+   docker start nielit-container
    ```
 
    Then, attach to it using:
    ```bash
-   docker exec -it sqoop-container /bin/bash
+   docker exec -it nielit-container /bin/bash
    ```
 
 3. **Remove the Existing Container (If You Want to Create a New One)**  
-   If you no longer need the existing `sqoop-container`, remove it:
+   If you no longer need the existing `nielit-container`, remove it:
    ```bash
-   docker rm sqoop-container
+   docker rm nielit-container
    ```
 
    After removing it, you can create a new container with the same name:
    ```bash
-   docker run -it -p 8088:8088 -p 9000:9000 -p 8042:8042 --name sqoop-container ubuntu:20.04 bash
+   docker run -it -p 8088:8088 -p 9000:9000 -p 8042:8042 -p 8080:8080 --name nielit-container ubuntu:20.04 bash
    ```
 
 4. **Use a Different Container Name**  
    If you don’t want to delete the existing container, create a new one with a different name:
    ```bash
-   docker run -it -p 8088:8088 -p 9000:9000 -p 8042:8042 --name sqoop-container ubuntu:20.04 bash
+   docker run -it -p 8088:8088 -p 9000:9000 -p 8042:8042 -p 8080:8080 --name nielitropar-container ubuntu:20.04 bash
 
    ```
 
@@ -46,20 +46,20 @@ This guide outlines the steps to install and configure **Sqoop**, **Hadoop**, **
 - **Check Container Logs**  
    If the container failed previously, check its logs to identify issues:
    ```bash
-   docker logs sqoop-container
+   docker logs nielit-container
    ```
 
 - **Inspect Container Details**  
    To investigate the container further:
    ```bash
-   docker inspect sqoop-container
+   docker inspect nielit-container
    ``` 
 
 ## **Step 1: Set up a Fresh Docker Container**
 
 1. **Create and Start a New Ubuntu Container:**
    ```bash
-   docker run -it -p 8088:8088 -p 9000:9000 -p 8042:8042 --name sqoop-container ubuntu:20.04 bash
+   docker run -it -p 8088:8088 -p 9000:9000 -p 8042:8042 -p 8080:8080 --name nielit-container ubuntu:20.04 bash
    ```
 
 2. **Update Package Lists:**
