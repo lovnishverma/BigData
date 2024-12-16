@@ -141,7 +141,7 @@ Now, let’s run the code to load the CSV file into a Spark DataFrame, transform
      .appName("Spark SQL Example")
      .master("local[*]")
      .getOrCreate()
-   val df = spark.read.option("header", "true").csv("/spark-practicals/employees.csv")
+   val df = spark.read.option("header", "true").csv("spark-practicals/employees.csv")
    df.show()
    ```
 
@@ -236,6 +236,8 @@ wordCounts.collect().foreach { case (word, count) =>
 
 sc.stop()
 ```
+
+
 ![image](https://github.com/user-attachments/assets/2ced2923-4192-4359-aa47-81c7e7608d32)
 
 
@@ -246,7 +248,11 @@ sc.stop()
 3. **Output**: The word counts will be printed to the console when the program is executed.
 ```
 
+
+
 ![image](https://github.com/user-attachments/assets/e1787f84-a89d-4a14-a71f-3fe5ccaa9323)
+
+
 
 **##Closing the Spark Session**
 
