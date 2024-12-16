@@ -313,12 +313,12 @@ service ssh start
 
 Then, ensure SSH is properly configured for passwordless login. You can do this by creating an SSH key and copying it to the `~/.ssh/authorized_keys` file on the same machine (or between nodes if you have a multi-node setup).
 
-To generate the SSH key pair:
+To generate the SSH key pair (Do not enter yes and don't enter anything keep blank):
 
 ```bash
 ssh-keygen -t rsa
 ```
-D not enter yes and don't enter anything keep blank
+
 Then, copy the public key to the authorized keys:
 
 ```bash
