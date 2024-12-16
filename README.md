@@ -62,6 +62,9 @@ To View NameNode UI Visit:   [http://localhost:9870/](http://localhost:9870/)
 
 To View Resource Manager UI Visit [http://localhost:8088/](http://localhost:8088/)
 
+
+
+###  MAPREDUCE WordCount program
 ### Step 1: Copy the `code` folder into the container
 Use the following command in your windows cmd to copy the `code` folder to the container:
 ```bash
