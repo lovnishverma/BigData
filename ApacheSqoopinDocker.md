@@ -500,7 +500,7 @@ sqoop list-databases --connect jdbc:mysql://localhost:3306 --username sqoop_user
 
 ## **Step 8: Test Sqoop with MySQL**
 
-1. **Use Sqoop to List MySQL Databases:**
+1. **Use Sqoop to List MySQL Databases (make sure service mysql start is running):**
    ```bash
    sqoop list-databases \
        --connect jdbc:mysql://localhost:3306 \
@@ -510,7 +510,8 @@ sqoop list-databases --connect jdbc:mysql://localhost:3306 --username sqoop_user
 . **Expected Output:**
    A list of databases should appear, including `testdb`.
    
-![image](https://github.com/user-attachments/assets/08d18ae5-c686-4433-af5a-de14bb433803)
+![image](https://github.com/user-attachments/assets/aea4f0b9-dff4-45e1-b2f3-4a54d66acfd8)
+
 
 
 ### 2. **Import the Table using Sqoop**
