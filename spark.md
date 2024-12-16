@@ -292,6 +292,27 @@ After modifying the configuration files, restart the Hadoop services:
 /opt/hadoop/sbin/stop-all.sh
 /opt/hadoop/sbin/start-all.sh
 ```
+### ** Set `YARN_CONF_DIR` Environment Variable**
+If the `yarn-site.xml` is located in a different directory, you may also need to set the `YARN_CONF_DIR` environment variable. If it's in the same directory as `core-site.xml`, this step may not be necessary.
+
+To set the `YARN_CONF_DIR` variable:
+
+
+```bash
+echo "export HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop" >> ~/.bashrc
+echo "export YARN_CONF_DIR=/opt/hadoop/etc/hadoop" >> ~/.bashrc
+source ~/.bashrc
+```
+
+### ** Verify Environment Variables**
+To ensure that the environment variables are set correctly, you can check them with:
+
+```bash
+echo $HADOOP_CONF_DIR
+echo $YARN_CONF_DIR
+```
+
+
 
 ### **3. Run a Spark Job**
 Now that you have configured Spark, you can run some basic Spark commands and examples.
@@ -301,6 +322,7 @@ To interactively run Spark commands, you can use the Spark Shell. Use this comma
 ```bash
 /opt/spark/bin/spark-shell --master yarn
 ```
+
 
 Once the Spark Shell starts, you can run Spark commands.
 
