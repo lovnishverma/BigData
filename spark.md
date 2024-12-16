@@ -242,6 +242,8 @@ wordCounts.collect().foreach { case (word, count) =>
 
 sc.stop()
 ```
+![image](https://github.com/user-attachments/assets/2ced2923-4192-4359-aa47-81c7e7608d32)
+
 
 ### Steps:
 
