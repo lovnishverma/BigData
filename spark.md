@@ -198,3 +198,168 @@ Running Spark and Spark SQL in a Docker container allows you to experiment with 
 - Save the results to different file formats.
 
 By using Docker, you can quickly set up a reproducible Spark environment for practicing the concepts in your presentation.
+
+To configure **Apache Spark** in your existing Docker container setup (with Sqoop, Hadoop, MySQL, and Java), follow these steps to integrate Spark with your environment and perform basic operations:
+
+### **1. Install Apache Spark in Your Docker Container**
+You can manually install Apache Spark inside your existing Docker container by following these steps:
+
+#### **a. Access the Container**
+First, access the running Docker container where Hadoop, Sqoop, and MySQL are installed:
+```bash
+docker exec -it <container_name> bash
+```
+Replace `<container_name>` with your actual container name.
+
+#### **b. Install Apache Spark**
+You can download and install Apache Spark in the container:
+
+1. **Download Apache Spark:**
+   Use the `wget` command to download the latest stable version of Apache Spark:
+   ```bash
+   wget https://archive.apache.org/dist/spark/spark-3.5.0/spark-3.5.0-bin-hadoop3.tgz
+   ```
+
+2. **Extract the Spark Archive:**
+   Extract the downloaded archive:
+   ```bash
+   tar -xvzf spark-3.5.0-bin-hadoop3.tgz
+   ```
+
+3. **Move Spark to /opt Directory (optional):**
+   It's a good practice to move Spark to the `/opt` directory:
+   ```bash
+   mv spark-3.5.0-bin-hadoop3 /opt/spark
+   ```
+
+4. **Set Spark Environment Variables:**
+   To make Spark available globally, set the following environment variables:
+   ```bash
+   echo 'export SPARK_HOME=/opt/spark' >> ~/.bashrc
+   echo 'export PATH=$SPARK_HOME/bin:$PATH' >> ~/.bashrc
+   source ~/.bashrc
+   ```
+
+5. **Check Spark Version:**
+   Verify if Spark was installed correctly by running:
+   ```bash
+   spark-submit --version
+   ```
+
+### **2. Configure Spark with Hadoop**
+Now that Spark is installed, you need to configure it to run on your Hadoop cluster.
+
+#### **a. Edit `spark-defaults.conf`**
+In your container, edit the `spark-defaults.conf` file to configure Spark to use Hadoop for storage and job execution:
+```bash
+nano /opt/spark/conf/spark-defaults.conf
+```
+
+Add the following configurations:
+
+```properties
+spark.master                    yarn
+spark.eventLog.enabled           true
+spark.eventLog.dir               hdfs://<hadoop_name_node_host>/spark-logs
+spark.hadoop.fs.defaultFS        hdfs://<hadoop_name_node_host>:9000
+```
+
+Replace `<hadoop_name_node_host>` with the IP address or hostname of your Hadoop NameNode.
+
+#### **b. Configure Hadoop with Spark**
+Modify the Hadoop `core-site.xml` to allow Spark to communicate with HDFS:
+
+```bash
+nano /opt/hadoop/etc/hadoop/core-site.xml
+```
+
+Add the following property:
+
+```xml
+<property>
+    <name>fs.defaultFS</name>
+    <value>hdfs://<hadoop_name_node_host>:9000</value>
+</property>
+```
+
+Make sure to replace `<hadoop_name_node_host>` with the correct NameNode host.
+
+#### **c. Restart Hadoop and Spark Services**
+After modifying the configuration files, restart the Hadoop services:
+```bash
+/opt/hadoop/sbin/stop-all.sh
+/opt/hadoop/sbin/start-all.sh
+```
+
+### **3. Run a Spark Job**
+Now that you have configured Spark, you can run some basic Spark commands and examples.
+
+#### **a. Start Spark Shell**
+To interactively run Spark commands, you can use the Spark Shell. Use this command to start the Spark shell:
+```bash
+/opt/spark/bin/spark-shell --master yarn
+```
+
+Once the Spark Shell starts, you can run Spark commands.
+
+#### **b. Simple Spark Command Example**
+Here is a basic example to calculate the number of words in a file using Spark:
+
+1. **Create a Text File (for example, `input.txt`) on HDFS**:
+   ```bash
+   echo "Hello Hadoop Spark" > input.txt
+   hdfs dfs -put input.txt /user/hadoop/input.txt
+   ```
+
+2. **Word Count Spark Job**:
+   In the Spark Shell, use the following code to count the words in the file:
+
+   ```scala
+   val textFile = sc.textFile("hdfs://<hadoop_name_node_host>:9000/user/hadoop/input.txt")
+   val wordCount = textFile.flatMap(line => line.split(" ")).map(word => (word, 1)).reduceByKey(_ + _)
+   wordCount.collect().foreach(println)
+   ```
+
+   Replace `<hadoop_name_node_host>` with your Hadoop NameNode's host address.
+
+#### **c. Spark Submit Job (example)**
+You can also submit Spark jobs using `spark-submit`:
+
+1. **Create a Simple Spark Job (`wordcount.py`)**:
+   Here's a simple Python example for word count:
+
+   ```python
+   from pyspark import SparkContext, SparkConf
+
+   conf = SparkConf().setAppName("WordCount")
+   sc = SparkContext(conf=conf)
+
+   lines = sc.textFile("hdfs://<hadoop_name_node_host>:9000/user/hadoop/input.txt")
+   words = lines.flatMap(lambda line: line.split(" "))
+   word_counts = words.map(lambda word: (word, 1)).reduceByKey(lambda a, b: a + b)
+   
+   for word, count in word_counts.collect():
+       print(f"{word}: {count}")
+   ```
+
+2. **Submit the Job**:
+   Run the job using `spark-submit`:
+   ```bash
+   /opt/spark/bin/spark-submit --master yarn wordcount.py
+   ```
+
+### **4. Monitor Spark Job (Web UI)**
+You can monitor your Spark jobs using the Spark Web UI, which is available by default on port `4040` on the **Spark Master**. You can also monitor it through the **YARN ResourceManager** Web UI.
+
+To access the Spark Web UI, visit:
+- **Spark Master UI**: [http://<spark_master_host>:8080](http://<spark_master_host>:8080)
+- **Spark Driver UI**: [http://<spark_master_host>:4040](http://<spark_master_host>:4040)
+
+---
+
+### **Summary of Basic Spark Usage**:
+1. **Setup**: Install Apache Spark in your Docker container, configure it to run with Hadoop (using YARN).
+2. **Run Jobs**: Use Spark Shell for interactive commands or `spark-submit` for batch jobs.
+3. **Monitor**: Access Spark's Web UI to monitor your jobs and check the status of the cluster.
+
+Let me know if you need more details on running Spark commands or troubleshooting any part of the setup!
