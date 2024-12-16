@@ -536,4 +536,128 @@ You can now perform practical operations like exporting data, running queries, e
 
 ---
 
+If you want to install Apache Spark in the same Docker container where Hadoop is already installed, you can follow these steps:
+
+### Step 1: Access Your Existing Hadoop Container
+First, access the running Hadoop container using the `docker exec` command:
+
+```bash
+docker exec -it <hadoop-container-name> /bin/bash
+```
+
+This will open a shell inside the container.
+
+### Step 2: Install Apache Spark in the Container
+Once inside the container, you'll need to download and install Apache Spark.
+
+1. **Download Spark**:  
+   Use `wget` or `curl` to download the latest Apache Spark release. For example, to download Spark 3.x (make sure to adjust the version number if needed):
+
+   ```bash
+   wget https://archive.apache.org/dist/spark/spark-3.5.1/spark-3.5.1-bin-hadoop3.tgz
+   ```
+
+2. **Extract the tar file**:
+
+   ```bash
+   tar -xvzf spark-3.5.1-bin-hadoop3.tgz
+   ```
+
+3. **Move Spark to a proper directory** (optional, for better organization):
+
+   ```bash
+   mv spark-3.5.1-bin-hadoop3 /opt/spark
+   ```
+
+4. **Set Environment Variables**:  
+   Add the Spark environment variables to your `.bashrc` or `.bash_profile` so they persist across sessions:
+
+   ```bash
+   echo 'export SPARK_HOME=/opt/spark' >> ~/.bashrc
+   echo 'export PATH=$SPARK_HOME/bin:$PATH' >> ~/.bashrc
+   echo 'export SPARK_MASTER_URL=spark://localhost:7077' >> ~/.bashrc
+   source ~/.bashrc
+   ```
+
+### Step 3: Set Up Hadoop Configuration in Spark
+
+Spark needs to be configured to communicate with Hadoop HDFS. You need to point Spark to the Hadoop configuration directory. Assuming your Hadoop configuration files are in `/etc/hadoop/conf`, you can set the `HADOOP_CONF_DIR` environment variable to this path.
+
+1. **Set the Hadoop configuration directory for Spark**:
+
+   ```bash
+   echo 'export HADOOP_CONF_DIR=/etc/hadoop/conf' >> ~/.bashrc
+   source ~/.bashrc
+   ```
+
+2. **Check if Hadoop configuration files are available**:  
+   Ensure that the Hadoop configuration files such as `core-site.xml`, `hdfs-site.xml`, and others are present in `/etc/hadoop/conf`.
+
+### Step 4: Verify the Installation
+
+1. **Start Spark in Master Mode**:  
+   You can start Spark in master mode from the command line:
+
+   ```bash
+   $SPARK_HOME/sbin/start-master.sh
+   ```
+2. **Open Spark shell** (Optional, if you want to run Spark workers as well):
+
+   ```bash
+   spark-shell
+   ```
+
+   This will start Spark in master mode and expose the Spark Web UI at `http://localhost:8080`.
+
+3. **Start Spark in Worker Mode** (Optional, if you want to run Spark workers as well):
+
+   ```bash
+   $SPARK_HOME/sbin/start-worker.sh spark://localhost:7077
+   ```
+
+
+   This starts the worker node and connects it to the master node.
+![image](https://github.com/user-attachments/assets/855bf183-bf5f-4bca-a6b4-b381928a25e9)
+
+### Step 5: Run a Spark Job
+
+Once Spark is installed and running, you can test it by submitting a Spark job.
+
+1. **Submit a job** (for example, a simple PySpark job):
+
+   ```bash
+   $SPARK_HOME/bin/spark-submit --master spark://localhost:7077 /path/to/your/spark-job.py
+   ```
+
+   Make sure to replace `/path/to/your/spark-job.py` with the actual path to your Spark job.
+
+2. **Monitor the job**:  
+   You can monitor the job's progress through the Spark Web UI at `http://localhost:8080`.
+
+### Step 6: Stop Spark Services
+
+When you're done, you can stop Spark services.
+
+1. **Stop the Spark Worker**:
+
+   ```bash
+   $SPARK_HOME/sbin/stop-worker.sh
+   ```
+
+2. **Stop the Spark Master**:
+
+   ```bash
+   $SPARK_HOME/sbin/stop-master.sh
+   ```
+
+---
+
+### Notes:
+
+- Ensure you have sufficient resources (CPU, memory) allocated to your Docker container to run both Hadoop and Spark.
+- If you're using HDFS in Hadoop, make sure your Spark configuration (`spark-defaults.conf`) has the necessary settings to access HDFS, such as `spark.hadoop.fs.defaultFS`.
+- You can mount local directories containing Hadoop configurations and Spark jobs using Docker volumes.
+
+This method installs Spark directly within the same container as Hadoop, eliminating the need for multiple containers but still allowing full Hadoop-Spark integration. Let me know if you need more help!
+
 This concludes the installation and configuration process for **Sqoop**, **Hadoop**, **MySQL**, and **Java** on Docker Container.
