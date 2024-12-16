@@ -269,6 +269,20 @@ EXIT;
        </property>
    </configuration>
    ```
+   3. **Edit `yarn-site.xml`:**
+   ```bash
+   nano /opt/hadoop/etc/hadoop/yarn-site.xml
+   ```
+   Add the following configuration:
+   
+   ```xml
+<configuration>
+  <property>
+    <name>yarn.nodemanager.webapp.address</name>
+    <value>0.0.0.0:8042</value>
+  </property>
+</configuration>
+   ```
 
 3. **Set `JAVA_HOME` in Hadoop:**
    Edit `hadoop-env.sh`:
