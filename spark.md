@@ -1,6 +1,6 @@
 ### 1. **You Need to Specify Ports While Creating the Container?**
 
-Yes, you need to specify the ports when creating the container, especially if you want to expose certain services to your host machine. For example, Spark has a web UI that runs on port `8080` by default, and the Spark master is accessible via port `7077`. 
+You need to specify the ports when creating the container, especially if you want to expose certain services to your host machine. For example, Spark has a web UI that runs on port `8080` by default, and the Spark master is accessible via port `7077`. 
 
 Specifying the ports during the container creation ensures that you can access these services from your host machine. Here's why you need to do it:
 
