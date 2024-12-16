@@ -95,6 +95,7 @@ Run the following command to verify Flume:
 ```bash
 /usr/local/flume/bin/flume-ng version
 ```
+![image](https://github.com/user-attachments/assets/879f8c80-b980-4ea2-86c5-2e0b15239073)
 
 ---
 
