@@ -318,7 +318,7 @@ To generate the SSH key pair:
 ```bash
 ssh-keygen -t rsa
 ```
-don't enter anything keep blank for now
+D not enter yes and don't enter anything keep blank
 Then, copy the public key to the authorized keys:
 
 ```bash
