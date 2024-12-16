@@ -2,7 +2,7 @@
 ![image](https://github.com/user-attachments/assets/343cfd7e-73b7-4eb2-a9a4-76c31f5703c8)
 
 ---
-
+Then, download Docker Desktop version 4.4.4 from this link: https://desktop.docker.com/win/stable/amd64/69386/Docker%20Desktop%20Installer.exe. Run the installer and follow the instructions to install Docker Desktop on your computer.
 # **Hadoop-on-Docker Setup Guide**
 
 This guide walks you through installing and running Hadoop on Docker, step-by-step.
