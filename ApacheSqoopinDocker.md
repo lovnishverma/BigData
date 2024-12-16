@@ -269,8 +269,8 @@ EXIT;
        </property>
    </configuration>
    ```
-Here’s the instruction in Markdown format:
 
+. Save and exit the editor by pressing `CTRL + O`, `Enter`, and then `CTRL + X`.
 ---
 
 ### Step 3: Edit `yarn-site.xml`
@@ -279,7 +279,7 @@ Here’s the instruction in Markdown format:
    nano /opt/hadoop/etc/hadoop/yarn-site.xml
    ```
 
-2. Add the following configuration to expose the NodeManager web UI:
+ Add the following configuration to expose the NodeManager web UI:
    ```xml
    <configuration>
      <property>
@@ -289,7 +289,6 @@ Here’s the instruction in Markdown format:
    </configuration>
    ```
 
-3. Save and exit the editor by pressing `CTRL + O`, `Enter`, and then `CTRL + X`.
 
 --- 
 
