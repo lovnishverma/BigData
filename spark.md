@@ -141,7 +141,7 @@ Now, let’s run the code to load the CSV file into a Spark DataFrame, transform
      .appName("Spark SQL Example")
      .master("local[*]")
      .getOrCreate()
-   val df = spark.read.option("header", "true").csv("spark-practicals/employees.csv")
+   val df = spark.read.option("header", "true").csv("/spark-practicals/employees.csv")
    df.show()
    ```
 
