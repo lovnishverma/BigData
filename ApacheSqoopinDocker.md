@@ -130,7 +130,6 @@ This guide outlines the steps to install and configure **Sqoop**, **Hadoop**, **
    CREATE USER 'sqoop_user'@'%' IDENTIFIED BY 'password123';
    GRANT ALL PRIVILEGES ON testdb.* TO 'sqoop_user'@'%';
    FLUSH PRIVILEGES;
-   EXIT;
    ```
 
 ---
@@ -140,9 +139,6 @@ Create a MySQL Table
 First, let’s create a simple table called `employees` in your `testdb` database.
 
 ```sql
--- Log into MySQL
-mysql -u root -p
-
 -- Select the database
 USE testdb;
 
@@ -190,7 +186,9 @@ SELECT * FROM employees;
 
 ![image](https://github.com/user-attachments/assets/1f9d2c98-7dbe-42f6-9c86-78ae4a2dfc8e)
 
-
+```sql
+EXIT;
+```
 ## **Step 4: Install Hadoop**
 
 1. **Install `wget` for File Downloads:**
