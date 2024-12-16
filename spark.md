@@ -1,4 +1,4 @@
-To perform these Spark SQL and DataFrame operations inside a Docker container, you'll need to set up a Docker environment that includes Apache Spark along with the necessary configurations. Below is a detailed guide on how to set up Docker for running Spark, loading data, and performing SQL operations as per the slides:
+To perform these Spark SQL and DataFrame operations inside a Docker container, you'll need to set up a Docker environment that includes Apache Spark along with the necessary configurations. Below is a detailed guide on how to set up Docker for running Spark, loading data, and performing SQL operations:
 
 ### **1. Install Docker**
 Before you begin, make sure Docker is installed on your system. You can download and install it from [Docker's official website](https://www.docker.com/get-started).
@@ -245,6 +245,8 @@ You can download and install Apache Spark in the container:
    ```bash
    spark-submit --version
    ```
+![image](https://github.com/user-attachments/assets/5d176026-a605-41c8-89ce-335f70d590bf)
+
 
 ### **2. Configure Spark with Hadoop**
 Now that Spark is installed, you need to configure it to run on your Hadoop cluster.
