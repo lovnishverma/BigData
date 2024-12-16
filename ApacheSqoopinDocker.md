@@ -33,13 +33,13 @@ This guide outlines the steps to install and configure **Sqoop**, **Hadoop**, **
 
    After removing it, you can create a new container with the same name:
    ```bash
-   docker run -it -p 8088:8088 -p 9000:9000 --name sqoop-container ubuntu:20.04 bash
+   docker run -it -p 8088:8088 -p 9000:9000 -p 8042:8042 --name sqoop-container ubuntu:20.04 bash
    ```
 
 4. **Use a Different Container Name**  
    If you don’t want to delete the existing container, create a new one with a different name:
    ```bash
-   docker run -it -p 8088:8088 -p 9000:9000 --name sqoop-container2 ubuntu:20.04 bash
+   docker run -it -p 8088:8088 -p 9000:9000 -p 8042:8042 --name sqoop-container ubuntu:20.04 bash
 
    ```
 
@@ -60,7 +60,7 @@ This guide outlines the steps to install and configure **Sqoop**, **Hadoop**, **
 
 1. **Create and Start a New Ubuntu Container:**
    ```bash
-   docker run -it -p 8088:8088 -p 9000:9000 --name sqoop-container ubuntu:20.04 bash
+   docker run -it -p 8088:8088 -p 9000:9000 -p 8042:8042 --name sqoop-container ubuntu:20.04 bash
    ```
 
 2. **Update Package Lists:**
