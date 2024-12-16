@@ -341,16 +341,7 @@ Ensure it contains:
 localhost
 ```
 
-### 4. **Restart HDFS**
-
-Now, try to start HDFS again:
-
-```bash
-start-dfs.sh
-hadoop-daemon.sh start namenode
-```
-
-or
+It will ask you Are you sure you want to continue connecting (yes/no/[fingerprint])? yes ...Enter yes
 
 ```bash
 start-all.sh
@@ -376,6 +367,9 @@ jps
 ```
 
 You should see processes like `NameNode`, `ResourceManager`, `DataNode`, and `SecondaryNameNode` if everything is working correctly.
+
+![image](https://github.com/user-attachments/assets/250242f9-d48f-4ec2-b0da-4869cbb84927)
+
 
 ### 5. **Check HDFS Web UI**
 
