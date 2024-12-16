@@ -137,17 +137,11 @@ Now, let’s run the code to load the CSV file into a Spark DataFrame, transform
 
    ```scala
    import org.apache.spark.sql.SparkSession
-
-   // Initialize SparkSession
    val spark = SparkSession.builder()
      .appName("Spark SQL Example")
-     .master("local[*]")  // Running in local mode using all available cores
+     .master("local[*]")
      .getOrCreate()
-
-   // Load the CSV file into a DataFrame
    val df = spark.read.option("header", "true").csv("employees.csv")
-
-   // Show the first few rows
    df.show()
    ```
 
