@@ -223,6 +223,7 @@ EXIT;
    ```bash
    hadoop version
    ```
+![image](https://github.com/user-attachments/assets/cf113dae-d86b-4d01-a6c3-4ccfa3e6d371)
 
 
 ---
