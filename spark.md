@@ -202,33 +202,29 @@ Now, let’s run the code to load the CSV file into a Spark DataFrame, transform
 
    This will save the result into a file called `output_employees.csv` in the current directory.
 
-### Step 3: Closing the Spark Session
 
-Once you are done with your operations, don’t forget to stop the Spark session.
 
-```scala
-spark.stop()
-```
-
-### Summary
-
-- You created a directory and added a sample CSV file (`employees.csv`).
-- You learned how to use Spark with Scala to load CSV files and perform SQL queries.
-- You learned to perform SQL operations on DataFrames, such as filtering and saving the results.
-- You also saved the output back to a new CSV file.
-
-You can use this same process to load and analyze data from different file formats (CSV, JSON, Parquet) in Spark, and perform various transformations and SQL operations.
+### You can use this same process to load and analyze data from different file formats (CSV, JSON, Parquet) in Spark, and perform various transformations and SQL operations.
 
 ![image](https://github.com/user-attachments/assets/21f50d78-31bd-4db9-8ea4-6ce762bde45a)
 
 
-Move or create file with some words in docker container
+Here's the content in markdown format for the Docker command and the Scala WordCount program.
 
-**Command:**
+```markdown
+### Docker Command to Copy File
+
+Use the following command to copy the `data.txt` file from your local system to the Docker container:
+
+```bash
 docker cp data.txt spark-container:/opt/bitnami/spark/spark-practicals/data.txt
+```
 
-**WordCount program in Scala**
+### WordCount Program in Scala
 
+The following Scala code performs a WordCount operation using Apache Spark:
+
+```scala
 import org.apache.spark.{SparkConf, SparkContext}
 
 val conf = new SparkConf().setAppName("WordCountExample").setMaster("local")
@@ -245,10 +241,24 @@ wordCounts.collect().foreach { case (word, count) =>
 }
 
 sc.stop()
+```
+
+### Steps:
+
+1. **Copy File**: Use `docker cp` to move or create the file inside the Docker container.
+2. **WordCount Program**: The program reads the file, splits it into words, and counts the occurrences of each word.
+3. **Output**: The word counts will be printed to the console when the program is executed.
+```
 
 ![image](https://github.com/user-attachments/assets/e1787f84-a89d-4a14-a71f-3fe5ccaa9323)
 
+**##Closing the Spark Session**
 
+Once you are done with your operations, don’t forget to stop the Spark session.
+
+```scala
+spark.stop()
+```
 
 Running **Apache Spark in Local Mode with Hadoop** involves configuring Spark to run on your local machine while still leveraging Hadoop's components, like HDFS (Hadoop Distributed File System) for storage and possibly YARN (Yet Another Resource Negotiator) for managing resources, although the overall execution will be single-node (locally). In this configuration, Spark runs on your local machine, but you can still access and utilize Hadoop's storage and resource management features.
 
