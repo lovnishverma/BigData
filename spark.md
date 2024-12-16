@@ -72,6 +72,156 @@ If you intend to integrate Spark with Hadoop (for example, to use HDFS for file 
 
 ![image](https://github.com/user-attachments/assets/14ad1811-2f27-464c-a387-aaa46f0c8aa7)
 
+To perform practicals with Spark and Scala, you first need to set up a directory structure and create sample files (such as CSV files) to load into Spark. Below is a step-by-step guide to create a directory, generate some sample data files, and then use them in your Spark SQL operations.
+
+### Step 1: Create a Directory and Files
+
+1. **Create a directory for your Spark project**:
+   You can create a directory where your Spark project will reside. Let’s name it `spark-practicals`.
+
+   **Linux/macOS**:
+   ```bash
+   mkdir spark-practicals
+   cd spark-practicals
+   ```
+
+   **Windows (Command Prompt)**:
+   ```cmd
+   mkdir spark-practicals
+   cd spark-practicals
+   ```
+
+2. **Create a CSV file inside the directory**:
+   Next, let's create a CSV file with some sample data. You can use any text editor or even the terminal/command prompt to create a file named `employees.csv` in the `spark-practicals` directory.
+
+   **Example of creating a CSV file:**
+
+   **Linux/macOS**:
+   ```bash
+   echo -e "id,name,age,department,salary\n1,John,30,HR,3000\n2,Jane,35,Finance,4000\n3,Sam,28,Engineering,5000\n4,Lisa,40,Marketing,6000" > employees.csv
+   ```
+
+   **Windows (Command Prompt)**:
+   ```cmd
+   echo id,name,age,department,salary > employees.csv
+   echo 1,John,30,HR,3000 >> employees.csv
+   echo 2,Jane,35,Finance,4000 >> employees.csv
+   echo 3,Sam,28,Engineering,5000 >> employees.csv
+   echo 4,Lisa,40,Marketing,6000 >> employees.csv
+   ```
+
+   This will create a CSV file named `employees.csv` with the following data:
+   ```
+   id,name,age,department,salary
+   1,John,30,HR,3000
+   2,Jane,35,Finance,4000
+   3,Sam,28,Engineering,5000
+   4,Lisa,40,Marketing,6000
+   ```
+
+### Step 2: Run Spark in Scala
+
+Now, let’s run the code to load the CSV file into a Spark DataFrame, transform it, and perform operations using Spark SQL.
+
+1. **Start Spark Shell**:
+   Make sure you have `Spark` installed, and then start the Spark shell in Scala.
+
+   **In your terminal**:
+   ```bash
+   spark-shell
+   ```
+
+2. **Load the CSV file into a DataFrame**:
+
+   In the Spark shell, run the following code:
+
+   ```scala
+   import org.apache.spark.sql.SparkSession
+
+   // Initialize SparkSession
+   val spark = SparkSession.builder()
+     .appName("Spark SQL Example")
+     .master("local[*]")  // Running in local mode using all available cores
+     .getOrCreate()
+
+   // Load the CSV file into a DataFrame
+   val df = spark.read.option("header", "true").csv("employees.csv")
+
+   // Show the first few rows
+   df.show()
+   ```
+
+   This will display the contents of the CSV file as a DataFrame:
+
+   ```
+   +---+----+---+-----------+------+
+   | id|name|age| department|salary|
+   +---+----+---+-----------+------+
+   |  1|John| 30|         HR|  3000|
+   |  2|Jane| 35|    Finance|  4000|
+   |  3| Sam| 28|Engineering|  5000|
+   |  4|Lisa| 40|  Marketing|  6000|
+   +---+----+---+-----------+------+
+   ```
+
+3. **Performing SQL Operations**:
+
+   Once the data is loaded into a DataFrame, you can run SQL queries. First, register the DataFrame as a temporary SQL table.
+
+   ```scala
+   // Register the DataFrame as a temporary table
+   df.createOrReplaceTempView("employees")
+
+   // Run an SQL query to select employees with a salary greater than 4000
+   val sqlData = spark.sql("SELECT * FROM employees WHERE salary > 4000")
+   
+   // Show the results
+   sqlData.show()
+   ```
+
+   The output will look like this:
+
+   ```
+   +---+----+---+-----------+------+
+   | id|name|age| department|salary|
+   +---+----+---+-----------+------+
+   |  3| Sam| 28|Engineering|  5000|
+   |  4|Lisa| 40|  Marketing|  6000|
+   +---+----+---+-----------+------+
+   ```
+
+4. **Saving the Data**:
+
+   After transforming or processing the data, you can save the results in different formats such as CSV, Parquet, or JSON.
+
+   To save the transformed DataFrame as a new CSV file:
+
+   ```scala
+   sqlData.write.option("header", "true").csv("output_employees.csv")
+   ```
+
+   This will save the result into a file called `output_employees.csv` in the current directory.
+
+### Step 3: Closing the Spark Session
+
+Once you are done with your operations, don’t forget to stop the Spark session.
+
+```scala
+spark.stop()
+```
+
+### Summary
+
+- You created a directory and added a sample CSV file (`employees.csv`).
+- You learned how to use Spark with Scala to load CSV files and perform SQL queries.
+- You learned to perform SQL operations on DataFrames, such as filtering and saving the results.
+- You also saved the output back to a new CSV file.
+
+You can use this same process to load and analyze data from different file formats (CSV, JSON, Parquet) in Spark, and perform various transformations and SQL operations.
+
+![image](https://github.com/user-attachments/assets/21f50d78-31bd-4db9-8ea4-6ce762bde45a)
+
+
 
 
 Running **Apache Spark in Local Mode with Hadoop** involves configuring Spark to run on your local machine while still leveraging Hadoop's components, like HDFS (Hadoop Distributed File System) for storage and possibly YARN (Yet Another Resource Negotiator) for managing resources, although the overall execution will be single-node (locally). In this configuration, Spark runs on your local machine, but you can still access and utilize Hadoop's storage and resource management features.
