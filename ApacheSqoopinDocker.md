@@ -283,7 +283,8 @@ EXIT;
    ```bash
    hdfs namenode -format
    ```
----
+![image](https://github.com/user-attachments/assets/7eb773ae-4e8c-484f-9be8-b018504190f9)
+
 
 ### 1. **Install SSH**
 
