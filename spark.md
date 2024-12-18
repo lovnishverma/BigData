@@ -44,7 +44,7 @@ If you just want to use Spark without Hadoop, the following steps should work:
 4. **Run Spark Shell or PySpark**:
    - Scala: `spark-shell`
    - Python: `pyspark`
-
+**To View Spark UI Visit : http://localhost:8080/**
 ### Running Spark with Hadoop (for HDFS and YARN):
 
 If you intend to integrate Spark with Hadoop (for example, to use HDFS for file storage), you can use a pre-built Docker image that includes both Hadoop and Spark, or you can set up your own multi-container environment using Docker Compose. Here’s how you could go about this:
