@@ -50,7 +50,7 @@ Here’s a step-by-step guide to **start HDFS** and then **install and configure
 
 3. Move the extracted folder to a convenient directory (e.g., `/usr/local/`):
    ```bash
-   sudo mv apache-flume-1.11.0-bin /usr/local/flume
+   mv apache-flume-1.11.0-bin /usr/local/flume
    ```
 
 #### Step 2: Configure Flume Environment
@@ -170,5 +170,5 @@ Run the Flume agent with the created configuration:
    You should see the data from the sample log file.
 
 ---
-
-This step-by-step approach will help you successfully set up and test Apache Flume for data ingestion into HDFS.
+**
+This step-by-step approach will help you successfully set up and test Apache Flume for data ingestion into HDFS.**
