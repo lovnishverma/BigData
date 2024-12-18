@@ -101,15 +101,6 @@ To perform practicals with Spark and Scala, you first need to set up a directory
    echo -e "id,name,age,department,salary\n1,John,30,HR,3000\n2,Jane,35,Finance,4000\n3,Sam,28,Engineering,5000\n4,Lisa,40,Marketing,6000" > employees.csv
    ```
 
-   **Windows (Command Prompt)**:
-   ```cmd
-   echo id,name,age,department,salary > employees.csv
-   echo 1,John,30,HR,3000 >> employees.csv
-   echo 2,Jane,35,Finance,4000 >> employees.csv
-   echo 3,Sam,28,Engineering,5000 >> employees.csv
-   echo 4,Lisa,40,Marketing,6000 >> employees.csv
-   ```
-
    This will create a CSV file named `employees.csv` with the following data:
    ```
    id,name,age,department,salary
@@ -136,15 +127,7 @@ Now, let’s run the code to load the CSV file into a Spark DataFrame, transform
    In the Spark shell, run the following code:
 
    ```scala
-   import org.apache.spark.sql.SparkSession
-   val spark = SparkSession.builder()
-     .appName("Spark SQL Example")
-     .master("local[*]")
-     .getOrCreate()
-
-   
    val df = spark.read.option("header", "true").csv("employees.csv")
-
    
    df.show()
    ```
