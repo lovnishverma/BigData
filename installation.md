@@ -106,89 +106,7 @@ This guide outlines the steps to install and configure **Sqoop**, **Hadoop**, **
 
 ---
 
-## **Step 3: Install MySQL**
-
-1. **Install MySQL Server:**
-   ```bash
-   apt-get install mysql-server -y
-   ```
-
-2. **Start MySQL Service:**
-   ```bash
-   service mysql start
-   ```
-
-3. **Create a Test Database and User:**
-   Log into MySQL:
-   ```bash
-   mysql -u root
-   ```
-   Run the following SQL commands:
-   ```sql
-   CREATE DATABASE testdb;
-   CREATE USER 'sqoop_user'@'%' IDENTIFIED BY 'password123';
-   GRANT ALL PRIVILEGES ON testdb.* TO 'sqoop_user'@'%';
-   FLUSH PRIVILEGES;
-   ```
-
----
-
-Create a MySQL Table
-
-First, let’s create a simple table called `employees` in your `testdb` database.
-
-```sql
--- Select the database
-USE testdb;
-
--- Create a table
-CREATE TABLE employees (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(50),
-    last_name VARCHAR(50),
-    email VARCHAR(100),
-    hire_date DATE,
-    salary DECIMAL(10, 2)
-);
-```
-
-### 2. **Insert Test Data into the Table**
-Now, let’s add some sample data to the `employees` table.
-
-```sql
--- Insert sample data into the employees table
-INSERT INTO employees (first_name, last_name, email, hire_date, salary) VALUES
-('John', 'Doe', 'john.doe@example.com', '2020-01-15', 55000.00),
-('Jane', 'Smith', 'jane.smith@example.com', '2019-03-22', 60000.00),
-('Mike', 'Johnson', 'mike.johnson@example.com', '2021-07-10', 65000.00),
-('Emily', 'Davis', 'emily.davis@example.com', '2018-12-05', 70000.00),
-('David', 'Brown', 'david.brown@example.com', '2022-11-18', 48000.00);
-```
-
-### 3. **Verify the Data**
-Once the data is inserted, you can run a `SELECT` query to verify the inserted data:
-
-```sql
--- Verify the inserted data
-SELECT * FROM employees;
-```
-
-### Example Output:
-
-| id | first_name | last_name | email                  | hire_date  | salary  |
-|----|------------|-----------|------------------------|------------|---------|
-| 1  | John       | Doe       | john.doe@example.com    | 2020-01-15 | 55000.00|
-| 2  | Jane       | Smith     | jane.smith@example.com  | 2019-03-22 | 60000.00|
-| 3  | Mike       | Johnson   | mike.johnson@example.com| 2021-07-10 | 65000.00|
-| 4  | Emily      | Davis     | emily.davis@example.com | 2018-12-05 | 70000.00|
-| 5  | David      | Brown     | david.brown@example.com | 2022-11-18 | 48000.00|
-
-![image](https://github.com/user-attachments/assets/1f9d2c98-7dbe-42f6-9c86-78ae4a2dfc8e)
-
-```sql
-EXIT;
-```
-## **Step 4: Install Hadoop**
+## **Step 3: Install Hadoop**
 
 1. **Install `wget` for File Downloads:**
    ```bash
@@ -227,7 +145,7 @@ EXIT;
 
 ---
 
-## **Step 5: Configure Hadoop**
+## **Step 4: Configure Hadoop**
 
 1. **Edit `core-site.xml`:**
    ```bash
@@ -242,7 +160,8 @@ EXIT;
        </property>
    </configuration>
    ```
-
+ Save and exit the editor by pressing `CTRL + O`, `Enter`, and then `CTRL + X`.
+---
 2. **Edit `hdfs-site.xml`:**
    ```bash
    nano /opt/hadoop/etc/hadoop/hdfs-site.xml
@@ -269,11 +188,9 @@ EXIT;
    </configuration>
    ```
 
-. Save and exit the editor by pressing `CTRL + O`, `Enter`, and then `CTRL + X`.
----
-
-### Step 3: Edit `yarn-site.xml`
-1. Open the `yarn-site.xml` file for editing:
+   
+3. Edit `yarn-site.xml`
+ Open the `yarn-site.xml` file for editing:
    ```bash
    nano /opt/hadoop/etc/hadoop/yarn-site.xml
    ```
@@ -291,7 +208,7 @@ EXIT;
 
 --- 
 
-3. **Set `JAVA_HOME` in Hadoop:**
+4. **Set `JAVA_HOME` in Hadoop:**
    Edit `hadoop-env.sh`:
    ```bash
    nano /opt/hadoop/etc/hadoop/hadoop-env.sh
@@ -300,7 +217,7 @@ EXIT;
    ```bash
    export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
    ```
-4. **Format NameNode:**
+5. **Format NameNode:**
    ```bash
    hdfs namenode -format
    ```
@@ -386,6 +303,8 @@ Check the status of the HDFS services:
 ```bash
 jps
 ```
+![image](https://github.com/user-attachments/assets/ff73c6bb-b9d3-4f50-8653-3ff173a1f45f)
+
 
 You should see processes like `NameNode`, `ResourceManager`, `DataNode`, and `SecondaryNameNode` if everything is working correctly.
 
@@ -420,7 +339,89 @@ It should now list the directories in the root of HDFS (e.g., `/user`, `/tmp`).
 - Restart Hadoop services (`start-dfs.sh`).
 - Verify HDFS status with `jps` and `hdfs dfs -ls /`.
 
-This should resolve the issues you're encountering with starting HDFS nodes.
+
+## **Step 4: Install MySQL**
+
+1. **Install MySQL Server:**
+   ```bash
+   apt-get install mysql-server -y
+   ```
+
+2. **Start MySQL Service:**
+   ```bash
+   service mysql start
+   ```
+
+3. **Create a Test Database and User:**
+   Log into MySQL:
+   ```bash
+   mysql -u root
+   ```
+   Run the following SQL commands:
+   ```sql
+   CREATE DATABASE testdb;
+   CREATE USER 'sqoop_user'@'%' IDENTIFIED BY 'password123';
+   GRANT ALL PRIVILEGES ON testdb.* TO 'sqoop_user'@'%';
+   FLUSH PRIVILEGES;
+   ```
+
+---
+
+Create a MySQL Table
+
+First, let’s create a simple table called `employees` in your `testdb` database.
+
+```sql
+-- Select the database
+USE testdb;
+
+-- Create a table
+CREATE TABLE employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(100),
+    hire_date DATE,
+    salary DECIMAL(10, 2)
+);
+```
+
+### 2. **Insert Test Data into the Table**
+Now, let’s add some sample data to the `employees` table.
+
+```sql
+-- Insert sample data into the employees table
+INSERT INTO employees (first_name, last_name, email, hire_date, salary) VALUES
+('John', 'Doe', 'john.doe@example.com', '2020-01-15', 55000.00),
+('Jane', 'Smith', 'jane.smith@example.com', '2019-03-22', 60000.00),
+('Mike', 'Johnson', 'mike.johnson@example.com', '2021-07-10', 65000.00),
+('Emily', 'Davis', 'emily.davis@example.com', '2018-12-05', 70000.00),
+('David', 'Brown', 'david.brown@example.com', '2022-11-18', 48000.00);
+```
+
+### 3. **Verify the Data**
+Once the data is inserted, you can run a `SELECT` query to verify the inserted data:
+
+```sql
+-- Verify the inserted data
+SELECT * FROM employees;
+```
+
+### Example Output:
+
+| id | first_name | last_name | email                  | hire_date  | salary  |
+|----|------------|-----------|------------------------|------------|---------|
+| 1  | John       | Doe       | john.doe@example.com    | 2020-01-15 | 55000.00|
+| 2  | Jane       | Smith     | jane.smith@example.com  | 2019-03-22 | 60000.00|
+| 3  | Mike       | Johnson   | mike.johnson@example.com| 2021-07-10 | 65000.00|
+| 4  | Emily      | Davis     | emily.davis@example.com | 2018-12-05 | 70000.00|
+| 5  | David      | Brown     | david.brown@example.com | 2022-11-18 | 48000.00|
+
+![image](https://github.com/user-attachments/assets/1f9d2c98-7dbe-42f6-9c86-78ae4a2dfc8e)
+
+```sql
+EXIT;
+```
 
 ## **Step 6: Install Sqoop**
 
@@ -659,4 +660,4 @@ When you're done, you can stop Spark services.
 
 This method installs Spark directly within the same container as Hadoop, eliminating the need for multiple containers but still allowing full Hadoop-Spark integration. Let me know if you need more help!
 
-This concludes the installation and configuration process for **Sqoop**, **Hadoop**, **MySQL**, and **Java** on Docker Container.
+This concludes the installation and configuration process for **Java**,  **Hadoop**, **MySQL**, **Sqoop** on Docker Container.
