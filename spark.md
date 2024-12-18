@@ -190,7 +190,7 @@ Now, let’s run the code to load the CSV file into a Spark DataFrame, transform
 ![image](https://github.com/user-attachments/assets/21f50d78-31bd-4db9-8ea4-6ce762bde45a)
 
 
-Here's the content in markdown format for the Docker command and the Scala WordCount program.
+**Scala WordCount program.**
 
 ```markdown
 ### Docker Command to Copy File
