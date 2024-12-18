@@ -172,3 +172,9 @@ Run the Flume agent with the created configuration:
 ---
 **
 This step-by-step approach will help you successfully set up and test Apache Flume for data ingestion into HDFS.**
+
+
+![image](https://github.com/user-attachments/assets/ee3b87a0-7bb5-4a71-9fef-195a55b22a94)
+
+
+
