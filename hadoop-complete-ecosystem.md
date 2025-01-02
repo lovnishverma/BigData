@@ -23,9 +23,16 @@ Verify that the NameNode and other services are running by checking the logs:
 ```bash
 docker-compose logs -f namenode
 ```
-#### 2. **Copy the `input.txt` File to the Docker Container**
+#### 2. **Copy the `data.txt` File to the Docker Container**
 
 ![image](https://github.com/user-attachments/assets/e19c3559-a175-42bc-9c2d-1a5388111736)
+
+
+#### 2.1 **put the `data.txt` File to the HDFS**
+![image](https://github.com/user-attachments/assets/72504f5b-175d-47fa-8c7c-db28fd20c356)
+
+![image](https://github.com/user-attachments/assets/19119ecf-6397-43ca-b5d6-105b5ba7711b)
+
 
 
 #### 2. **Copy the `wordCount.jar` File to the Docker Container**
@@ -67,12 +74,13 @@ First, copy the wordCount.jar file to the Docker container:
 You are now ready to run the WordCount program using the `wordCount.jar`. You can do this by executing the following command:
 
 ```bash
-hadoop jar /root/wordCount.jar WordCount /user/hadoop/input.txt /user/hadoop/output
+hadoop jar /home/hadoop/wordCount.jar org.apache.hadoop.examples.WordCount /input /output
+
 ```
 
 This command:
 - Runs the `WordCount.jar` program.
-- Takes `/user/hadoop/input.txt` as input.
+- Takes `/user/hadoop/data.txt` as input.
 - Stores the output in `/user/hadoop/output` directory on HDFS.
 
 #### 6. **Check the Output**
@@ -86,6 +94,8 @@ This should show the output files (like `part-r-00000`, `part-r-00001`, etc.). T
 
 ```bash
 hadoop fs -cat /user/hadoop/output/part-r-00000
+hadoop fs -cat /output/part-r-00000
+
 ```
 
 This will display the results of the WordCount job.
