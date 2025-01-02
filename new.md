@@ -32,7 +32,7 @@ This guide outlines the steps to install and configure **Hadoop** and **Java** i
 
    After removing it, you can create a new container with the same name:
    ```bash
-   docker run -it -p 8088:8088 -p 9000:9000 -p 8042:8042 -p 8080:8080 --name nielit-container ubuntu:20.04 bash
+   docker run -it -p 50070:50070 -p 9870:9870 -p 8088:8088 -p 50075:50075 -p 8042:8042 -p 10000:10000 -p 9083:9083 -p 41414:41414 -p 35871:35871 -p 8000:8000 -p 4040:4040 -p 7077:7077 -p 18080:18080 --name bigdata-container ubuntu:20.04 /bin/bash
    ```
 
 4. **Use a Different Container Name**  
