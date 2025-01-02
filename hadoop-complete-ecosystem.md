@@ -23,6 +23,10 @@ Verify that the NameNode and other services are running by checking the logs:
 ```bash
 docker-compose logs -f namenode
 ```
+#### 2. **Copy the `input.txt` File to the Docker Container**
+
+![image](https://github.com/user-attachments/assets/e19c3559-a175-42bc-9c2d-1a5388111736)
+
 
 #### 2. **Copy the `wordCount.jar` File to the Docker Container**
 Since the `wordCount.jar` is on your local Windows machine, you need to copy it into the Hadoop Docker container so that HDFS can access it.
