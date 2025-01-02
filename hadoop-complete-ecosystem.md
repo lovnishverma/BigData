@@ -55,19 +55,9 @@ This should show the directories/files present in HDFS.
 #### 4. **Upload the Input Files to HDFS**
 To run the WordCount example, you need some input text. Let's assume you have an input file (`input.txt`) on your local machine that you want to upload to HDFS.
 
-First, copy the input file to the Docker container:
+First, copy the wordCount.jar file to the Docker container:
 
-```bash
-docker cp C:\path\to\your\input.txt namenode:/root/input.txt
-```
-
-Now, inside the `namenode` container, copy the `input.txt` file from the container to HDFS:
-
-```bash
-hadoop fs -put /root/input.txt /user/hadoop/input.txt
-```
-
-This uploads `input.txt` from the container's local file system to HDFS.
+![image](https://github.com/user-attachments/assets/49d5e85d-fc03-4ea3-8d92-5b18321bc8e1)
 
 #### 5. **Run the WordCount Program**
 You are now ready to run the WordCount program using the `wordCount.jar`. You can do this by executing the following command:
