@@ -397,7 +397,7 @@ You should see processes like `NameNode`, `ResourceManager`, `DataNode`, and `Se
 Once the services are running, check the **ResourceManager and NodeManager Web UI**:
 
 - **ResourceManager Web UI**: `http://localhost:8088`
-- **NodeManager Web UI**: `http://localhost:8042`
+- **NodeManager Web UI**: `http://localhost:50070`
 
 ![image](https://github.com/user-attachments/assets/76c37ea9-f385-41f2-94b3-15364250594c)
 
